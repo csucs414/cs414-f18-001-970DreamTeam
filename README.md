@@ -1,2 +1,2 @@
 # 970DreamTeam
-Respository for 970 Dream Team Group Projects. Fall 2019
+Repository for 970 Dream Team Group Projects. Fall 2019
