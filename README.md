@@ -29,6 +29,8 @@
 * The throne is always hostile to attackers and can be used to capture their pieces.
 * The throne is only hostile to defenders if it is vacated by the King.
 * The corners are hostile to both players.
+* If a player cannot move they lose.
+* If neither player has enough pieces to capture the enemy, the game is a draw.
 
 
 # Installation
