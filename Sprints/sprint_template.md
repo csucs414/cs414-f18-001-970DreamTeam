@@ -1,6 +1,6 @@
 Sprint #
 Goal:
-Sprint Leader: 
+Sprint Leader: Mike Popesh
 Definition of Done
 
   
@@ -37,13 +37,15 @@ This sprint will complete the following Epics.
 
 Metrics
 Statistic 	# Planned 	# Completed
-Epics 	
+Epics 	    
 Tasks 
 Story Points
+
+
 Scrums
 
-Date 	Tasks closed 	Tasks in progress 	Impediments
-M/D   ##
+Date 	Tasks closed 	Tasks in progress 	Impediments   Present                               Notes
+10/1   ..           ..                  ..            Popesh, Soto, Kitten, Nardos          Sprint Review, Inital Plan 
 
 Review (focus on solution and technology)
 
