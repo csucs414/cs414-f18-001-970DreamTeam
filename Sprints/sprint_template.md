@@ -1,4 +1,4 @@
-Sprint #2
+Sprint #
 Goal
 Sprint Leader: Mike Popesh
 Definition of Done
@@ -45,7 +45,7 @@ Story Points
 Scrums
 
 Date 	Tasks closed 	Tasks in progress 	Impediments   Present                               Notes
-10/1   ..           ..                  ..            Popesh, Soto, Kitten, Nardos          Sprint Review, Inital Plan 
+M/D                    
 
 Review (focus on solution and technology)
 
