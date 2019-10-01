@@ -1,5 +1,5 @@
-Sprint #
-Goal:
+Sprint #2
+Goal
 Sprint Leader: Mike Popesh
 Definition of Done
 
