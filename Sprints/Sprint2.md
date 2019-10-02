@@ -45,7 +45,8 @@ Story Points
 Scrums
 
 Date 	Tasks closed 	Tasks in progress 	Impediments   Present                               Notes
-10/1    ..          ..                  ..            Popesh, Soto, Kitten, Nardos          Sprint Review, Initial Planning                 
+10/1    ..          ..                  ..            Popesh, Soto, Kitten, Nardos          Sprint Review, Initial Planning
+10/2                                                  Popesh, Cupit, Soto, Nardos           PO Meeting, Tasks Definition
 
 Review (focus on solution and technology)
 
