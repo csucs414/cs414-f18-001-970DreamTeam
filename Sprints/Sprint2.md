@@ -1,5 +1,5 @@
 Sprint #
-Goal
+Goal Playable Game (game logic)
 Sprint Leader: Mike Popesh
 Definition of Done
 
