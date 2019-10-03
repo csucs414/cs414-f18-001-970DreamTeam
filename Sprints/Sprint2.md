@@ -1,9 +1,12 @@
-Sprint #
-Goal Playable Game (game logic)
+Sprint #2
+
+Goal: Playable Game (game logic)
+
 Sprint Leader: Mike Popesh
+
 Definition of Done
 
-  
+User can create a gameboard populated with pieces and manipulate those pieces according to the rules of the game.
 
 Policies:
 
@@ -36,17 +39,20 @@ This sprint will complete the following Epics.
 
 
 Metrics
-Statistic 	# Planned 	# Completed
-Epics 	    
-Tasks 
-Story Points
+
+| Statistic |	# Planned |	# Completed |
+|---|---|---|
+|Epics |3|..|	    
+|Tasks |9|..|
+|Story Points|2|..|
 
 
 Scrums
 
-Date 	Tasks closed 	Tasks in progress 	Impediments   Present                               Notes
-10/1    ..          ..                  ..            Popesh, Soto, Kitten, Nardos          Sprint Review, Initial Planning
-10/2                                                  Popesh, Cupit, Soto, Nardos, Kitten   PO Meeting, Tasks Definition, Task Breakdown
+|Date |	Tasks closed |Tasks in progress |	Impediments  | Present   | Notes |
+|---|---|---|---|---|---|
+|10/1 |   ..  |        ..        |          ..          |  Popesh, Soto, Kitten, Nardos    |  Sprint Review, Initial Planning |
+|10/2 ||||Popesh, Cupit, Soto, Nardos, Kitten  | PO Meeting, Tasks Definition, Task Breakdown |
 
 Review (focus on solution and technology)
 
