@@ -1,15 +1,17 @@
 package client;
 
-public class ClientGame implements java.lang.String{
+import java.lang.String;
+
+public class ClientGame {
     private int gameID;
     private char[][] gameBoard;
     private int turn;
-    private String[2] players;
+    private String[] players;
 
     /**
      * Constructor
      */
-    ClientGame(int gameID, int turn, String player2) {
+    ClientGame(int gameID, int turn, String opponent) {
         this.gameID = gameID;
         this.turn = turn;
         // TODO: Add self top players list
@@ -35,18 +37,18 @@ public class ClientGame implements java.lang.String{
     }
 
     private char[][] buildBoard() {
-        char[11][11] board = {
-                {"c","e","e","b","b","b","b","b","e","e","c"},
-                {"e","e","e","e","e","b","e","e","e","e","e"},
-                {"e","e","e","e","e","e","e","e","e","e","e"},
-                {"b","e","e","e","e","w","e","e","e","e","b"},
-                {"b","e","e","e","w","w","w","e","e","e","b"},
-                {"b","b","e","w","w","k","w","w","e","b","b"},
-                {"b","e","e","e","w","w","w","e","e","e","b"},
-                {"b","e","e","e","e","w","e","e","e","e","b"},
-                {"e","e","e","e","e","e","e","e","e","e","e"},
-                {"e","e","e","e","e","b","e","e","e","e","e"},
-                {"c","e","e","b","b","b","b","b","e","e","c"}
+        char[][] board = {
+                {'c','e','e','b','b','b','b','b','e','e','c'},
+                {'e','e','e','e','e','b','e','e','e','e','e'},
+                {'e','e','e','e','e','e','e','e','e','e','e'},
+                {'b','e','e','e','e','w','e','e','e','e','b'},
+                {'b','e','e','e','w','w','w','e','e','e','b'},
+                {'b','b','e','w','w','k','w','w','e','b','b'},
+                {'b','e','e','e','w','w','w','e','e','e','b'},
+                {'b','e','e','e','e','w','e','e','e','e','b'},
+                {'e','e','e','e','e','e','e','e','e','e','e'},
+                {'e','e','e','e','e','b','e','e','e','e','e'},
+                {'c','e','e','b','b','b','b','b','e','e','c'}
         };
 
         return board;
