@@ -52,9 +52,10 @@ Scrums
 |Date |	Tasks closed |Tasks in progress |	Impediments  | Present   | Notes |
 |---|---|---|---|---|---|
 |10/1 |   ..  |        ..        |          ..          |  Popesh, Soto, Kitten, Nardos    |  Sprint Review, Initial Planning |
-|10/2 ||||Popesh, Cupit, Soto, Nardos, Kitten  | PO Meeting, Tasks Definition, Task Breakdown |
-|10/7 |#17|||Popesh, Soto, Nardos, Kitten |Code setup, Junit setup|
-|10/9||#18||Popesh, Soto, Nardos, Kitten||
+|10/2||||Popesh, Cupit, Soto, Nardos, Kitten  | PO Meeting, Tasks Definition, Task Breakdown |
+|10/7||#17|||Popesh, Soto, Nardos, Kitten |Code setup, Junit setup|
+|10/9|#17|#18||Popesh, Soto, Nardos, Kitten||
+|10/14|#18|#22, #30|Problems creating java class in project|Popesh, Soto, Cupit, Kitten, Nardos||
 
 Review (focus on solution and technology)
 
