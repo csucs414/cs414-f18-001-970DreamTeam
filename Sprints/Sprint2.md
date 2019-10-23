@@ -58,6 +58,7 @@ Scrums
 |10/14|#18|#22, #30|Problems creating java class in project|Popesh, Soto, Cupit, Kitten, Nardos||
 |10/16||#22, #30|Uploading Maven project changes Project|Nardos, Kitten, Cupit, Soto, Popesh||
 |10/21||#22, #30|Maven project problem in Eclipse|Nardos, Cupit, Kitten, Popesh||
+|10/23||#22, #30|Maven project problem in Eclipse|Nardos, Cupit, Soto, Popesh|Remove server side possible for sprint|
 
 Review (focus on solution and technology)
 
