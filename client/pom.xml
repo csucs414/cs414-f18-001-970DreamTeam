@@ -7,20 +7,29 @@
     <artifactId>cs414-f18-001-970DreamTeam</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>cs414-f18-001-970DreamTeam</groupId>
   <artifactId>client</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>client</name>
   <url>http://maven.apache.org</url>
+  
   <properties>
+  <maven.compiler.target>8</maven.compiler.target>
+  	<maven.compiler.source>8</maven.compiler.source>
+  	<junit.jupiter.version>5.5.1</junit.jupiter.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+    	<groupId>org.junit.jupiter</groupId>
+    	<artifactId>junit-jupiter-engine</artifactId>
+    	<version>${junit.jupiter.version}</version>
+    	<scope>test</scope>
+	</dependency>
+	<dependency>
+    	<groupId>org.junit.jupiter</groupId>
+    	<artifactId>junit-jupiter-api</artifactId>
+    	<version>${junit.jupiter.version}</version>
+    	<scope>test</scope>
+	</dependency>
   </dependencies>
 </project>

@@ -6,5 +6,4 @@ public class Client {
 		System.out.println("Working");
 
 	}
-
 }
