@@ -56,6 +56,8 @@ Scrums
 |10/7||#17||Popesh, Soto, Nardos, Kitten |Code setup, Junit setup|
 |10/9|#17|#18||Popesh, Soto, Nardos, Kitten||
 |10/14|#18|#22, #30|Problems creating java class in project|Popesh, Soto, Cupit, Kitten, Nardos||
+|10/16||#22, #30|Problems with setting up Maven|Popesh, Soto, Cupit, Kitten, Nardos|Light meeting with A2 looming|
+|10/21||#22, #30|Still having problems creating java class in project|Popesh, Soto, Cupit, Kitten, Nardos||
 
 Review (focus on solution and technology)
 
