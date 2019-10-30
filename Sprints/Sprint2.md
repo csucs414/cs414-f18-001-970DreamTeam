@@ -61,6 +61,7 @@ Scrums
 |10/23||#22, #30|Resolved some problems with Maven project depencies and Junit 5|Popesh, Soto, Cupit, Kitten, Nardos||
 |10/26||#22, #30|Resolved ALL problems with Maven project depencies and Junit 5 and we are now able to add code correctly |Popesh, Soto, Cupit, Kitten, Nardos||
 |10/28||#22, #30|Started working on powerpoint and modifying diagram|Popesh, Soto, Cupit, Kitten, Nardos||
+|10/30||#22, #30|Discussed Changes to code and meeting times to practice presentation|Popesh, Soto, Cupit, Kitten, Nardos||
 
 Review (focus on solution and technology)
 
