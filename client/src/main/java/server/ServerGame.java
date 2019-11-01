@@ -23,15 +23,15 @@ public class ServerGame {
 	}
 	
 	public String[] getPlayers() {
-		return new String[0];
+		return this.players;
 	}
 	
 	public char[][] getBoard() {
-		return new char[0][0];
+		return this.gameBoard;
 	}
 	
 	public int getTurn() {
-		return 0;
+		return this.turn;
 	}
 	
 	public void setStartTime() {
