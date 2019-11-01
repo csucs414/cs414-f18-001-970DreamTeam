@@ -12,7 +12,9 @@ public class ServerGame {
      * Constructor
      */
 	ServerGame(char[][] gameBoard, String[] players, int turn) {
-		
+		this.gameBoard = gameBoard;
+		this.players = players;
+		this.turn = turn;
 	}
 	
 	public void updateGameState(char[][] gameBoard, int turn) {
