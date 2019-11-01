@@ -18,7 +18,8 @@ public class ServerGame {
 	}
 	
 	public void updateGameState(char[][] gameBoard, int turn) {
-		
+		this.gameBoard = gameBoard;
+		this.turn = turn;
 	}
 	
 	public String[] getPlayers() {
