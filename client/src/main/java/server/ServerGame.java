@@ -35,7 +35,7 @@ public class ServerGame {
 	}
 	
 	public void setStartTime() {
-	
+		this.startTime = OffsetDateTime.now();
 	}
 	
 }
