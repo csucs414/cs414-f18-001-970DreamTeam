@@ -84,9 +84,15 @@ public class ClientGame {
 		
 		return true;
 	}
+	
+	private void movePiece(int[] from, int[] to) {
+		char temp = this.gameBoard[to[0]][to[1]];
+		this.gameBoard[to[0]][to[1]] = this.gameBoard[from[0]][from[1]];
+		this.gameBoard[from[0]][from[1]] = temp;
+	}
 
-	private void updateGameState() {
-
+	public void updateGameState(int[] from, int[] to) {
+		// This code is very ugly. Not sure how to make it better looking. I apologize in advance.
 		// Switch player
 		if (this.turn == 0) {
 			this.turn = 1;
@@ -94,6 +100,60 @@ public class ClientGame {
 			this.turn = 0;
 
 		// TODO: check move and update board.
+		if (this.MoveValidator(from, to)) {
+			this.movePiece(from, to);
+			
+			// check win condition
+			if (this.checkWinCondition()) {
+				// TODO: do something when win condition is true
+				return;
+			}
+			// check regular pieces
+			if (to[0] < 9) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0] + 1][to[1]] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] + 1][to[1]] == 'b')) && 
+					(this.gameBoard[to[0] + 1][to[1]] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0] + 2][to[1]] == this.gameBoard[to[0]][to[1]]) || 
+						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] + 2][to[1]] == 'w')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0] + 1][to[1]] = 'e';
+					}
+					
+				}
+			}
+			
+			if (to[0] > 1) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0] - 1][to[1]] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] - 1][to[1]] == 'b')) && 
+					(this.gameBoard[to[0] - 1][to[1]] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0] - 2][to[1]] == this.gameBoard[to[0]][to[1]]) || 
+							(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] - 2][to[1]] == 'w')) { // checks if enemy piece is capturable
+							this.gameBoard[to[0] - 1][to[1]] = 'e';
+					}	
+				}
+			}
+			
+			if(to[1] < 9) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0]][to[1] + 1] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] + 1] == 'b')) && 
+					(this.gameBoard[to[0]][to[1] + 1] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0]][to[1] + 2] == this.gameBoard[to[0]][to[1]]) || 
+						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] + 2] == 'w')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0]][to[1] + 1] = 'e';
+					}			
+				}
+			}
+			
+			if (to[1] > 1) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0]][to[1] - 1] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] - 1] == 'b')) && 
+					(this.gameBoard[to[0]][to[1] - 1] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0]][to[1] - 2] == this.gameBoard[to[0]][to[1]]) || 
+						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] - 2] == 'w')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0]][to[1] - 1] = 'e';
+					}				
+				}
+			}
+		}
 
 	}
 
