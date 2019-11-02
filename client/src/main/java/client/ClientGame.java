@@ -15,6 +15,7 @@ public class ClientGame {
 	private char[][] gameBoard;
 	private int turn;
 	private String[] players;
+	private JButton[][] buttonGrid;
 
 	/**
 	 * Constructor
@@ -152,6 +153,8 @@ public class ClientGame {
 					}				
 				}
 			}
+			
+			setPieceLocations(buttonGrid);
 		}
 
 	}
@@ -238,6 +241,7 @@ public class ClientGame {
 	}
 
 	private void fillGUIBoard(JPanel board, JButton[][] squares) {
+		buttonGrid = squares;
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
 				board.add(squares[i][j]);
