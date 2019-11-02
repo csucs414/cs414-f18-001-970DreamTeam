@@ -204,6 +204,16 @@ public class ClientGame {
 		baseBackground[10][7].setBackground(Color.DARK_GRAY);
 		baseBackground[10][10].setBackground(Color.MAGENTA);
 	}
+	
+	private boolean checkWinCondition() {
+		//check if king is in a corner
+		if(this.gameBoard[0][0] == 'k' || this.gameBoard[0][10] == 'k' || this.gameBoard[0][10] == 'k'||this.gameBoard[10][0] == 'k') {
+			return true;
+		}
+		//check if king is captured by 4 pieces when king is not at an edge/against a wall
+		
+		return false;
+	}
 
 	public static void main(String[] args) {
 		ClientGame game = new ClientGame(1, 0, "other");
