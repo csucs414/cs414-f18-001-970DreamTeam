@@ -46,7 +46,7 @@ public class ClientGame {
 	}
 	
 	public boolean MoveValidator(int[] from, int[] to) {
-		// check corners
+		// check corners and throne
 		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
 			|| (to[0] == 0 && to[1] == 10) || (to[0] == 10 && to[1] == 10) || (to[0] == 5 && to[1] == 5))) return false;
 		
@@ -81,12 +81,8 @@ public class ClientGame {
 				}
 			}
 		}
-		return true;
-	}
-	
-	public boolean checkWinCondition() {
 		
-		return false;
+		return true;
 	}
 
 	private void updateGameState() {
