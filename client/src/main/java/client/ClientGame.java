@@ -35,10 +35,10 @@ public class ClientGame {
 				{ 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e' },
 				{ 'b', 'e', 'e', 'e', 'e', 'w', 'e', 'e', 'e', 'e', 'b' },
 				{ 'b', 'e', 'e', 'e', 'w', 'w', 'w', 'e', 'e', 'e', 'b' },
-				{ 'b', 'b', 'e', 'w', 'w', 'K', 'w', 'w', 'e', 'b', 'b' },
-				{ 'b', 'e', 'e', 'e', 'w', 'w', 'w', 'e', 'b', 'e', 'b' },
-				{ 'b', 'e', 'e', 'e', 'e', 'w', 'e', 'b', 'k', 'b', 'b' },
-				{ 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'b', 'e', 'e' },
+				{ 'b', 'b', 'e', 'w', 'w', 'k', 'w', 'w', 'e', 'b', 'b' },
+				{ 'b', 'e', 'e', 'e', 'w', 'w', 'w', 'e', 'e', 'e', 'b' },
+				{ 'b', 'e', 'e', 'e', 'e', 'w', 'e', 'e', 'e', 'e', 'b' },
+				{ 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e' },
 				{ 'e', 'e', 'e', 'e', 'e', 'b', 'e', 'e', 'e', 'e', 'e' },
 				{ 'e', 'e', 'e', 'b', 'b', 'b', 'b', 'b', 'e', 'e', 'e' } };
 
@@ -237,6 +237,20 @@ public class ClientGame {
 		}
 		return location;
 	}
+	//returns how many black pieces are left 
+	public int countBlackPieces() {
+		int numOfPieces = 0;
+		
+		for(int y = 0; y < this.gameBoard.length;y++) {
+			for(int x = 0; x < this.gameBoard[y].length; x++) {
+				if(this.gameBoard[y][x]=='b') {
+					numOfPieces += 1;
+				}
+			}
+		}
+		
+		return numOfPieces;
+	}
 	public static void main(String[] args) {
 		ClientGame game = new ClientGame(1, 0, "other");
 		game.displayGame();
@@ -244,5 +258,6 @@ public class ClientGame {
 		System.out.println("Win condition? " + game.checkWinCondition() );
 		int[] loc = game.findKingLocation();
 		System.out.println("King's location? y: " + loc[0] + " x: " + loc[1]  );
+		System.out.println("Number of black pieces left: " + game.countBlackPieces());
 	}
 }
