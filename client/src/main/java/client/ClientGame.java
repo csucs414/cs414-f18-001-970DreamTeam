@@ -97,6 +97,17 @@ public class ClientGame {
 
 	}
 
+	private boolean validPiece(int x, int y) {
+        char piece = gameBoard[x][y];
+	    if (this.turn == 0 && piece == 'b') {
+	        return true;
+        }
+	    if (this.turn == 1 && (piece == 'k' || piece == 'w')){
+	        return true;
+        }
+	    return false;
+    }
+
 	private void displayGame() {
 
 		// get host screen size to setup starting window
@@ -151,7 +162,6 @@ public class ClientGame {
 	private JPanel initializeBoardPanel() {
 		JPanel boardPanel = new JPanel(new GridLayout(0, 11));
 		JButton[][] boardSquares = buildBoardBackground();
-		;
 		boardPanel.setBorder(new LineBorder(Color.BLACK));
 		setPieceLocations(boardSquares);
 		fillGUIBoard(boardPanel, boardSquares);
