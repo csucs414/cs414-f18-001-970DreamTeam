@@ -46,6 +46,9 @@ public class ClientGame {
 	}
 	
 	public boolean MoveValidator(int[] from, int[] to) {
+		// check corners
+		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
+			|| (to[0] == 0 && to[1] == 10) || (to[0] == 10 && to[1] == 10))) return false;
 		
 		return false;
 	}
