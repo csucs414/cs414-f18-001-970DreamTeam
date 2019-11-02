@@ -111,7 +111,6 @@ public class ClientGame {
 	private JPanel initializeBoardPanel() {
 		JPanel boardPanel = new JPanel(new GridLayout(0, 11));
 		JButton[][] boardSquares = buildBoardBackground();
-		;
 		boardPanel.setBorder(new LineBorder(Color.BLACK));
 		setPieceLocations(boardSquares);
 		fillGUIBoard(boardPanel, boardSquares);
