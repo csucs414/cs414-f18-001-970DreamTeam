@@ -48,9 +48,16 @@ public class ClientGame {
 	public boolean MoveValidator(int[] from, int[] to) {
 		// check corners
 		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
-			|| (to[0] == 0 && to[1] == 10) || (to[0] == 10 && to[1] == 10))) return false;
+			|| (to[0] == 0 && to[1] == 10) || (to[0] == 10 && to[1] == 10) || (to[0] == 5 && to[1] == 5))) return false;
 		
-		return false;
+		// check if piece is not moving to an empty space or is an empty space
+		if (this.gameBoard[to[0]][to[1]] != 'e' || this.gameBoard[from[0]][from[1]] == 'e') return false;
+		
+		// check if move is in same row or column
+		if (!(from[0] == to[0] || from[1] == to[1])) return false;
+		// check if piece in between from and to
+		
+		return true;
 	}
 	
 	public boolean checkWinCondition() {
