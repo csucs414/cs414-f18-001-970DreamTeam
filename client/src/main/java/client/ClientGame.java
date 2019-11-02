@@ -1,7 +1,7 @@
 package client;
 
 import java.awt.*;
-
+import java.awt.event.ActionListener;
 import java.lang.String;
 
 
@@ -45,8 +45,8 @@ public class ClientGame {
 		return board;
 	}
 
-	private void updateGameState() {
-
+	public void updateGameState(int[] from, int[] to) {
+		
 		// Switch player
 		if (this.turn == 0) {
 			this.turn = 1;
@@ -68,6 +68,8 @@ public class ClientGame {
 		JPanel toolBarPanel = initializeToolBarPanel();
 		JPanel boardPanel = initializeBoardPanel();
 
+		
+		
 		gameWindow.setPreferredSize(new Dimension(width, height));
 
 		toolBarPanel.add(boardPanel);
@@ -111,7 +113,6 @@ public class ClientGame {
 	private JPanel initializeBoardPanel() {
 		JPanel boardPanel = new JPanel(new GridLayout(0, 11));
 		JButton[][] boardSquares = buildBoardBackground();
-		;
 		boardPanel.setBorder(new LineBorder(Color.BLACK));
 		setPieceLocations(boardSquares);
 		fillGUIBoard(boardPanel, boardSquares);
@@ -150,6 +151,7 @@ public class ClientGame {
 			rowSquares[i] = new JButton();
 			rowSquares[i].setMargin(margin);
 			rowSquares[i].setBackground(Color.WHITE);
+			rowSquares[i].addActionListener(new MoveListener(this));
 		}
 		return rowSquares;
 	}
