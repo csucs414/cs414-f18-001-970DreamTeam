@@ -104,7 +104,10 @@ public class ClientGame {
 			this.movePiece(from, to);
 			
 			// check win condition
-			
+			if (this.checkWinCondition()) {
+				// TODO: do something when win condition is true
+				return;
+			}
 			// check regular pieces
 			if (to[0] < 9) { // check to make sure it wont go out of bounds
 				if (((this.gameBoard[to[0] + 1][to[1]] != this.gameBoard[to[0]][to[1]]) || 
