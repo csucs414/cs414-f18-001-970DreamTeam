@@ -44,9 +44,54 @@ public class ClientGame {
 
 		return board;
 	}
+	
+	public boolean MoveValidator(int[] from, int[] to) {
+		// check corners and throne
+		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
+			|| (to[0] == 0 && to[1] == 10) || (to[0] == 10 && to[1] == 10) || (to[0] == 5 && to[1] == 5))) return false;
+		
+		// check if piece is not moving to an empty space or is an empty space
+		if (this.gameBoard[to[0]][to[1]] != 'e' || this.gameBoard[from[0]][from[1]] == 'e') return false;
+		
+		// check if move is in same row or column
+		if (!(from[0] == to[0] || from[1] == to[1])) return false;
+		
+		// check if piece in between from and to
+		if (from[0] == to[0]) { // same row
+			if (from[0] < to[0]) {
+				for (int i = from[0]; i < to[0]; i++) {
+					if (this.gameBoard[from[0] + i][from[1]] != 'e') return false;
+				}
+			}
+			else if (from[0] > to[0]) {
+				for (int i = from[0]; i > to[0]; i--) {
+					if (this.gameBoard[from[0] + i][from[1]] != 'e') return false;
+				}
+			}
+		}
+		else if (from[1] == to[1]) { // same column
+			if (from[1] < to[1]) {
+				for (int i = from[1]; i < to[1]; i++) {
+					if (this.gameBoard[from[0] ][from[1] + i] != 'e') return false;
+				}
+			}
+			else if (from[1] > to[1]) {
+				for (int i = from[1]; i > to[1]; i--) {
+					if (this.gameBoard[from[0]][from[1] + i] != 'e') return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	private void movePiece(int[] from, int[] to) {
+		char temp = this.gameBoard[to[0]][to[1]];
+		this.gameBoard[to[0]][to[1]] = this.gameBoard[from[0]][from[1]];
+		this.gameBoard[from[0]][from[1]] = temp;
+	}
 
 	public void updateGameState(int[] from, int[] to) {
-		
 		// Switch player
 		if (this.turn == 0) {
 			this.turn = 1;
@@ -54,8 +99,73 @@ public class ClientGame {
 			this.turn = 0;
 
 		// TODO: check move and update board.
+		if (this.MoveValidator(from, to)) {
+			this.movePiece(from, to);
+			
+			// check win condition
+			if (this.checkWinCondition()) {
+				// TODO: do something when win condition is true
+				return;
+			}
+			// check regular pieces
+			if (to[0] < 9) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0] + 1][to[1]] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] + 1][to[1]] == 'b')) && 
+					(this.gameBoard[to[0] + 1][to[1]] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0] + 2][to[1]] == this.gameBoard[to[0]][to[1]]) || 
+						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] + 2][to[1]] == 'w')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0] + 1][to[1]] = 'e';
+					}
+					
+				}
+			}
+			
+			if (to[0] > 1) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0] - 1][to[1]] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] - 1][to[1]] == 'b')) && 
+					(this.gameBoard[to[0] - 1][to[1]] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0] - 2][to[1]] == this.gameBoard[to[0]][to[1]]) || 
+							(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] - 2][to[1]] == 'w')) { // checks if enemy piece is capturable
+							this.gameBoard[to[0] - 1][to[1]] = 'e';
+					}	
+				}
+			}
+			
+			if(to[1] < 9) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0]][to[1] + 1] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] + 1] == 'b')) && 
+					(this.gameBoard[to[0]][to[1] + 1] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0]][to[1] + 2] == this.gameBoard[to[0]][to[1]]) || 
+						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] + 2] == 'w')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0]][to[1] + 1] = 'e';
+					}			
+				}
+			}
+			
+			if (to[1] > 1) { // check to make sure it wont go out of bounds
+				if (((this.gameBoard[to[0]][to[1] - 1] != this.gameBoard[to[0]][to[1]]) || 
+					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] - 1] == 'b')) && 
+					(this.gameBoard[to[0]][to[1] - 1] != 'e')) { // checks if there is an enemy piece next to moved piece
+					if ((this.gameBoard[to[0]][to[1] - 2] == this.gameBoard[to[0]][to[1]]) || 
+						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] - 2] == 'w')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0]][to[1] - 1] = 'e';
+					}				
+				}
+			}
+		}
 
 	}
+
+	private boolean validPiece(int x, int y) {
+        char piece = gameBoard[x][y];
+	    if (this.turn == 0 && piece == 'b') {
+	        return true;
+        }
+	    if (this.turn == 1 && (piece == 'k' || piece == 'w')){
+	        return true;
+        }
+	    return false;
+    }
 
 	private void displayGame() {
 
@@ -207,7 +317,58 @@ public class ClientGame {
 		baseBackground[10][7].setBackground(Color.DARK_GRAY);
 		baseBackground[10][10].setBackground(Color.MAGENTA);
 	}
-
+	
+	private boolean checkWinCondition() {
+		//check if king is in a corner
+		if(this.gameBoard[0][0] == 'k' || this.gameBoard[0][10] == 'k' || this.gameBoard[10][10] == 'k'||this.gameBoard[10][0] == 'k') {
+			return true;
+		}
+		//check if king is captured by 4 pieces when king is not at an edge/against a wall
+		int[] kingLocation = this.findKingLocation();
+		int y = kingLocation[0];
+		int x = kingLocation[1];
+		
+		if((y != 10 && y != 0) && (x != 10 && x != 0)) {
+			if(this.gameBoard[y+1][x] == 'b' && this.gameBoard[y-1][x] == 'b' && this.gameBoard[y][x+1] == 'b' && this.gameBoard[y][x-1] == 'b') {
+				return true;
+			}
+		}
+		//check if enemy has the enough pieces to capture king
+		if(this.countBlackPieces()<4) {
+			return true;
+		}
+		
+		return false;
+	}
+	//find the location of the king
+	private int[] findKingLocation() {
+		int[] location = new int[2];
+		//iterates through board looking for king location
+		for(int y = 0; y < this.gameBoard.length;y++) {
+			for(int x = 0; x < this.gameBoard[y].length; x++) {
+				if(this.gameBoard[y][x]=='k') {
+					location[0]= y;
+					location[1] = x;
+					return location;
+				}
+			}
+		}
+		return location;
+	}
+	//returns how many black pieces are left 
+	public int countBlackPieces() {
+		int numOfPieces = 0;
+		
+		for(int y = 0; y < this.gameBoard.length;y++) {
+			for(int x = 0; x < this.gameBoard[y].length; x++) {
+				if(this.gameBoard[y][x]=='b') {
+					numOfPieces += 1;
+				}
+			}
+		}
+		
+		return numOfPieces;
+	}
 	public static void main(String[] args) {
 		ClientGame game = new ClientGame(1, 0, "other");
 		game.displayGame();
