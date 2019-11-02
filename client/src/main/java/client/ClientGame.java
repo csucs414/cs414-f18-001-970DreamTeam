@@ -44,6 +44,46 @@ public class ClientGame {
 
 		return board;
 	}
+	
+	public boolean MoveValidator(int[] from, int[] to) {
+		// check corners and throne
+		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
+			|| (to[0] == 0 && to[1] == 10) || (to[0] == 10 && to[1] == 10) || (to[0] == 5 && to[1] == 5))) return false;
+		
+		// check if piece is not moving to an empty space or is an empty space
+		if (this.gameBoard[to[0]][to[1]] != 'e' || this.gameBoard[from[0]][from[1]] == 'e') return false;
+		
+		// check if move is in same row or column
+		if (!(from[0] == to[0] || from[1] == to[1])) return false;
+		
+		// check if piece in between from and to
+		if (from[0] == to[0]) { // same row
+			if (from[0] < to[0]) {
+				for (int i = from[0]; i < to[0]; i++) {
+					if (this.gameBoard[from[0] + i][from[1]] != 'e') return false;
+				}
+			}
+			else if (from[0] > to[0]) {
+				for (int i = from[0]; i > to[0]; i--) {
+					if (this.gameBoard[from[0] + i][from[1]] != 'e') return false;
+				}
+			}
+		}
+		else if (from[1] == to[1]) { // same column
+			if (from[1] < to[1]) {
+				for (int i = from[1]; i < to[1]; i++) {
+					if (this.gameBoard[from[0] ][from[1] + i] != 'e') return false;
+				}
+			}
+			else if (from[1] > to[1]) {
+				for (int i = from[1]; i > to[1]; i--) {
+					if (this.gameBoard[from[0]][from[1] + i] != 'e') return false;
+				}
+			}
+		}
+		
+		return true;
+	}
 
 	private void updateGameState() {
 
