@@ -15,3 +15,4 @@ latest version in order to employ the full benefits of JUnit 5. Be sure to verif
 you are using is capable of using JUnit 5.
 
 To set up JUnit 5 the process is very clear cut simply add the following dependency to your pom.xml:
+![dependency example](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/JUnit%20dependency%20example.png)
