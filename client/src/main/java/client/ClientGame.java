@@ -35,10 +35,10 @@ public class ClientGame {
 				{ 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e' },
 				{ 'b', 'e', 'e', 'e', 'e', 'w', 'e', 'e', 'e', 'e', 'b' },
 				{ 'b', 'e', 'e', 'e', 'w', 'w', 'w', 'e', 'e', 'e', 'b' },
-				{ 'b', 'b', 'e', 'w', 'w', 'k', 'w', 'w', 'e', 'b', 'b' },
-				{ 'b', 'e', 'e', 'e', 'w', 'w', 'w', 'e', 'e', 'e', 'b' },
-				{ 'b', 'e', 'e', 'e', 'e', 'w', 'e', 'e', 'e', 'e', 'b' },
-				{ 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e' },
+				{ 'b', 'b', 'e', 'w', 'w', 'K', 'w', 'w', 'e', 'b', 'b' },
+				{ 'b', 'e', 'e', 'e', 'w', 'w', 'w', 'e', 'b', 'e', 'b' },
+				{ 'b', 'e', 'e', 'e', 'e', 'w', 'e', 'b', 'k', 'b', 'b' },
+				{ 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'b', 'e', 'e' },
 				{ 'e', 'e', 'e', 'e', 'e', 'b', 'e', 'e', 'e', 'e', 'e' },
 				{ 'e', 'e', 'e', 'b', 'b', 'b', 'b', 'b', 'e', 'e', 'e' } };
 
@@ -211,6 +211,14 @@ public class ClientGame {
 			return true;
 		}
 		//check if king is captured by 4 pieces when king is not at an edge/against a wall
+		int[] kingLocation = this.findKingLocation();
+		int y = kingLocation[0];
+		int x = kingLocation[1];
+		if((y != 10 && y != 0) && (x != 10 && x != 0)) {
+			if(this.gameBoard[y+1][x] == 'b' && this.gameBoard[y-1][x] == 'b' && this.gameBoard[y][x+1] == 'b' && this.gameBoard[y][x-1] == 'b') {
+				return true;
+			}
+		}
 		
 		return false;
 	}
@@ -235,6 +243,6 @@ public class ClientGame {
 		
 		System.out.println("Win condition? " + game.checkWinCondition() );
 		int[] loc = game.findKingLocation();
-		System.out.println("King's location? x: " + loc[0] + " y: " + loc[1]  );
+		System.out.println("King's location? y: " + loc[0] + " x: " + loc[1]  );
 	}
 }
