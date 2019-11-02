@@ -44,6 +44,16 @@ public class ClientGame {
 
 		return board;
 	}
+	
+	public boolean MoveValidator(int[] from, int[] to) {
+		
+		return false;
+	}
+	
+	public boolean checkWinCondition() {
+		
+		return false;
+	}
 
 	private void updateGameState() {
 
