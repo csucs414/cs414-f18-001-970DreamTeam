@@ -57,6 +57,17 @@ public class ClientGame {
 
 	}
 
+	private boolean validPiece(int x, int y) {
+        char piece = gameBoard[x][y];
+	    if (this.turn == 0 && piece == 'b') {
+	        return true;
+        }
+	    if (this.turn == 1 && (piece == 'k' || piece == 'w')){
+	        return true;
+        }
+	    return false;
+    }
+
 	private void displayGame() {
 
 		// get host screen size to setup starting window
