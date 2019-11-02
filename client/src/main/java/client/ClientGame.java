@@ -207,16 +207,34 @@ public class ClientGame {
 	
 	private boolean checkWinCondition() {
 		//check if king is in a corner
-		if(this.gameBoard[0][0] == 'k' || this.gameBoard[0][10] == 'k' || this.gameBoard[0][10] == 'k'||this.gameBoard[10][0] == 'k') {
+		if(this.gameBoard[0][0] == 'k' || this.gameBoard[0][10] == 'k' || this.gameBoard[10][10] == 'k'||this.gameBoard[10][0] == 'k') {
 			return true;
 		}
 		//check if king is captured by 4 pieces when king is not at an edge/against a wall
 		
 		return false;
 	}
-
+	//find the location of the king
+	private int[] findKingLocation() {
+		int[] location = new int[2];
+		//iterates through board looking for king location
+		for(int y = 0; y < this.gameBoard.length;y++) {
+			for(int x = 0; x < this.gameBoard[y].length; x++) {
+				if(this.gameBoard[y][x]=='k') {
+					location[0]= y;
+					location[1] = x;
+					return location;
+				}
+			}
+		}
+		return location;
+	}
 	public static void main(String[] args) {
 		ClientGame game = new ClientGame(1, 0, "other");
 		game.displayGame();
+		
+		System.out.println("Win condition? " + game.checkWinCondition() );
+		int[] loc = game.findKingLocation();
+		System.out.println("King's location? x: " + loc[0] + " y: " + loc[1]  );
 	}
 }
