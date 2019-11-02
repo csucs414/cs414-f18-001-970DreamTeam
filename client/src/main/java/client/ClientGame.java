@@ -84,8 +84,14 @@ public class ClientGame {
 		
 		return true;
 	}
+	
+	public void movePiece(int[] from, int[] to) {
+		char temp = this.gameBoard[to[0]][to[1]];
+		this.gameBoard[to[0]][to[1]] = this.gameBoard[from[0]][from[1]];
+		this.gameBoard[from[0]][from[1]] = temp;
+	}
 
-	private void updateGameState() {
+	private void updateGameState(int[] from, int[] to) {
 
 		// Switch player
 		if (this.turn == 0) {
