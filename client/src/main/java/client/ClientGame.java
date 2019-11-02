@@ -1,7 +1,7 @@
 package client;
 
 import java.awt.*;
-
+import java.awt.event.ActionListener;
 import java.lang.String;
 
 
@@ -92,7 +92,6 @@ public class ClientGame {
 	}
 
 	public void updateGameState(int[] from, int[] to) {
-		// This code is very ugly. Not sure how to make it better looking. I apologize in advance.
 		// Switch player
 		if (this.turn == 0) {
 			this.turn = 1;
@@ -179,6 +178,8 @@ public class ClientGame {
 		JPanel toolBarPanel = initializeToolBarPanel();
 		JPanel boardPanel = initializeBoardPanel();
 
+		
+		
 		gameWindow.setPreferredSize(new Dimension(width, height));
 
 		toolBarPanel.add(boardPanel);
@@ -260,6 +261,7 @@ public class ClientGame {
 			rowSquares[i] = new JButton();
 			rowSquares[i].setMargin(margin);
 			rowSquares[i].setBackground(Color.WHITE);
+			rowSquares[i].addActionListener(new MoveListener(this));
 		}
 		return rowSquares;
 	}
