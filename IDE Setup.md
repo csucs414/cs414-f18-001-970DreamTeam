@@ -12,7 +12,8 @@ JUnit 5
 JUnit 5 requires Java 8 (or higher) to run. Even though you can still test code that has been
 compiled with previous versions of the JDK, it is recommended that you update your JDK to the
 latest version in order to employ the full benefits of JUnit 5. Be sure to verify that the IDE
-you are using is capable of using JUnit 5.
+you are using is capable of using JUnit 5. Two IDEs that have JUnit 5 installed automatically are 
+IntelliJ and Eclipse.
 
 To set up JUnit 5 the process is very clear cut simply add the following dependency to your pom.xml:
 ![dependency example](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/JUnit%20dependency%20example.png)
