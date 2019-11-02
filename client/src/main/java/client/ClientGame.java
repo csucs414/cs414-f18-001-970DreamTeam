@@ -214,10 +214,15 @@ public class ClientGame {
 		int[] kingLocation = this.findKingLocation();
 		int y = kingLocation[0];
 		int x = kingLocation[1];
+		
 		if((y != 10 && y != 0) && (x != 10 && x != 0)) {
 			if(this.gameBoard[y+1][x] == 'b' && this.gameBoard[y-1][x] == 'b' && this.gameBoard[y][x+1] == 'b' && this.gameBoard[y][x-1] == 'b') {
 				return true;
 			}
+		}
+		//check if enemy has the enough pieces to capture king
+		if(this.countBlackPieces()<4) {
+			return true;
 		}
 		
 		return false;
@@ -254,10 +259,5 @@ public class ClientGame {
 	public static void main(String[] args) {
 		ClientGame game = new ClientGame(1, 0, "other");
 		game.displayGame();
-		
-		System.out.println("Win condition? " + game.checkWinCondition() );
-		int[] loc = game.findKingLocation();
-		System.out.println("King's location? y: " + loc[0] + " x: " + loc[1]  );
-		System.out.println("Number of black pieces left: " + game.countBlackPieces());
 	}
 }
