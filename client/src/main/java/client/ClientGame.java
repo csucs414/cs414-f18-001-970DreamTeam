@@ -4,9 +4,11 @@ package client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.lang.String;
 
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -20,6 +22,7 @@ public class ClientGame {
 	private JFrame gameWindow;
 	private JLabel playerDisplay;
 	public JButton[][] buttonGrid;
+	
 
 	/**
 	 * Constructor
@@ -101,7 +104,7 @@ public class ClientGame {
 		this.gameBoard[from[0]][from[1]] = temp;
 	}
 
-	public void updateGameState(int[] from, int[] to) {
+	public void updateGameState(int[] from, int[] to) throws IOException {
 
 		// TODO: check move and update board.
 		if (this.MoveValidator(from, to)) {
@@ -221,8 +224,9 @@ public class ClientGame {
 	    return false;
     }
 	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private void displayGame() {
-
+	private void displayGame() throws IOException {
+		
+		
 		// get host screen size to setup starting window
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = screenSize.width * 2 / 3;
@@ -243,23 +247,23 @@ public class ClientGame {
 		gameWindow.setVisible(true);
 	}
 	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private void setPieceLocations(JButton[][] boardSquares) {
+	private void setPieceLocations(JButton[][] boardSquares) throws IOException {
+		BufferedImage king = ImageIO.read(ClassLoader.getSystemResource("Chess_klt60.png"));
+		BufferedImage whitePawn = ImageIO.read(ClassLoader.getSystemResource("Chess_plt60.png"));
+		BufferedImage blackPawn = ImageIO.read(ClassLoader.getSystemResource("Chess_pdt60.png"));
     	for (int i=0; i<gameBoard.length; i++) {
     		for (int j=0; j<gameBoard[i].length; j++) {
     			char piece = gameBoard[i][j];
-    			String image = "";
+    			Icon image = new ImageIcon();
     			if (piece == 'b') {
-    				//black pawn
-    				image = "\u265F";
+    				image = new ImageIcon(blackPawn);
     			} else if (piece == 'w') {
-    				//white pawn
-    				image = "\u2659";
+    				image = new ImageIcon(whitePawn);
     			} else if (piece == 'k') {
-    				//white king
-    				image = "\u2654";
+    				image = new ImageIcon(king);
     			}
     			
-    			boardSquares[i][j].setText(image);
+    			boardSquares[i][j].setIcon(image);
     			boardSquares[i][j].setFont(new Font("utf-8", Font.PLAIN, 50));
     		}
     	}
@@ -272,7 +276,7 @@ public class ClientGame {
 		return toolBarPanel;
 	}
 	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private JPanel initializeBoardPanel() {
+	private JPanel initializeBoardPanel() throws IOException {
 		JPanel boardPanel = new JPanel(new GridLayout(0, 11));
 		JButton[][] boardSquares = buildBoardBackground();
 		boardPanel.setBorder(new LineBorder(Color.BLACK));
@@ -289,7 +293,13 @@ public class ClientGame {
 			public void actionPerformed(ActionEvent e) {
 				gameBoard=buildBoard();
 				turn = 0;
-				setPieceLocations(buttonGrid);
+				playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
+				try {
+					setPieceLocations(buttonGrid);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}});
 		tools.add(newGameButton);
@@ -440,7 +450,7 @@ public class ClientGame {
 		
 		return numOfPieces;
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		ClientGame game = new ClientGame(1, 0, "other");
 		game.displayGame();
 	}

@@ -2,6 +2,7 @@ package client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 
@@ -43,7 +44,12 @@ public class MoveListener implements ActionListener {
 			int[] sourceCoordinates = {sourceRow, sourceCol};
 			int[] destCoordinates = {destinationRow, destinationCol};
 			
-			game.updateGameState(sourceCoordinates, destCoordinates);
+			try {
+				game.updateGameState(sourceCoordinates, destCoordinates);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			currentlySelected = null;
 		}
 		

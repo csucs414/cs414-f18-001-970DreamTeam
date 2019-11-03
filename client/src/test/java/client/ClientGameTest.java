@@ -2,6 +2,7 @@ package client;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -311,7 +312,7 @@ class ClientGameTest {
 		
 		assertEquals(board[10] [0], 'b');
 	}
-	public void testUpdateGameStateLeftMultiple(){ 
+	public void testUpdateGameStateLeftMultiple() throws IOException{ 
 		ClientGame game = new ClientGame(1, 0, "other"); 
 		int[]from = {10,3}; 
 		int[]to = {10,1}; 
