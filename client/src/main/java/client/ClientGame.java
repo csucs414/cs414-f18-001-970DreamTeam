@@ -1,5 +1,6 @@
 package client;
 
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.lang.String;
@@ -45,12 +46,15 @@ public class ClientGame {
 
 		return board;
 	}
-	
+	public char[][] getBoard(){
+		return this.gameBoard;
+	}
 	public boolean MoveValidator(int[] from, int[] to) {
 		// check corners and throne
+		///*
 		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
 			|| (to[0] == 0 && to[1] == 10) || (to[0] == 10 && to[1] == 10) || (to[0] == 5 && to[1] == 5))) return false;
-		
+		//*/
 		// check if piece is not moving to an empty space or is an empty space
 		if (this.gameBoard[to[0]][to[1]] != 'e' || this.gameBoard[from[0]][from[1]] == 'e') return false;
 		
@@ -158,7 +162,6 @@ public class ClientGame {
 		}
 
 	}
-
 	private boolean validPiece(int x, int y) {
         char piece = gameBoard[x][y];
 	    if (this.turn == 0 && piece == 'b') {
@@ -169,7 +172,7 @@ public class ClientGame {
         }
 	    return false;
     }
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private void displayGame() {
 
 		// get host screen size to setup starting window
@@ -193,7 +196,7 @@ public class ClientGame {
 		gameWindow.setLocationByPlatform(true);
 		gameWindow.setVisible(true);
 	}
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private void setPieceLocations(JButton[][] boardSquares) {
     	for (int i=0; i<gameBoard.length; i++) {
     		for (int j=0; j<gameBoard[i].length; j++) {
@@ -215,14 +218,14 @@ public class ClientGame {
     		}
     	}
     }
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private JPanel initializeToolBarPanel() {
 		JPanel toolBarPanel = new JPanel(new BorderLayout(3, 3));
 		toolBarPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		toolBarPanel.add(getToolBar(), BorderLayout.PAGE_START);
 		return toolBarPanel;
 	}
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private JPanel initializeBoardPanel() {
 		JPanel boardPanel = new JPanel(new GridLayout(0, 11));
 		JButton[][] boardSquares = buildBoardBackground();
@@ -231,7 +234,7 @@ public class ClientGame {
 		fillGUIBoard(boardPanel, boardSquares);
 		return boardPanel;
 	}
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private JToolBar getToolBar() {
 		JToolBar tools = new JToolBar();
 		tools.setFloatable(false);
@@ -239,7 +242,7 @@ public class ClientGame {
 		tools.add(new JButton("Quit")); // TODO add functionality
 		return tools;
 	}
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private void fillGUIBoard(JPanel board, JButton[][] squares) {
 		buttonGrid = squares;
 		for (int i = 0; i < squares.length; i++) {
@@ -248,7 +251,7 @@ public class ClientGame {
 			}
 		}
 	}
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private JButton[][] buildBoardBackground() {
 		JButton[][] boardSquares = new JButton[11][11];
 		for (int i = 0; i < boardSquares.length; i++) {
@@ -257,7 +260,7 @@ public class ClientGame {
 		colorBackground(boardSquares);
 		return boardSquares;
 	}
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private JButton[] setWhiteRow() {
 		JButton[] rowSquares = new JButton[11];
 		Insets margin = new Insets(0, 0, 0, 0);
@@ -269,7 +272,7 @@ public class ClientGame {
 		}
 		return rowSquares;
 	}
-
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private void colorBackground(JButton[][] baseBackground) {
 		baseBackground[0][0].setBackground(Color.MAGENTA);
 		baseBackground[0][3].setBackground(Color.DARK_GRAY);
@@ -321,7 +324,7 @@ public class ClientGame {
 		baseBackground[10][7].setBackground(Color.DARK_GRAY);
 		baseBackground[10][10].setBackground(Color.MAGENTA);
 	}
-	
+	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private boolean checkWinCondition() {
 		//check if king is in a corner
 		if(this.gameBoard[0][0] == 'k' || this.gameBoard[0][10] == 'k' || this.gameBoard[10][10] == 'k'||this.gameBoard[10][0] == 'k') {
