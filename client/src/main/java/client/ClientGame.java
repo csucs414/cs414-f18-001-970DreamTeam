@@ -107,14 +107,14 @@ public class ClientGame {
 			this.movePiece(from, to);
 			
 			// check regular pieces
-			if (to[0] > 1) { // check to make sure it wont go out of bounds and it isnt a king
+			if (to[0] > 1) { // check to make sure it wont go out of bounds
 				char twoUp = this.gameBoard[to[0] - 2][to[1]];
 				char oneUp = this.gameBoard[to[0] - 1][to[1]];
 				char current = this.gameBoard[to[0]][to[1]];
 				
 				if ((oneUp != current) && (oneUp != 'e') && (oneUp != 'k')) { // checks if there is an enemy piece next to moved piece
 					
-					if (current == twoUp || (current == 'w' && twoUp == 'k')) { // checks if enemy piece is capturable
+					if (current == twoUp || (current == 'w' && twoUp == 'k')) { // checks if enemy piece is capturable  and it isnt a king
 						this.gameBoard[to[0] - 1][to[1]] = 'e';
 					}
 					
@@ -128,14 +128,14 @@ public class ClientGame {
 				}
 			}
 			
-			if (to[1] < 9) { // check to make sure it wont go out of bounds and it isnt a king
+			if (to[1] < 9) { // check to make sure it wont go out of bounds 
 				char twoRight = this.gameBoard[to[0]][to[1] + 2];
 				char oneRight = this.gameBoard[to[0]][to[1] + 1];
 				char current = this.gameBoard[to[0]][to[1]];
 				
 				if ((oneRight != current) && (oneRight != 'e') && (oneRight != 'k')) { // checks if there is an enemy piece next to moved piece
 					
-					if (current == twoRight || (current == 'w' && twoRight == 'k')) { // checks if enemy piece is capturable
+					if (current == twoRight || (current == 'w' && twoRight == 'k')) { // checks if enemy piece is capturable  and it isnt a king
 						this.gameBoard[to[0]][to[1] + 1] = 'e';
 					}
 					
@@ -149,14 +149,14 @@ public class ClientGame {
 				}
 			}
 			
-			if (to[0] < 9) { // check to make sure it wont go out of bounds and it isnt a king
+			if (to[0] < 9) { // check to make sure it wont go out of bounds
 				char twoDown = this.gameBoard[to[0] + 2][to[1]];
 				char oneDown = this.gameBoard[to[0] + 1][to[1]];
 				char current = this.gameBoard[to[0]][to[1]];
 				
 				if ((oneDown != current) && (oneDown != 'e') && (oneDown != 'k')) { // checks if there is an enemy piece next to moved piece
 					
-					if (current == twoDown || (current == 'w' && twoDown == 'k')) { // checks if enemy piece is capturable
+					if (current == twoDown || (current == 'w' && twoDown == 'k')) { // checks if enemy piece is capturable  and it isnt a king
 						this.gameBoard[to[0] + 1][to[1]] = 'e';
 					}
 					
@@ -170,14 +170,14 @@ public class ClientGame {
 				}
 			}
 			
-			if (to[1] > 1) { // check to make sure it wont go out of bounds and it isnt a king
+			if (to[1] > 1) { // check to make sure it wont go out of bounds
 				char twoLeft = this.gameBoard[to[0]][to[1] - 2];
 				char oneLeft = this.gameBoard[to[0]][to[1] - 1];
 				char current = this.gameBoard[to[0]][to[1]];
 				
 				if ((oneLeft != current) && (oneLeft != 'e') && (oneLeft != 'k')) { // checks if there is an enemy piece next to moved piece
 					
-					if (current == twoLeft || (current == 'w' && twoLeft == 'k')) { // checks if enemy piece is capturable
+					if (current == twoLeft || (current == 'w' && twoLeft == 'k')) { // checks if enemy piece is capturable and it isnt a king
 						this.gameBoard[to[0]][to[1] - 1] = 'e';
 					}
 					
