@@ -108,7 +108,7 @@ public class ClientGame {
 				char oneUp = this.gameBoard[to[0] - 1][to[1]];
 				char current = this.gameBoard[to[0]][to[1]];
 				
-				if ((oneUp != current) && (oneUp != 'e')) { // checks if there is an enemy piece next to moved piece
+				if ((oneUp != current) && (oneUp != 'e') && (oneUp != 'k')) { // checks if there is an enemy piece next to moved piece
 					
 					if (current == twoUp || (current == 'w' && twoUp == 'k')) { // checks if enemy piece is capturable
 						this.gameBoard[to[0] - 1][to[1]] = 'e';
@@ -129,7 +129,7 @@ public class ClientGame {
 				char oneRight = this.gameBoard[to[0]][to[1] + 1];
 				char current = this.gameBoard[to[0]][to[1]];
 				
-				if ((oneRight != current) && (oneRight != 'e')) { // checks if there is an enemy piece next to moved piece
+				if ((oneRight != current) && (oneRight != 'e') && (oneRight != 'k')) { // checks if there is an enemy piece next to moved piece
 					
 					if (current == twoRight || (current == 'w' && twoRight == 'k')) { // checks if enemy piece is capturable
 						this.gameBoard[to[0]][to[1] + 1] = 'e';
@@ -150,7 +150,7 @@ public class ClientGame {
 				char oneDown = this.gameBoard[to[0] + 1][to[1]];
 				char current = this.gameBoard[to[0]][to[1]];
 				
-				if ((oneDown != current) && (oneDown != 'e')) { // checks if there is an enemy piece next to moved piece
+				if ((oneDown != current) && (oneDown != 'e') && (oneDown != 'k')) { // checks if there is an enemy piece next to moved piece
 					
 					if (current == twoDown || (current == 'w' && twoDown == 'k')) { // checks if enemy piece is capturable
 						this.gameBoard[to[0] + 1][to[1]] = 'e';
@@ -171,7 +171,7 @@ public class ClientGame {
 				char oneLeft = this.gameBoard[to[0]][to[1] - 1];
 				char current = this.gameBoard[to[0]][to[1]];
 				
-				if ((oneLeft != current) && (oneLeft != 'e')) { // checks if there is an enemy piece next to moved piece
+				if ((oneLeft != current) && (oneLeft != 'e') && (oneLeft != 'k')) { // checks if there is an enemy piece next to moved piece
 					
 					if (current == twoLeft || (current == 'w' && twoLeft == 'k')) { // checks if enemy piece is capturable
 						this.gameBoard[to[0]][to[1] - 1] = 'e';
