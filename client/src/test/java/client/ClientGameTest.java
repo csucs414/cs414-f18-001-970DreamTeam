@@ -163,6 +163,37 @@ class ClientGameTest {
 		int[]from = {7,10}; 
 		int[]to = {7,9}; 
 		//Checks that move is true when moving left 
-		assertTrue(game.MoveValidator(from,to)); }
+		assertTrue(game.MoveValidator(from,to)); 
 	}
+	@Test 
+	public void testMovePieceDown() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		int[] from = {0,7}; 
+		int[] to = {1,7}; 
+		char[][] board = game.getBoard();
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("movePiece", from.getClass(), to.getClass());
+		privateMethod.setAccessible(true);
+		
+		//call the private method from outside
+		privateMethod.invoke(game, from, to);
+		
+		assertEquals(board[1] [7], 'b');
+	}
+	@Test 
+	public void testMovePieceUp() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		int[] from = {5,7}; 
+		int[] to = {5,6}; 
+		char[][] board = game.getBoard();
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("movePiece", from.getClass(), to.getClass());
+		privateMethod.setAccessible(true);
+		
+		//call the private method from outside
+		privateMethod.invoke(game, from, to);
+		
+		assertEquals(board[5] [6], 'w');
+	}
+}
 
