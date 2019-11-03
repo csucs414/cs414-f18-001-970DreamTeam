@@ -107,12 +107,6 @@ public class ClientGame {
 		if (this.MoveValidator(from, to)) {
 			this.movePiece(from, to);
 			
-			// check win condition
-			if (this.checkWinCondition()) {
-				// TODO: do something when win condition is true
-				return;
-			}
-			
 			// check regular pieces
 			if (to[0] > 1) { // check to make sure it wont go out of bounds and it isnt a king
 				char twoUp = this.gameBoard[to[0] - 2][to[1]];
@@ -200,8 +194,15 @@ public class ClientGame {
 			
 			setPieceLocations(buttonGrid);
 		}
+		
+		// check win condition
+		if (this.checkWinCondition()) {
+		// TODO: do something when win condition is true
+			return;
+		}
 
 	}
+	
 	private boolean validPiece(int x, int y) {
         char piece = gameBoard[x][y];
 	    if (this.turn == 0 && piece == 'b') {
