@@ -2,6 +2,7 @@ package client;
 
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.String;
 
@@ -17,6 +18,7 @@ public class ClientGame {
 	private int turn;
 	private String[] players;
 	private JButton[][] buttonGrid;
+	private JFrame gameWindow;
 
 	/**
 	 * Constructor
@@ -193,7 +195,7 @@ public class ClientGame {
 			
 			// check win condition
 			if (this.checkWinCondition()) {
-			// TODO: do something when win condition is true
+			    JOptionPane.showMessageDialog(gameWindow, "Player "+(turn+1)+" Wins!");
 				return;
 			}
 			
@@ -223,11 +225,9 @@ public class ClientGame {
 		int width = screenSize.width * 2 / 3;
 		int height = screenSize.height * 2 / 3;
 
-		JFrame gameWindow = new JFrame("Hnefatafl");
+		gameWindow = new JFrame("Hnefatafl");
 		JPanel toolBarPanel = initializeToolBarPanel();
 		JPanel boardPanel = initializeBoardPanel();
-
-		
 		
 		gameWindow.setPreferredSize(new Dimension(width, height));
 
@@ -281,8 +281,23 @@ public class ClientGame {
 	private JToolBar getToolBar() {
 		JToolBar tools = new JToolBar();
 		tools.setFloatable(false);
-		tools.add(new JButton("New Game")); // TODO add functionality
-		tools.add(new JButton("Quit")); // TODO add functionality
+		JButton newGameButton = new JButton("New Game");
+		newGameButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				gameBoard=buildBoard();
+				turn = 0;
+				setPieceLocations(buttonGrid);
+				
+			}});
+		tools.add(newGameButton);
+		
+		JButton quitGameButton = new JButton("Quit");
+		quitGameButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}});
+		tools.add(quitGameButton); // TODO add functionality
+		tools.addSeparator();
 		return tools;
 	}
 	//TODO: ADD JUNIT TEST FOR THIS METHOD
