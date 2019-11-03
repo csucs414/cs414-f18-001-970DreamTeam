@@ -21,12 +21,26 @@ public class MoveListener implements ActionListener {
 			
 		} else {
 			JButton destination = (JButton) arg0.getSource();
-			int sourceCol = (currentlySelected.getX()-2)/128;
-			int sourceRow = (currentlySelected.getY()-5)/78;
-			int[] sourceCoordinates = {sourceRow, sourceCol};
+			int sourceCol=-1;
+			int sourceRow=-1;
+			int destinationCol=-1;
+			int destinationRow=-1;
 			
-			int destinationCol = (destination.getX()-2)/128;
-			int destinationRow = (destination.getY()-5)/78;
+			
+			for (int i=0; i < game.buttonGrid.length; i++) {
+				for (int j=0; j < game.buttonGrid[i].length; j++) {
+					if (currentlySelected == game.buttonGrid[i][j]) {
+						sourceRow = i;
+						sourceCol = j;
+					}
+					if (destination == game.buttonGrid[i][j]) {
+						destinationRow = i;
+						destinationCol = j;
+					}
+				}
+			}
+			
+			int[] sourceCoordinates = {sourceRow, sourceCol};
 			int[] destCoordinates = {destinationRow, destinationCol};
 			
 			game.updateGameState(sourceCoordinates, destCoordinates);

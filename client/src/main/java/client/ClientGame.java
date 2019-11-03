@@ -17,8 +17,8 @@ public class ClientGame {
 	private char[][] gameBoard;
 	private int turn;
 	private String[] players;
-	private JButton[][] buttonGrid;
 	private JFrame gameWindow;
+	public JButton[][] buttonGrid;
 
 	/**
 	 * Constructor
