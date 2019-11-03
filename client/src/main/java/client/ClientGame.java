@@ -162,7 +162,6 @@ public class ClientGame {
 		}
 
 	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private boolean validPiece(int x, int y) {
         char piece = gameBoard[x][y];
 	    if (this.turn == 0 && piece == 'b') {

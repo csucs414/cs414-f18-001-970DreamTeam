@@ -339,5 +339,29 @@ class ClientGameTest {
 		ClientGame game =  new ClientGame(1, 0, "other");
 		assertEquals(game.countBlackPieces(), 24);
 	}
+	@Test
+	public void testValidPieceT() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		int x = 0;
+		int y = 3;
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("validPiece", int.class, int.class);
+		privateMethod.setAccessible(true);
+		boolean bool = (Boolean) privateMethod.invoke(game, x, y);
+		//call the private method from outside
+		assertTrue(bool);
+	}
+	@Test
+	public void testValidPieceF() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		int x = 5;
+		int y = 4;
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("validPiece", int.class, int.class);
+		privateMethod.setAccessible(true);
+		boolean bool = (Boolean) privateMethod.invoke(game, x, y);
+		//call the private method from outside
+		assertFalse(bool);
+	}
 }
 
