@@ -255,5 +255,35 @@ class ClientGameTest {
 		
 		assertEquals(board[5] [1], 'w');
 	}
+	public void testMovePieceMultipleLeft() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		int[] from = {3,5}; 
+		int[] to = {1,5};
+		
+		char[][] board = game.getBoard();
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("movePiece", from.getClass(), to.getClass());
+		privateMethod.setAccessible(true);
+		
+		//call the private method from outside
+		privateMethod.invoke(game, from, to);
+		
+		assertEquals(board[10] [1], 'w');
+	}
+	public void testMovePieceMultipleRight() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		int[] from = {0,7}; 
+		int[] to = {4,7};
+		
+		char[][] board = game.getBoard();
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("movePiece", from.getClass(), to.getClass());
+		privateMethod.setAccessible(true);
+		
+		//call the private method from outside
+		privateMethod.invoke(game, from, to);
+		
+		assertEquals(board[4] [7], 'b');
+	}
 }
 
