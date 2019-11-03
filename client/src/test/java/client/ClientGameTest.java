@@ -143,7 +143,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatoRightTrue() { 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 1, "other"); 
 		int[]from = {5,7}; 
 		int[]to = {5,8}; 
 		//Checks that move is true when moving right 
