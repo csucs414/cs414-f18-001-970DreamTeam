@@ -166,14 +166,14 @@ class ClientGameTest {
 		assertTrue(game.MoveValidator(from,to)); 
 	}
 	//test for debugging update game state method
-	/*@Test 
+	@Test 
 	public void testMoveValidatoLeftUpdate() { 
 		ClientGame game = new ClientGame(1, 0, "other"); 
 		int[]from = {10,3}; 
-		int[]to = {10,0}; 
+		int[]to = {10,1}; 
 		//Checks that move is true when moving left 
 		assertTrue(game.MoveValidator(from,to)); 
-	}*/
+	}
 	@Test 
 	public void testMovePieceDown() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		ClientGame game =  new ClientGame(1, 0, "other");
@@ -315,11 +315,11 @@ class ClientGameTest {
 	public void testUpdateGameStateLeftMultiple(){ 
 		ClientGame game = new ClientGame(1, 0, "other"); 
 		int[]from = {10,3}; 
-		int[]to = {10,0}; 
+		int[]to = {10,1}; 
 		game.updateGameState(from, to);
 		char[][] board = game.getBoard();
 		//Checks that move is false when moving empty down 
-		assertEquals(board[10] [0], 'b');
+		assertEquals(board[10] [1], 'b');
 	}*/
 	@Test
 	public void testFindKing() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
