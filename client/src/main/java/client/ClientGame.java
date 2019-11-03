@@ -50,6 +50,8 @@ public class ClientGame {
 		return this.gameBoard;
 	}
 	public boolean MoveValidator(int[] from, int[] to) {
+		// checks if piece is current player's piece
+		if (!this.validPiece(from[0], from[1])) return false;
 		// check corners and throne
 		///*
 		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
@@ -203,8 +205,8 @@ public class ClientGame {
 		}
 	}
 	
-	private boolean validPiece(int x, int y) {
-        char piece = gameBoard[x][y];
+	private boolean validPiece(int row, int column) {
+        char piece = gameBoard[row][column];
 	    if (this.turn == 0 && piece == 'b') {
 	        return true;
         }
