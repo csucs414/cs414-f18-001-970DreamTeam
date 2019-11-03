@@ -50,6 +50,8 @@ public class ClientGame {
 		return this.gameBoard;
 	}
 	public boolean MoveValidator(int[] from, int[] to) {
+		// checks if piece is current player's piece
+		if (!this.validPiece(from[0], from[1])) return false;
 		// check corners and throne
 		///*
 		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
@@ -97,73 +99,114 @@ public class ClientGame {
 	}
 
 	public void updateGameState(int[] from, int[] to) {
-		// Switch player
-		if (this.turn == 0) {
-			this.turn = 1;
-		} else
-			this.turn = 0;
 
 		// TODO: check move and update board.
 		if (this.MoveValidator(from, to)) {
 			this.movePiece(from, to);
 			
-			// check win condition
-			if (this.checkWinCondition()) {
-				// TODO: do something when win condition is true
-				return;
-			}
 			// check regular pieces
-			if (to[0] < 9) { // check to make sure it wont go out of bounds
-				if (((this.gameBoard[to[0] + 1][to[1]] != this.gameBoard[to[0]][to[1]]) || 
-					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] + 1][to[1]] == 'b')) && 
-					(this.gameBoard[to[0] + 1][to[1]] != 'e')) { // checks if there is an enemy piece next to moved piece
-					if ((this.gameBoard[to[0] + 2][to[1]] == this.gameBoard[to[0]][to[1]]) || 
-						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] + 2][to[1]] == 'w')) { // checks if enemy piece is capturable
+			if (to[0] > 1) { // check to make sure it wont go out of bounds and it isnt a king
+				char twoUp = this.gameBoard[to[0] - 2][to[1]];
+				char oneUp = this.gameBoard[to[0] - 1][to[1]];
+				char current = this.gameBoard[to[0]][to[1]];
+				
+				if ((oneUp != current) && (oneUp != 'e') && (oneUp != 'k')) { // checks if there is an enemy piece next to moved piece
+					
+					if (current == twoUp || (current == 'w' && twoUp == 'k')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0] - 1][to[1]] = 'e';
+					}
+					
+					else if ((to[0] - 2 == 0 && to[1] == 0) || (to[0] - 2 == 0 && to[1] == 10)) { // checks corners
+						this.gameBoard[to[0] - 1][to[1]] = 'e';
+					}
+					
+					else if ((to[0] - 2 == 5 && to[1] == 5) && twoUp != 'k') { // checks throne
+						this.gameBoard[to[0] - 1][to[1]] = 'e';
+					}
+				}
+			}
+			
+			if (to[1] < 9) { // check to make sure it wont go out of bounds and it isnt a king
+				char twoRight = this.gameBoard[to[0]][to[1] + 2];
+				char oneRight = this.gameBoard[to[0]][to[1] + 1];
+				char current = this.gameBoard[to[0]][to[1]];
+				
+				if ((oneRight != current) && (oneRight != 'e') && (oneRight != 'k')) { // checks if there is an enemy piece next to moved piece
+					
+					if (current == twoRight || (current == 'w' && twoRight == 'k')) { // checks if enemy piece is capturable
+						this.gameBoard[to[0]][to[1] + 1] = 'e';
+					}
+					
+					else if ((to[0] == 0 && to[1] + 2 == 10) || (to[0] == 10 && to[1] + 2 == 10)) { // checks corners
+						this.gameBoard[to[0]][to[1] + 1] = 'e';
+					}
+					
+					else if ((to[0] == 5 && to[1] + 2 == 5) && twoRight != 'k') { // checks throne
+						this.gameBoard[to[0]][to[1] + 1] = 'e';
+					}
+				}
+			}
+			
+			if (to[0] < 9) { // check to make sure it wont go out of bounds and it isnt a king
+				char twoDown = this.gameBoard[to[0] + 2][to[1]];
+				char oneDown = this.gameBoard[to[0] + 1][to[1]];
+				char current = this.gameBoard[to[0]][to[1]];
+				
+				if ((oneDown != current) && (oneDown != 'e') && (oneDown != 'k')) { // checks if there is an enemy piece next to moved piece
+					
+					if (current == twoDown || (current == 'w' && twoDown == 'k')) { // checks if enemy piece is capturable
 						this.gameBoard[to[0] + 1][to[1]] = 'e';
 					}
 					
+					else if ((to[0] + 2 == 10 && to[1] == 0) || (to[0] + 2 == 10 && to[1] == 10)) { // checks corners
+						this.gameBoard[to[0] + 1][to[1]] = 'e';
+					}
+					
+					else if ((to[0] + 2 == 5 && to[1] == 5) && twoDown != 'k') { // checks throne
+						this.gameBoard[to[0] + 1][to[1]] = 'e';
+					}
 				}
 			}
 			
-			if (to[0] > 1) { // check to make sure it wont go out of bounds
-				if (((this.gameBoard[to[0] - 1][to[1]] != this.gameBoard[to[0]][to[1]]) || 
-					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] - 1][to[1]] == 'b')) && 
-					(this.gameBoard[to[0] - 1][to[1]] != 'e')) { // checks if there is an enemy piece next to moved piece
-					if ((this.gameBoard[to[0] - 2][to[1]] == this.gameBoard[to[0]][to[1]]) || 
-							(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0] - 2][to[1]] == 'w')) { // checks if enemy piece is capturable
-							this.gameBoard[to[0] - 1][to[1]] = 'e';
-					}	
-				}
-			}
-			
-			if(to[1] < 9) { // check to make sure it wont go out of bounds
-				if (((this.gameBoard[to[0]][to[1] + 1] != this.gameBoard[to[0]][to[1]]) || 
-					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] + 1] == 'b')) && 
-					(this.gameBoard[to[0]][to[1] + 1] != 'e')) { // checks if there is an enemy piece next to moved piece
-					if ((this.gameBoard[to[0]][to[1] + 2] == this.gameBoard[to[0]][to[1]]) || 
-						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] + 2] == 'w')) { // checks if enemy piece is capturable
-						this.gameBoard[to[0]][to[1] + 1] = 'e';
-					}			
-				}
-			}
-			
-			if (to[1] > 1) { // check to make sure it wont go out of bounds
-				if (((this.gameBoard[to[0]][to[1] - 1] != this.gameBoard[to[0]][to[1]]) || 
-					(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] - 1] == 'b')) && 
-					(this.gameBoard[to[0]][to[1] - 1] != 'e')) { // checks if there is an enemy piece next to moved piece
-					if ((this.gameBoard[to[0]][to[1] - 2] == this.gameBoard[to[0]][to[1]]) || 
-						(this.gameBoard[to[0]][to[1]] == 'k' && this.gameBoard[to[0]][to[1] - 2] == 'w')) { // checks if enemy piece is capturable
+			if (to[1] > 1) { // check to make sure it wont go out of bounds and it isnt a king
+				char twoLeft = this.gameBoard[to[0]][to[1] - 2];
+				char oneLeft = this.gameBoard[to[0]][to[1] - 1];
+				char current = this.gameBoard[to[0]][to[1]];
+				
+				if ((oneLeft != current) && (oneLeft != 'e') && (oneLeft != 'k')) { // checks if there is an enemy piece next to moved piece
+					
+					if (current == twoLeft || (current == 'w' && twoLeft == 'k')) { // checks if enemy piece is capturable
 						this.gameBoard[to[0]][to[1] - 1] = 'e';
-					}				
+					}
+					
+					else if ((to[0] == 0 && to[1] - 2 == 0) || (to[0] == 10 && to[1] - 2 == 0)) { // checks corners
+						this.gameBoard[to[0]][to[1] - 1] = 'e';
+					}
+					
+					else if ((to[0] == 5 && to[1] - 2 == 5) && twoLeft != 'k') { // checks throne
+						this.gameBoard[to[0]][to[1] - 1] = 'e';
+					}
 				}
 			}
 			
 			setPieceLocations(buttonGrid);
+			
+			// check win condition
+			if (this.checkWinCondition()) {
+			// TODO: do something when win condition is true
+				return;
+			}
+			
+			// Switch player
+			if (this.turn == 0) {
+				this.turn = 1;
+			} else
+				this.turn = 0;
 		}
-
 	}
-	private boolean validPiece(int x, int y) {
-        char piece = gameBoard[x][y];
+	
+	private boolean validPiece(int row, int column) {
+        char piece = gameBoard[row][column];
 	    if (this.turn == 0 && piece == 'b') {
 	        return true;
         }
