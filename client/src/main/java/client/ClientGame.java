@@ -45,7 +45,9 @@ public class ClientGame {
 
 		return board;
 	}
-	
+	public char[][] getBoard(){
+		return this.gameBoard;
+	}
 	public boolean MoveValidator(int[] from, int[] to) {
 		// check corners and throne
 		if ((this.gameBoard[from[0]][from[1]] != 'k') && ((to[0] == 0 && to[1] == 0) || (to[0] == 10 && to[1] == 0)
