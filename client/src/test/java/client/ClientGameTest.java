@@ -147,6 +147,22 @@ class ClientGameTest {
 		int[]from = {5,7}; 
 		int[]to = {5,8}; 
 		//Checks that move is true when moving right 
+		assertTrue(game.MoveValidator(from,to)); 
+	}
+	@Test 
+	public void testMoveValidatorLeftFalse(){ 
+		ClientGame game = new ClientGame(1, 0, "other"); 
+		int[]from = {5,10}; 
+		int[]to = {5,9}; 
+		//Checks that move is false when moving left onto another piece
+		assertFalse(game.MoveValidator(from,to)); 
+	}
+	@Test 
+	public void testMoveValidatoLeftTrue() { 
+		ClientGame game = new ClientGame(1, 0, "other"); 
+		int[]from = {7,10}; 
+		int[]to = {7,9}; 
+		//Checks that move is true when moving left 
 		assertTrue(game.MoveValidator(from,to)); }
 	}
 
