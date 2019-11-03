@@ -97,11 +97,6 @@ public class ClientGame {
 	}
 
 	public void updateGameState(int[] from, int[] to) {
-		// Switch player
-		if (this.turn == 0) {
-			this.turn = 1;
-		} else
-			this.turn = 0;
 
 		// TODO: check move and update board.
 		if (this.MoveValidator(from, to)) {
@@ -193,14 +188,19 @@ public class ClientGame {
 			}
 			
 			setPieceLocations(buttonGrid);
+			
+			// check win condition
+			if (this.checkWinCondition()) {
+			// TODO: do something when win condition is true
+				return;
+			}
+			
+			// Switch player
+			if (this.turn == 0) {
+				this.turn = 1;
+			} else
+				this.turn = 0;
 		}
-		
-		// check win condition
-		if (this.checkWinCondition()) {
-		// TODO: do something when win condition is true
-			return;
-		}
-
 	}
 	
 	private boolean validPiece(int x, int y) {
