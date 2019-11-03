@@ -66,25 +66,25 @@ public class ClientGame {
 		// check if piece in between from and to
 		if (from[0] == to[0]) { // same row
 			if (from[0] < to[0]) {
-				for (int i = from[0]; i < to[0]; i++) {
-					if (this.gameBoard[from[0] + i][from[1]] != 'e') return false;
+				for (int i = from[0] + 1; i <= to[0]; i++) {
+					if (this.gameBoard[i][from[1]] != 'e') return false;
 				}
 			}
 			else if (from[0] > to[0]) {
-				for (int i = from[0]; i > to[0]; i--) {
-					if (this.gameBoard[from[0] + i][from[1]] != 'e') return false;
+				for (int i = from[0] - 1; i >= to[0]; i--) {
+					if (this.gameBoard[i][from[1]] != 'e') return false;
 				}
 			}
 		}
 		else if (from[1] == to[1]) { // same column
 			if (from[1] < to[1]) {
-				for (int i = from[1]; i < to[1]; i++) {
-					if (this.gameBoard[from[0] ][from[1] + i] != 'e') return false;
+				for (int i = from[1] + 1; i <= to[1]; i++) {
+					if (this.gameBoard[from[0]][i] != 'e') return false;
 				}
 			}
 			else if (from[1] > to[1]) {
-				for (int i = from[1]; i > to[1]; i--) {
-					if (this.gameBoard[from[0]][from[1] + i] != 'e') return false;
+				for (int i = from[1] - 1; i >= to[1]; i--) {
+					if (this.gameBoard[from[0]][i] != 'e') return false;
 				}
 			}
 		}
