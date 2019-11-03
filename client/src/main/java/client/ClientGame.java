@@ -18,6 +18,7 @@ public class ClientGame {
 	private int turn;
 	private String[] players;
 	private JFrame gameWindow;
+	private JLabel playerDisplay;
 	public JButton[][] buttonGrid;
 
 	/**
@@ -195,15 +196,17 @@ public class ClientGame {
 			
 			// check win condition
 			if (this.checkWinCondition()) {
-			    JOptionPane.showMessageDialog(gameWindow, "Player "+(turn+1)+" Wins!");
+			    JOptionPane.showMessageDialog(gameWindow, "Player "+Integer.toString(turn+1)+" Wins!");
 				return;
 			}
 			
 			// Switch player
 			if (this.turn == 0) {
 				this.turn = 1;
+				playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
 			} else
 				this.turn = 0;
+				playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
 		}
 	}
 	
@@ -298,6 +301,9 @@ public class ClientGame {
 			}});
 		tools.add(quitGameButton); // TODO add functionality
 		tools.addSeparator();
+		JLabel turnDisplay = new JLabel("Turn: Player "+ Integer.toString(turn+1));
+		playerDisplay = turnDisplay;
+		tools.add(turnDisplay);
 		return tools;
 	}
 	//TODO: ADD JUNIT TEST FOR THIS METHOD
