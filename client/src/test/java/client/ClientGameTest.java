@@ -8,10 +8,6 @@ import java.lang.reflect.Method;
 import org.junit.jupiter.api.Test;
 
 class ClientGameTest {
-	@Test
-	public void testExample() {
-		assertTrue(true);
-	}
 	//TESTS FOR BOARD BUILD
 	@Test 
 	public void testBoardBuildCorners() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -51,6 +47,7 @@ class ClientGameTest {
 		assertEquals(board[5] [0], 'b');
 		assertEquals(board[6] [0], 'b');
 		assertEquals(board[7] [0], 'b');
+		assertEquals(board[5] [1], 'b');
 		
 	}
 	@Test 
@@ -63,9 +60,43 @@ class ClientGameTest {
 		//CHECKS RIGHT SIDE BLACK PIECES
 		assertEquals(board[3] [10], 'b');
 		assertEquals(board[4] [10], 'b');
-		assertEquals(board[5] [10], 'b');
+		assertEquals(board[5] [9], 'b');
 		assertEquals(board[6] [10], 'b');
 		assertEquals(board[7] [10], 'b');
+		assertEquals(board[5] [10], 'b');
+		
+	}
+	
+	@Test 
+	public void testBoardBuildBlackPiecesTop() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
+		privateMethod.setAccessible(true);
+		char[][] board = (char[][]) privateMethod.invoke(game);
+		
+		//CHECKS TOP SIDE BLACK PIECES
+		assertEquals(board[0] [3], 'b');
+		assertEquals(board[0] [4], 'b');
+		assertEquals(board[0] [5], 'b');
+		assertEquals(board[0] [6], 'b');
+		assertEquals(board[0] [7], 'b');
+		assertEquals(board[1] [7], 'b');
+		
+	}
+	@Test 
+	public void testBoardBuildBlackPiecesBottom() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
+		privateMethod.setAccessible(true);
+		char[][] board = (char[][]) privateMethod.invoke(game);
+		
+		//CHECKS BOTTOM SIDE BLACK PIECES
+		assertEquals(board[10] [3], 'b');
+		assertEquals(board[10] [4], 'b');
+		assertEquals(board[10] [5], 'b');
+		assertEquals(board[10] [6], 'b');
+		assertEquals(board[10] [7], 'b');
+		assertEquals(board[9] [7], 'b');
 		
 	}
 
