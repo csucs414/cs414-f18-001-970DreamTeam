@@ -165,6 +165,15 @@ class ClientGameTest {
 		//Checks that move is true when moving left 
 		assertTrue(game.MoveValidator(from,to)); 
 	}
+	//test for debugging update game state method
+	/*@Test 
+	public void testMoveValidatoLeftUpdate() { 
+		ClientGame game = new ClientGame(1, 0, "other"); 
+		int[]from = {10,3}; 
+		int[]to = {10,0}; 
+		//Checks that move is true when moving left 
+		assertTrue(game.MoveValidator(from,to)); 
+	}*/
 	@Test 
 	public void testMovePieceDown() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		ClientGame game =  new ClientGame(1, 0, "other");
@@ -284,6 +293,51 @@ class ClientGameTest {
 		privateMethod.invoke(game, from, to);
 		
 		assertEquals(board[4] [7], 'b');
+	}
+	//really specific test case to try to find bug in UpdateGameState 
+	//THIS PASSES, PROBLEM IS IN FIRST IF STATEMENT OF MOVEVALIDATOR
+	public void testMovePieceLeftForUpdateGame() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		int[]from = {10,3}; 
+		int[]to = {10,0}; 
+		
+		char[][] board = game.getBoard();
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("movePiece", from.getClass(), to.getClass());
+		privateMethod.setAccessible(true);
+		
+		//call the private method from outside
+		privateMethod.invoke(game, from, to);
+		
+		assertEquals(board[10] [0], 'b');
+	}
+	/*@Test 
+	public void testUpdateGameStateLeftMultiple(){ 
+		ClientGame game = new ClientGame(1, 0, "other"); 
+		int[]from = {10,3}; 
+		int[]to = {10,0}; 
+		game.updateGameState(from, to);
+		char[][] board = game.getBoard();
+		//Checks that move is false when moving empty down 
+		assertEquals(board[10] [0], 'b');
+	}*/
+	@Test
+	public void testFindKing() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		ClientGame game =  new ClientGame(1, 0, "other");
+        //get private method to be able to use it
+		Method privateMethod = ClientGame.class.getDeclaredMethod("findKingLocation");
+		privateMethod.setAccessible(true);
+		
+		//call the private method from outside
+		int[] location = (int[])privateMethod.invoke(game);
+		int[] actual = new int[] {5,5};
+		assertEquals(location[0], actual[0]);
+		assertEquals(location[1], actual[1]);
+	}
+	@Test
+	public void testCountBlackPieces() {
+		ClientGame game =  new ClientGame(1, 0, "other");
+		assertEquals(game.countBlackPieces(), 24);
 	}
 }
 
