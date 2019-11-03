@@ -311,7 +311,6 @@ class ClientGameTest {
 		
 		assertEquals(board[10] [0], 'b');
 	}
-	/*@Test 
 	public void testUpdateGameStateLeftMultiple(){ 
 		ClientGame game = new ClientGame(1, 0, "other"); 
 		int[]from = {10,3}; 
@@ -320,7 +319,7 @@ class ClientGameTest {
 		char[][] board = game.getBoard();
 		//Checks that move is false when moving empty down 
 		assertEquals(board[10] [1], 'b');
-	}*/
+	}
 	@Test
 	public void testFindKing() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		ClientGame game =  new ClientGame(1, 0, "other");
