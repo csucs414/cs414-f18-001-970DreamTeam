@@ -80,7 +80,7 @@ class ClientGameTest {
 		assertEquals(board[0] [5], 'b');
 		assertEquals(board[0] [6], 'b');
 		assertEquals(board[0] [7], 'b');
-		assertEquals(board[1] [7], 'b');
+		assertEquals(board[1] [5], 'b');
 		
 	}
 	@Test 
@@ -96,9 +96,23 @@ class ClientGameTest {
 		assertEquals(board[10] [5], 'b');
 		assertEquals(board[10] [6], 'b');
 		assertEquals(board[10] [7], 'b');
-		assertEquals(board[9] [7], 'b');
+		assertEquals(board[9] [5], 'b');
 		
 	}
-
-
-}
+	
+	@Test 
+	public void testMoveValidatorDownFalse(){ 
+		ClientGame game = new ClientGame(1, 0, "other"); 
+		int[]from = {1,7}; 
+		int[]to = {2,7}; 
+		//Checks that move is false when moving empty down 
+		assertFalse(game.MoveValidator(from,to)); 
+	}
+	@Test 
+	public void testMoveValidatorDownTrue() { 
+		ClientGame game = new ClientGame(1, 0, "other"); 
+		int[]from = {1,5}; 
+		int[]to = {2,5}; 
+		//Checks that move is false when moving empty down 
+		assertTrue(game.MoveValidator(from,to)); }
+	}
