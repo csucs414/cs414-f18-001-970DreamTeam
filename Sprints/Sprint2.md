@@ -1,24 +1,24 @@
-Sprint #2
+## Sprint 2
 
-Goal: Playable Game (game logic)
+**Goal:** Playable Game (game logic)
 
-Sprint Leader: Mike Popesh
+**Sprint Leader:** Mike Popesh
 
-Definition of Done
+**Definition of Done**
 
 User can create a gameboard populated with pieces and manipulate those pieces according to the rules of the game.
 
-Policies:
+#### Policies:
 
-Clean Code
+**Clean Code**
 
 
-Test Driven Development
+**Test Driven Development**
 
     Write method headers, unit tests, and code in that order.
     Unit tests are fully automated.
    
-Configuration Management
+**Configuration Management**
 
     Always check for new changes in master to resolve merge conflicts locally before committing them.
     All changes are built and tested before they are committed.
@@ -26,19 +26,20 @@ Configuration Management
     All commits include tests for the added or modified code.
     All tests pass.
 
-Continuous Integration / Delivery
+**Continuous Integration / Delivery**
 
     Master is never broken. If broken, it is fixed immediately.
     Continuous integration successfully builds and tests all pull requests for master branch.
     All Java dependencies in pom.xml. Do not load external libraries in your repo.
 
-Plan
+#### Plan
 
-This sprint will complete the following Epics.
-#16, #20, #25
+**This sprint will complete the following Epics.**
+
+    #16, #20, #25
 
 
-Metrics
+#### Metrics
 
 | Statistic |	# Planned |	# Completed |
 |---|---|---|
@@ -47,7 +48,7 @@ Metrics
 |Story Points|29|29|
 
 
-Scrums
+#### Scrums
 
 |Date |	Tasks closed |Tasks in progress |	Impediments  | Present   | Notes |
 |---|---|---|---|---|---|
@@ -63,22 +64,43 @@ Scrums
 |10/28||#22, #30|Started working on powerpoint and modifying diagram|Popesh, Soto, Cupit, Kitten, Nardos||
 |10/30||#22, #30|Discussed Changes to code and meeting times to practice presentation|Popesh, Soto, Cupit, Kitten, Nardos||
 
-Review (focus on solution and technology)
+#### Review (focus on solution and technology)
 
 
-These Epics were completed.
+**These Epics were completed:**
 
+    #16, #20, #25
 
-Incomplete epics in Sprint Backlog
+**Incomplete epics in Sprint Backlog:**
 
-These Epics were not completed.
+**These Epics were not completed:**
 
-What went well
+**What went well:**
 
-What we changed this sprint
+    Goal was met for the sprint.
+    We had productive meetings.
+    Coding in the same room proved to be helpful.
+    We were able to get past tool problems by working together and helping each other.
 
-What we did well
+**What we changed this sprint:**
 
-What we need to work on
+    Somewhat better organization.
+    We met and worked together for longer periods of time.
 
-What we will change next sprint
+**What we did well:**
+
+    Team problem solving/working together
+    Task Estimates (time required) were accurate
+
+**What we need to work on:**
+
+    More work assigned at beginning of sprint
+    Leave more time for testing at end of the sprint
+    Create finer-grained tasks
+
+**What we will change next sprint:**
+
+    Spend more time on task planning/creation
+    Achieve consistent task completion rate throughout the sprint 
+    Continuous Integration (Travis C.I. & Code Climate)
+
