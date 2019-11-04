@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="hnef.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/cs414-f18-001-970DreamTeam/hnef.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=client/src\/main\/java&lt;client{ClientGame.java[ClientGame" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <folder path="/cs414-f18-001-970DreamTeam/client"/>
+        <folder path="/cs414-f18-001-970DreamTeam/Sprints"/>
+        <file path="/cs414-f18-001-970DreamTeam/.classpath"/>
+        <folder path="/cs414-f18-001-970DreamTeam/PA"/>
+        <file path="/cs414-f18-001-970DreamTeam/.gitignore"/>
+        <file path="/cs414-f18-001-970DreamTeam/README.md"/>
+        <file path="/cs414-f18-001-970DreamTeam/.project"/>
+        <file path="/cs414-f18-001-970DreamTeam/pom.xml"/>
+        <folder path="/cs414-f18-001-970DreamTeam/bin"/>
+        <folder path="/cs414-f18-001-970DreamTeam/images"/>
+        <file path="/cs414-f18-001-970DreamTeam/IDE Setup.md"/>
+        <javaElement handleIdentifier="=client"/>
+    </selectedElements>
+</jardesc>

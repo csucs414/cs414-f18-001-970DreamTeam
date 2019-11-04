@@ -38,7 +38,14 @@
                 <version>2.22.0</version>
             </plugin>
         </plugins>
-    </build>
+    <resources>
+        <resource>
+            <filtering>true</filtering>
+            <directory>src/main/resources</directory>
+        </resource>
+    </resources>
+  </build>
+  
   
   
 </project>
