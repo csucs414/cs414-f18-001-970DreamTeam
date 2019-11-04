@@ -42,9 +42,9 @@ Metrics
 
 | Statistic |	# Planned |	# Completed |
 |---|---|---|
-|Epics |3|..|	    
-|Tasks |9|..|
-|Story Points|2|..|
+|Epics |3|3|	    
+|Tasks |9|9|
+|Story Points|29|29|
 
 
 Scrums
