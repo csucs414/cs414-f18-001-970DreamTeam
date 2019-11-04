@@ -43,4 +43,13 @@
 
 
 
-# Installation
+# How To Run
+Step 1. Clone Respository
+
+Step 2. Export Project to an Executable Jar
+
+Link to Eclipse instructions - [Export Project as Jar](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwjH2I305M_lAhXSmq0KHX50DQMQFjACegQICxAH&url=https%3A%2F%2Fhelp.eclipse.org%2Fkepler%2Ftopic%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftasks-37.htm&usg=AOvVaw0j3qyOaoLXHgagip1UASI-)
+    
+Step 3. Execute jar file
+
+    type in terminal/Command Prompt:  java -jar file.jar
