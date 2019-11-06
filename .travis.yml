@@ -1,2 +1,7 @@
 # This enables the 'defaults' to test java applications:
 language: java
+
+# Speeds up future builds
+cache:
+  directories:
+  - $HOME/.m2
