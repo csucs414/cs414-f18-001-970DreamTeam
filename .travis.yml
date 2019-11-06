@@ -1,0 +1,2 @@
+# This enables the 'defaults' to test java applications:
+language: java
