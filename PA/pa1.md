@@ -1,5 +1,5 @@
 # User Stories & Tasks
-![stories](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/UserStories.jpg)
+![userstories](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/userStories.jpg)
 
 
 # CRC Cards
