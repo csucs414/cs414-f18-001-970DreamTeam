@@ -53,7 +53,7 @@ Players are able to register a new account, login to an existing account, see ot
 |Date |	Tasks closed |Tasks in progress |	Impediments  | Present   | Notes |
 |---|---|---|---|---|---|
 |11-11||#60, #61||Popesh, Nardos, Cupit, Soto, Kitten||
-|11-13||#60, #61||Popesh, Nardos, Cupit, Soto, Kitten||
+|11-13||#60, #61||Popesh, Nardos, Cupit, Soto, Kitten|PO meeting|
 
 **These Epics were completed:**
 
