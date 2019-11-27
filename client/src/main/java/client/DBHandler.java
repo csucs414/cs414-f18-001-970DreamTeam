@@ -1,26 +1,42 @@
 package client;
 
-import java.sql.*
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBHandler {
 	
 	static final String dbUser   = "cakitten";
 	static final String dbPasswd = "83115757";
-    static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-    static final String DB_URL = "jdbc:mariadb://192.168.100.174/db";
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private Connection conn;
 
-	DBHandler() {
-        
-		Connection conn = null;
+	public DBHandler() {
 
         try {
-            //STEP 2: Register JDBC driver
-            Class.forName("org.mariadb.jdbc.Driver");
-            
-            conn = DriverManager.getConnection(DB_URL, dbUser, dbPasswd);
+            Class.forName(JDBC_DRIVER);
+            String url = "jdbc:mysql://faure/" + dbUser + "?serverTimezone=UTC";
 
-            //STEP 4: Execute a query
-            System.out.println("Creating table in given database...");
+            conn = DriverManager.getConnection(url, dbUser, dbPasswd);
+
+            System.out.println("URL: " + url);
+            System.out.println("Connection: " + conn);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public boolean verifyUser(String userName, String passwd) {
+
+        Statement stmt;
+		
+        //STEP 4: Execute a query
+        System.out.println("Creating table in given database...");
+        try {
             stmt = conn.createStatement();
 
             String sql = "CREATE TABLE REGISTRATION "
@@ -29,45 +45,19 @@ public class DBHandler {
                     + " last VARCHAR(255), "
                     + " age INTEGER, "
                     + " PRIMARY KEY ( id ))";
+            stmt.execute(sql);
 
-            stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
-        } catch (SQLException se) {
-            se.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.print(e);
+
         } finally {
-            try {
-                if (stmt != null) {
-                    conn.close();
-                }
-            } catch (SQLException se) {
-            }
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
+            return false;
         }
 	}
-	
-	boolean verifyUser(string userName, string passwd) {
-        Statement stmt = null;
-		
-        //STEP 4: Execute a query
-        System.out.println("Creating table in given database...");
-        stmt = conn.createStatement();
 
-        String sql = "CREATE TABLE REGISTRATION "
-                + "(id INTEGER not NULL, "
-                + " first VARCHAR(255), "
-                + " last VARCHAR(255), "
-                + " age INTEGER, "
-                + " PRIMARY KEY ( id ))";
-		
-		return false;
-	}
-	
+	public static void main(String[] args){
+	    DBHandler db = new DBHandler();
+	    db.verifyUser("Colin", "1234");
+    }
+
 }
