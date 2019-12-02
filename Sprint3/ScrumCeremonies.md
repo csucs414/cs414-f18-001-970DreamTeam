@@ -56,7 +56,7 @@ Players are able to register a new account, login to an existing account, see ot
 |11-13||#60, #61||Popesh, Nardos, Cupit, Soto, Kitten|PO meeting|
 |11-20||#60, #61||Popesh, Nardos, Cupit, Soto, Kitten||
 |11-25|#60, #61|#62, #62||Popesh, Nardos, Kitten|Fall Break|
-|12-2||#60, #61|#62, #62||Soto, Cupit, Nardos, Kitten|Progress report|
+|12-2||#60, #61|#62, #62|Progress report|Soto, Cupit, Nardos, Kitten||
 
 **These Epics were completed:**
 
