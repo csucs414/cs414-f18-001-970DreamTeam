@@ -39,8 +39,11 @@ class Login extends JFrame
         add(panel,BorderLayout.CENTER);
         SUBMIT.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
-                String value1=text1.getText();
-                String value2=text2.getText();
+                String username=text1.getText();
+                String password=text2.getText();
+                if (!validator(username, password)){
+                    JOptionPane.showMessageDialog(null, "Invalid username and password");
+                }
             }});
         CREATE.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
@@ -48,6 +51,11 @@ class Login extends JFrame
                 page.setVisible(true);
             }});
         setTitle("LOGIN FORM");
+    }
+
+    public boolean validator(String username, String password){
+//        checks database for username and password returns true if valid
+        return false;
     }
 
 
