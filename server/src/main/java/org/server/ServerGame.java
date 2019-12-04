@@ -1,4 +1,4 @@
-package server;
+package org.server;
 
 import java.time.OffsetDateTime;
 
