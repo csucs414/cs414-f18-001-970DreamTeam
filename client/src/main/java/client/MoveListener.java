@@ -16,33 +16,35 @@ public class MoveListener implements ActionListener {
 		this.game = game;
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
-		if (currentlySelected == null) {
-			currentlySelected = (JButton) arg0.getSource();
-			
-		} else {
-			JButton destination = (JButton) arg0.getSource();
-			int sourceCol=-1;
-			int sourceRow=-1;
-			int destinationCol=-1;
-			int destinationRow=-1;
-			
-			
-			for (int i=0; i < game.buttonGrid.length; i++) {
-				for (int j=0; j < game.buttonGrid[i].length; j++) {
-					if (currentlySelected == game.buttonGrid[i][j]) {
-						sourceRow = i;
-						sourceCol = j;
-					}
-					if (destination == game.buttonGrid[i][j]) {
-						destinationRow = i;
-						destinationCol = j;
-					}
+	public int[] getPieceLocation(JButton button) {
+		int[] location = {-1, -1};
+		for (int i=0; i < game.gameGUI.buttonGrid.length; i++) {
+			for (int j=0; j < game.gameGUI.buttonGrid[i].length; j++) {
+				if (button == game.gameGUI.buttonGrid[i][j]) {
+					location[0] = i; location[1] = j;
+					return location;
 				}
 			}
+		}
+		return location;
+	}
+	
+	public void actionPerformed(ActionEvent arg0) {
+		
+		JButton clickedButton = (JButton) arg0.getSource();
+		int[] location = getPieceLocation(clickedButton);
+		
+		if (currentlySelected == null) {
 			
-			int[] sourceCoordinates = {sourceRow, sourceCol};
-			int[] destCoordinates = {destinationRow, destinationCol};
+			
+			char[][] board = game.getBoard();
+			if (board[location[0]][location[1]] != 'e') {
+				currentlySelected = clickedButton;
+			}
+		} else {
+			
+			int[] sourceCoordinates = getPieceLocation(currentlySelected);
+			int[] destCoordinates = getPieceLocation(clickedButton);
 			
 			try {
 				game.updateGameState(sourceCoordinates, destCoordinates);
