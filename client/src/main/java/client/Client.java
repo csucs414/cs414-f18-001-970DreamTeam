@@ -202,7 +202,6 @@ public class Client extends JFrame{
 				String email = email_text.getText();
 				String password = String.valueOf(password_text.getPassword());
 				String confirmPassword = String.valueOf(confirm_password.getPassword());
-				System.out.println(passwordsMatch(password,confirmPassword));
 				if (validateCreate(username,email) && validateEmail(email) && passwordsMatch(password,confirmPassword)){
 //					Valid account creation go back to home page
 				} else {
@@ -222,6 +221,7 @@ public class Client extends JFrame{
 //		Checks that username and email aren't already taken
 		return true;
 	}
+
 	public boolean validateEmail(String email){
 //		Checks email includes @
 		String regex = "^(.+)@(.+)$";
@@ -230,9 +230,8 @@ public class Client extends JFrame{
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
 	}
+
 	public boolean passwordsMatch(String password, String confirmPassword){
-		System.out.println(password);
-		System.out.println(confirmPassword);
 		return password.equals(confirmPassword);
 	}
 
