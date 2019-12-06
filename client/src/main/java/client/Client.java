@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.regex.*;
 
 import javax.swing.*;
 
@@ -82,8 +83,10 @@ public class Client extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				String username = userName_text.getText();
 				String password = String.valueOf(password_text.getPassword());
-				if (!validator(username, password)) {
-					message.setText(" Invalid user.. ");
+				if (!validateCredentials(username, password)) {
+					message.setText(" Invalid user and password.. ");
+				} else {
+					// Valid credentials go to home screen
 				}
 			}
 		});
@@ -195,38 +198,46 @@ public class Client extends JFrame{
 
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-
+				String username = userName_text.getText();
+				String email = email_text.getText();
+				String password = String.valueOf(password_text.getPassword());
+				String confirmPassword = String.valueOf(confirm_password.getPassword());
+				System.out.println(passwordsMatch(password,confirmPassword));
+				if (validateCreate(username,email) && validateEmail(email) && passwordsMatch(password,confirmPassword)){
+//					Valid account creation go back to home page
+				} else {
+					JOptionPane.showMessageDialog(null, "Cannot create account try again");
+				}
 			}
 		});
-
 		return main;
-
 	}
 
-	public boolean validator(String username, String password) {
-//        System.out.println(username);
-//        System.out.println(password);
-//        checks database for username and password returns true if valid
-//		message.setText(" Hello " + username + "");
-//		message.setText(" Invalid user.. ");
+	public boolean validateCredentials(String username, String password) {
+//		Checks database for credentials
 		return false;
 	}
 
-		public static void main (String[]args){
-			new Client();
-		}
+	public boolean validateCreate(String username, String email){
+//		Checks that username and email aren't already taken
+		return true;
+	}
+	public boolean validateEmail(String email){
+//		Checks email includes @
+		String regex = "^(.+)@(.+)$";
+		Pattern pattern = Pattern.compile(regex);
 
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+	public boolean passwordsMatch(String password, String confirmPassword){
+		System.out.println(password);
+		System.out.println(confirmPassword);
+		return password.equals(confirmPassword);
+	}
 
-//	public void actionPerformed(ActionEvent ae) {
-//		String userName = userName_text.getText();
-//		String password = String.valueOf(password_text.getText());
-//		if (userName.trim().equals("admin") && password.trim().equals("admin")) {
-//			message.setText(" Hello " + userName
-//					+ "");
-//		} else {
-//			message.setText(" Invalid user.. ");
-//		}
-//
-//	}
+	public static void main (String[]args){
+		new Client();
+	}
 
 }
