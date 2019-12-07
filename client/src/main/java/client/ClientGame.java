@@ -273,8 +273,4 @@ public class ClientGame {
 		return turn;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		ClientGame game = new ClientGame(1, 0, "other");
-		game.gameGUI.displayGame();
-	}
 }
