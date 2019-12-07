@@ -45,17 +45,22 @@ public class ServerCommunicationHandler extends Thread {
 	}
 	
 	public void handleRegister() {
+		HashMap<String, String> registerMessage = new HashMap<String, String>();
 		if (!dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"))) {
-			HashMap<String, String> failure = new HashMap<String, String>();
-			failure.put("messageType", "Register");
-			failure.put("Success", "0");
-			
-			try {
-			output.writeObject(failure);
+			registerMessage.put("messageType", "Register");
+			registerMessage.put("Success", "0");
+		}
+		
+		else {
+			registerMessage.put("messageType", "Register");
+			registerMessage.put("Success", "1");
+		}
+		
+		try {
+			output.writeObject(registerMessage);
 			} catch(IOException e) {
 				System.out.println("ERROR! Cannot write to output!");
 			}
-		}
 		
 		handleLogin();
 	}
