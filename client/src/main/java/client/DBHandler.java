@@ -1,7 +1,5 @@
 package client;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
