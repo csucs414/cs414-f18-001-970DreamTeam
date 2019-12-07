@@ -1,4 +1,4 @@
-package server;
+package org.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class Server {
 
-	private HashMap<Integer, ServerGame> games = new HashMap<>();
-	private ArrayList<String> onlinePlayers = new ArrayList<>();
+	private HashMap<Integer, ServerGame> games = new HashMap<Integer, ServerGame>();
+	private ArrayList<String> onlinePlayers = new ArrayList<String>();
 	private static int nextGameID = 0;
 	private Socket serverSocket;
 	private PrintWriter serverOutput;
@@ -48,10 +48,12 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		Server server = new Server();
 		try {
-			ServerSocket test = new ServerSocket(20003);
-
+			int portNumber = 20001;
+			ServerSocket test = new ServerSocket(portNumber);
+			System.out.println("Server listening on port: "+ portNumber);
 			while (true) {
 				server.serverSocket = test.accept();
+				System.out.println("Server listening on port: "+ portNumber);
 				server.serverOutput = new PrintWriter(server.serverSocket.getOutputStream(), true);
 				server.serverInput = new BufferedReader(new InputStreamReader(server.serverSocket.getInputStream()));
 				String input = server.serverInput.readLine();
@@ -61,11 +63,13 @@ public class Server {
 				}
 			}
 		} catch (Exception e) {
-
+				e.printStackTrace();
 		} finally {
 			try {
 			server.serverSocket.close();
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		/*while ((input = server.serverInput.readLine()) != null) {
 			
