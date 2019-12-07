@@ -41,14 +41,19 @@ public class ServerCommunicationHandler extends Thread {
 	}
 	
 	public void handleLogin() {
-		
+		HashMap<String, String> loginMessage = new HashMap<String, String>();
 	}
 	
 	public void handleRegister() {
 		HashMap<String, String> registerMessage = new HashMap<String, String>();
+		registerMessage.put("messageType", "Register");
+		//if (!dbhandler.checkName(message.get("Name"))) {
+		//	registerMessage.put("Success", "0");
+			
+		//}
 		if (!dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"))) {
-			registerMessage.put("messageType", "Register");
 			registerMessage.put("Success", "0");
+			registerMessage.put("errorCode", "");
 		}
 		
 		else {
