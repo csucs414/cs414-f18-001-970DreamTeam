@@ -1,24 +1,28 @@
 package org.server;
 
+import java.net.Socket;
 import java.time.OffsetDateTime;
 
 public class ServerGame {
 	private char[][] gameBoard;
-	private String[] players;
+	private Socket[] playerSockets;
+	private int[] playerIDs;
 	private int turn;
 	private OffsetDateTime startTime;
 	
 	/**
      * Constructor
      */
-	ServerGame(char[][] gameBoard, String[] players, int turn) {
+	ServerGame(char[][] gameBoard, int[] players, int turn, Socket[] playerSockets) {
 		this.gameBoard = gameBoard;
-		this.players = players;
+		this.playerIDs = players;
+		this.playerSockets = playerSockets;
 		this.turn = turn;
 	}
 	
-	ServerGame(String[] players) {
-		this.players = players;
+	ServerGame(int[] players, Socket[] playerSockets) {
+		this.playerIDs = players;
+		this.playerSockets = playerSockets;
 		turn = 0;
 		char[][] newBoard = { { 'e', 'e', 'e', 'b', 'b', 'b', 'b', 'b', 'e', 'e', 'e' },
 				{ 'e', 'e', 'e', 'e', 'e', 'b', 'e', 'e', 'e', 'e', 'e' },
@@ -39,8 +43,8 @@ public class ServerGame {
 		this.turn = turn;
 	}
 	
-	public String[] getPlayers() {
-		return this.players;
+	public int[] getPlayers() {
+		return this.playerIDs;
 	}
 	
 	public char[][] getBoard() {
@@ -53,6 +57,10 @@ public class ServerGame {
 	
 	public void setStartTime() {
 		this.startTime = OffsetDateTime.now();
+	}
+	
+	public Socket[] getSockets() {
+		return playerSockets;
 	}
 	
 }
