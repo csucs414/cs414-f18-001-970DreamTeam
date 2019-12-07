@@ -3,6 +3,9 @@ package client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.*;
+import javax.imageio.*;
+import java.io.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.regex.*;
@@ -21,7 +24,10 @@ public class Client extends JFrame{
 	int height = screenSize.height * 2 / 3;
 
 	Client() {
+		fill();
+	}
 
+	public void fill () {
 		// User Label
 		user_label = new JLabel();
 		user_label.setText("User Name: ");
@@ -110,7 +116,6 @@ public class Client extends JFrame{
 		setTitle("Please Login Here !");
 		setSize(width, height);
 		setVisible(true);
-
 	}
 
 	public JPanel createAccount () {
@@ -192,7 +197,7 @@ public class Client extends JFrame{
 				main.revalidate();
 				main.repaint();
 				getContentPane().remove(main);
-				new Client();
+				fill();
 			}
 		});
 
@@ -203,12 +208,31 @@ public class Client extends JFrame{
 				String password = String.valueOf(password_text.getPassword());
 				String confirmPassword = String.valueOf(confirm_password.getPassword());
 				if (validateCreate(username,email) && validateEmail(email) && passwordsMatch(password,confirmPassword)){
-//					Valid account creation go back to home page
+					main.removeAll();
+					main.revalidate();
+					main.repaint();
+					getContentPane().remove(main);
+					main = home();
+					add(main, BorderLayout.CENTER);
+					setTitle("Welcome!");
+					setSize(width, height);
+					setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Cannot create account try again");
 				}
 			}
 		});
+		return main;
+	}
+
+	public JPanel home() {
+		try {
+			BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
+			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+			main.add(picLabel);
+		} catch (IOException ex) {
+			// handle exception...
+		}
 		return main;
 	}
 
