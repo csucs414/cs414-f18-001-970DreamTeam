@@ -1,17 +1,8 @@
 package client;
 
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.String;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 
 public class ClientGame {
@@ -19,9 +10,7 @@ public class ClientGame {
 	private char[][] gameBoard;
 	private int turn;
 	private String[] players;
-	private JFrame gameWindow;
-	private JLabel playerDisplay;
-	public JButton[][] buttonGrid;
+	public ClientGUI gameGUI;
 	
 
 	/**
@@ -35,9 +24,10 @@ public class ClientGame {
 		String[] playerArray = { "self", opponent };
 		players = playerArray;
 		this.gameBoard = buildBoard();
+		gameGUI = new ClientGUI(this);
 	}
 
-	private char[][] buildBoard() {
+	public char[][] buildBoard() {
 		char[][] board = { { 'e', 'e', 'e', 'b', 'b', 'b', 'b', 'b', 'e', 'e', 'e' },
 				{ 'e', 'e', 'e', 'e', 'e', 'b', 'e', 'e', 'e', 'e', 'e' },
 				{ 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e' },
@@ -52,9 +42,11 @@ public class ClientGame {
 
 		return board;
 	}
+	
 	public char[][] getBoard(){
 		return this.gameBoard;
 	}
+	
 	public boolean MoveValidator(int[] from, int[] to) {
 		// checks if piece is current player's piece
 		if (!this.validPiece(from[0], from[1])) return false;
@@ -195,21 +187,21 @@ public class ClientGame {
 				}
 			}
 			
-			setPieceLocations(buttonGrid);
+			gameGUI.setPieceLocations();
 			
 			// check win condition
 			if (this.checkWinCondition()) {
-			    JOptionPane.showMessageDialog(gameWindow, "Player "+Integer.toString(turn+1)+" Wins!");
+			    JOptionPane.showMessageDialog(gameGUI.gameWindow, "Player "+Integer.toString(turn+1)+" Wins!");
 				return;
 			}
 			
 			// Switch player
 			if (this.turn == 0) {
 				this.turn = 1;
-				playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
+				gameGUI.playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
 			} else
 				this.turn = 0;
-				playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
+				gameGUI.playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
 		}
 	}
 	
@@ -223,181 +215,7 @@ public class ClientGame {
         }
 	    return false;
     }
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private void displayGame() throws IOException {
-		
-		
-		// get host screen size to setup starting window
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = screenSize.width * 2 / 3;
-		int height = screenSize.height * 2 / 3;
-
-		gameWindow = new JFrame("Hnefatafl");
-		JPanel toolBarPanel = initializeToolBarPanel();
-		JPanel boardPanel = initializeBoardPanel();
-		
-		gameWindow.setPreferredSize(new Dimension(width, height));
-
-		toolBarPanel.add(boardPanel);
-		gameWindow.add(toolBarPanel);
-		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameWindow.pack();
-		gameWindow.setMinimumSize(gameWindow.getSize());
-		gameWindow.setLocationByPlatform(true);
-		gameWindow.setVisible(true);
-	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private void setPieceLocations(JButton[][] boardSquares) throws IOException {
-		BufferedImage king = ImageIO.read(ClassLoader.getSystemResource("Chess_klt60.png"));
-		BufferedImage whitePawn = ImageIO.read(ClassLoader.getSystemResource("Chess_plt60.png"));
-		BufferedImage blackPawn = ImageIO.read(ClassLoader.getSystemResource("Chess_pdt60.png"));
-    	for (int i=0; i<gameBoard.length; i++) {
-    		for (int j=0; j<gameBoard[i].length; j++) {
-    			char piece = gameBoard[i][j];
-    			Icon image = new ImageIcon();
-    			if (piece == 'b') {
-    				image = new ImageIcon(blackPawn);
-    			} else if (piece == 'w') {
-    				image = new ImageIcon(whitePawn);
-    			} else if (piece == 'k') {
-    				image = new ImageIcon(king);
-    			}
-    			
-    			boardSquares[i][j].setIcon(image);
-    			boardSquares[i][j].setFont(new Font("utf-8", Font.PLAIN, 50));
-    		}
-    	}
-    }
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private JPanel initializeToolBarPanel() {
-		JPanel toolBarPanel = new JPanel(new BorderLayout(3, 3));
-		toolBarPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		toolBarPanel.add(getToolBar(), BorderLayout.PAGE_START);
-		return toolBarPanel;
-	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private JPanel initializeBoardPanel() throws IOException {
-		JPanel boardPanel = new JPanel(new GridLayout(0, 11));
-		JButton[][] boardSquares = buildBoardBackground();
-		boardPanel.setBorder(new LineBorder(Color.BLACK));
-		setPieceLocations(boardSquares);
-		fillGUIBoard(boardPanel, boardSquares);
-		return boardPanel;
-	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private JToolBar getToolBar() {
-		JToolBar tools = new JToolBar();
-		tools.setFloatable(false);
-		JButton newGameButton = new JButton("New Game");
-		newGameButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				gameBoard=buildBoard();
-				turn = 0;
-				playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
-				try {
-					setPieceLocations(buttonGrid);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}});
-		tools.add(newGameButton);
-		
-		JButton quitGameButton = new JButton("Quit");
-		quitGameButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}});
-		tools.add(quitGameButton); // TODO add functionality
-		tools.addSeparator();
-		JLabel turnDisplay = new JLabel("Turn: Player "+ Integer.toString(turn+1));
-		playerDisplay = turnDisplay;
-		tools.add(turnDisplay);
-		return tools;
-	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private void fillGUIBoard(JPanel board, JButton[][] squares) {
-		buttonGrid = squares;
-		for (int i = 0; i < squares.length; i++) {
-			for (int j = 0; j < squares[i].length; j++) {
-				board.add(squares[i][j]);
-			}
-		}
-	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private JButton[][] buildBoardBackground() {
-		JButton[][] boardSquares = new JButton[11][11];
-		for (int i = 0; i < boardSquares.length; i++) {
-			boardSquares[i] = setWhiteRow();
-		}
-		colorBackground(boardSquares);
-		return boardSquares;
-	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private JButton[] setWhiteRow() {
-		JButton[] rowSquares = new JButton[11];
-		Insets margin = new Insets(0, 0, 0, 0);
-		for (int i = 0; i < rowSquares.length; i++) {
-			rowSquares[i] = new JButton();
-			rowSquares[i].setMargin(margin);
-			rowSquares[i].setBackground(Color.WHITE);
-			rowSquares[i].addActionListener(new MoveListener(this));
-		}
-		return rowSquares;
-	}
-	//TODO: ADD JUNIT TEST FOR THIS METHOD
-	private void colorBackground(JButton[][] baseBackground) {
-		baseBackground[0][0].setBackground(Color.MAGENTA);
-		baseBackground[0][3].setBackground(Color.DARK_GRAY);
-		baseBackground[0][4].setBackground(Color.DARK_GRAY);
-		baseBackground[0][5].setBackground(Color.DARK_GRAY);
-		baseBackground[0][6].setBackground(Color.DARK_GRAY);
-		baseBackground[0][7].setBackground(Color.DARK_GRAY);
-		baseBackground[0][10].setBackground(Color.MAGENTA);
-
-		baseBackground[1][5].setBackground(Color.DARK_GRAY);
-
-		baseBackground[3][0].setBackground(Color.DARK_GRAY);
-		baseBackground[3][5].setBackground(Color.DARK_GRAY);
-		baseBackground[3][10].setBackground(Color.DARK_GRAY);
-
-		baseBackground[4][0].setBackground(Color.DARK_GRAY);
-		baseBackground[4][4].setBackground(Color.DARK_GRAY);
-		baseBackground[4][5].setBackground(Color.DARK_GRAY);
-		baseBackground[4][6].setBackground(Color.DARK_GRAY);
-		baseBackground[4][10].setBackground(Color.DARK_GRAY);
-
-		baseBackground[5][0].setBackground(Color.DARK_GRAY);
-		baseBackground[5][1].setBackground(Color.DARK_GRAY);
-		baseBackground[5][3].setBackground(Color.DARK_GRAY);
-		baseBackground[5][4].setBackground(Color.DARK_GRAY);
-		baseBackground[5][5].setBackground(Color.MAGENTA);
-		baseBackground[5][6].setBackground(Color.DARK_GRAY);
-		baseBackground[5][7].setBackground(Color.DARK_GRAY);
-		baseBackground[5][9].setBackground(Color.DARK_GRAY);
-		baseBackground[5][10].setBackground(Color.DARK_GRAY);
-
-		baseBackground[6][0].setBackground(Color.DARK_GRAY);
-		baseBackground[6][4].setBackground(Color.DARK_GRAY);
-		baseBackground[6][5].setBackground(Color.DARK_GRAY);
-		baseBackground[6][6].setBackground(Color.DARK_GRAY);
-		baseBackground[6][10].setBackground(Color.DARK_GRAY);
-
-		baseBackground[7][0].setBackground(Color.DARK_GRAY);
-		baseBackground[7][5].setBackground(Color.DARK_GRAY);
-		baseBackground[7][10].setBackground(Color.DARK_GRAY);
-
-		baseBackground[9][5].setBackground(Color.DARK_GRAY);
-
-		baseBackground[10][0].setBackground(Color.MAGENTA);
-		baseBackground[10][3].setBackground(Color.DARK_GRAY);
-		baseBackground[10][4].setBackground(Color.DARK_GRAY);
-		baseBackground[10][5].setBackground(Color.DARK_GRAY);
-		baseBackground[10][6].setBackground(Color.DARK_GRAY);
-		baseBackground[10][7].setBackground(Color.DARK_GRAY);
-		baseBackground[10][10].setBackground(Color.MAGENTA);
-	}
+	
 	//TODO: ADD JUNIT TEST FOR THIS METHOD
 	private boolean checkWinCondition() {
 		//check if king is in a corner
@@ -450,8 +268,9 @@ public class ClientGame {
 		
 		return numOfPieces;
 	}
-	public static void main(String[] args) throws IOException {
-		ClientGame game = new ClientGame(1, 0, "other");
-		game.displayGame();
+	
+	public int getTurn() {
+		return turn;
 	}
+	
 }

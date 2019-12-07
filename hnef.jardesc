@@ -11,17 +11,23 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <folder path="/cs414-f18-001-970DreamTeam/client"/>
-        <folder path="/cs414-f18-001-970DreamTeam/Sprints"/>
         <file path="/cs414-f18-001-970DreamTeam/.classpath"/>
-        <folder path="/cs414-f18-001-970DreamTeam/PA"/>
-        <file path="/cs414-f18-001-970DreamTeam/.gitignore"/>
-        <file path="/cs414-f18-001-970DreamTeam/README.md"/>
-        <file path="/cs414-f18-001-970DreamTeam/.project"/>
-        <file path="/cs414-f18-001-970DreamTeam/pom.xml"/>
+        <folder path="/cs414-f18-001-970DreamTeam/client/bin"/>
         <folder path="/cs414-f18-001-970DreamTeam/bin"/>
         <folder path="/cs414-f18-001-970DreamTeam/images"/>
         <file path="/cs414-f18-001-970DreamTeam/IDE Setup.md"/>
         <javaElement handleIdentifier="=client"/>
+        <folder path="/cs414-f18-001-970DreamTeam/Sprints"/>
+        <folder path="/cs414-f18-001-970DreamTeam/PA"/>
+        <file path="/cs414-f18-001-970DreamTeam/client/.gitignore"/>
+        <file path="/cs414-f18-001-970DreamTeam/client/.project"/>
+        <file path="/cs414-f18-001-970DreamTeam/.gitignore"/>
+        <folder path="/cs414-f18-001-970DreamTeam/client/target"/>
+        <file path="/cs414-f18-001-970DreamTeam/README.md"/>
+        <file path="/cs414-f18-001-970DreamTeam/.project"/>
+        <file path="/cs414-f18-001-970DreamTeam/pom.xml"/>
+        <file path="/cs414-f18-001-970DreamTeam/client/pom.xml"/>
+        <folder path="/cs414-f18-001-970DreamTeam/client/src"/>
+        <file path="/cs414-f18-001-970DreamTeam/client/.classpath"/>
     </selectedElements>
 </jardesc>

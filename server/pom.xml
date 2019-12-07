@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>client</artifactId>
-	<name>client</name>
+	<artifactId>server</artifactId>
+	<name>server</name>
 	<packaging>jar</packaging>
 
 	<parent>
@@ -31,20 +31,6 @@
 			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
-     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-       <dependency>
-           <groupId>mysql</groupId>
-           <artifactId>mysql-connector-java</artifactId>
-           <version>8.0.18</version>
-       </dependency>
-    <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
-       <dependency>
-           <groupId>com.jcraft</groupId>
-           <artifactId>jsch</artifactId>
-           <version>0.1.55</version>
-       </dependency>
-
-
 	</dependencies>
 	<build>
 		<plugins>
@@ -66,7 +52,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>client.Client</mainClass>
+							<mainClass>org.server.Server</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -79,4 +65,7 @@
 			</resource>
 		</resources>
 	</build>
+
+
+
 </project>
