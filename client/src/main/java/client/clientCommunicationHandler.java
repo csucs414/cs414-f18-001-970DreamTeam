@@ -3,33 +3,31 @@ package client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class clientCommunicationHandler {
-	 DataInputStream input;
-	 DataOutputStream output;
+	 ObjectInputStream input;
+	 ObjectOutputStream output;
 	 int gameID;
 	 Socket socket;
 	      
 	  
 	 // Constructor 
-	 public clientCommunicationHandler(Socket socket, DataInputStream input, DataOutputStream output, int gameID){ 
+	 public clientCommunicationHandler(Socket socket, ObjectInputStream input, ObjectOutputStream output, int gameID){ 
 	        this.socket = socket; 
 	        this.input = input; 
 	        this.output = output;
 	        this.gameID = gameID;
 	 } 
 	 
-	 public void actOnMessage() {
-		 String received = null;
-		try {
-			received = input.readUTF();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		 
-		 switch (received) { 
+	 public void actOnMessage() throws ClassNotFoundException, IOException {
+		HashMap received = (HashMap) input.readObject();
+		
+		String messageType = null;
+		 switch (messageType) { 
          
          case "GameUpdate": 
             //unpack message to get from and to coordinates
