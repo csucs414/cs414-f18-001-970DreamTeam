@@ -1,5 +1,6 @@
 package org.server;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -15,11 +16,12 @@ public class ServerCommunicationHandler extends Thread {
 	private int gameID;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
+	private DBHandler dbhandler;
 	
 	public ServerCommunicationHandler(Server server, Socket socket) {
 		this.server = server;
 		this.socket = socket;
-		
+		this.dbhandler = new DBHandler();
 	}
 	
 	private void handleMessage(Object map) {
@@ -43,7 +45,19 @@ public class ServerCommunicationHandler extends Thread {
 	}
 	
 	public void handleRegister() {
+		if (!dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"))) {
+			HashMap<String, String> failure = new HashMap<String, String>();
+			failure.put("messageType", "Register");
+			failure.put("Success", "0");
+			
+			try {
+			output.writeObject(failure);
+			} catch(IOException e) {
+				System.out.println("ERROR! Cannot write to output!");
+			}
+		}
 		
+		handleLogin();
 	}
 	
 	public void handleUpdate() {
