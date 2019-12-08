@@ -78,6 +78,7 @@ public class clientCommunicationHandler extends Thread{
 			client.invalidCredentials();
 		}
 		else {
+			//sending list of players
 			String players = message.get("Players");
 			ArrayList<String> list = (ArrayList<String>) Arrays.asList(players.split("\\s*,\\s*"));
 			client.validCredentials(list);
