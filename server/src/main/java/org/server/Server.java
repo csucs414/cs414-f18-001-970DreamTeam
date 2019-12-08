@@ -42,7 +42,7 @@ public class Server {
 	public void removePlayer(String player) {
 		onlinePlayers.remove(player);
 	}
-
+	
 	public static void main(String[] args) throws IOException {
 		Server server = new Server();
 		try {
