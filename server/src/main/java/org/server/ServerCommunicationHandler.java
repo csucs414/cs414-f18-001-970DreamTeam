@@ -45,9 +45,15 @@ public class ServerCommunicationHandler extends Thread {
 	}
 	
 	public void handleInvite() {
-		message.get("From");
-		message.get("To");
-		message.get("inviteType");
+		if (message.get("inviteType") == "Response") {
+			if (message.get("Response") == "Accept") {
+				String[] players = {message.get("From"), message.get("To")};
+				Socket[] sockets = {server.playerSockets.get(message.get("From")), server.playerSockets.get(message.get("To"))};
+				int gameID = server.createNewGame(players,  sockets);
+				message.put("gameID", Integer.toString(gameID));
+			}
+		}
+		
 		if (!server.getOnlinePlayers().contains(message.get("to"))) {
 			message.put("Success", "0");
 			try {
