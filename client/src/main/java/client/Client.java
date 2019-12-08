@@ -30,6 +30,8 @@ public class Client extends JFrame{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int width = screenSize.width * 2 / 3;
 	int height = screenSize.height * 2 / 3;
+	String player1;
+	Font font1 = new Font("TimesRoman", Font.PLAIN, 30);
 
 	Client() {
 		fill();
@@ -39,14 +41,16 @@ public class Client extends JFrame{
 		// User Label
 		user_label = new JLabel();
 		user_label.setText("User Name: ");
-		userName_text = new JTextField(10);
+		userName_text = new JTextField(15);
+		userName_text.setFont(font1);
 		userName_text.setMaximumSize(userName_text.getPreferredSize());
 
 		// Password
 
 		password_label = new JLabel();
 		password_label.setText("Password: ");
-		password_text = new JPasswordField(10);
+		password_text = new JPasswordField(15);
+		password_text.setFont(font1);
 		password_text.setMaximumSize(password_text.getPreferredSize());
 
 		// Create
@@ -127,28 +131,32 @@ public class Client extends JFrame{
 
 		user_label = new JLabel();
 		user_label.setText("User Name: ");
-		userName_text = new JTextField(10);
+		userName_text = new JTextField(15);
+		userName_text.setFont(font1);
 		userName_text.setMaximumSize(userName_text.getPreferredSize());
 
 		// Password
 
 		password_label = new JLabel();
 		password_label.setText("Password: ");
-		password_text = new JPasswordField(10);
+		password_text = new JPasswordField(15);
+		password_text.setFont(font1);
 		password_text.setMaximumSize(password_text.getPreferredSize());
 
 		// Confirm Password
 
 		confirm_label = new JLabel();
 		confirm_label.setText("Confirm Password: ");
-		confirm_password = new JPasswordField(10);
+		confirm_password = new JPasswordField(15);
+		confirm_password.setFont(font1);
 		confirm_password.setMaximumSize(confirm_password.getPreferredSize());
 
 		// Email
 
 		email = new JLabel();
 		email.setText("Email: ");
-		email_text = new JTextField(10);
+		email_text = new JTextField(15);
+		email_text.setFont(font1);
 		email_text.setMaximumSize(email_text.getPreferredSize());
 
 		submit = new JButton("SUBMIT");
@@ -280,13 +288,13 @@ public class Client extends JFrame{
 //		set list to users in database
 		for (int i = 0; i < list.size(); i++) {
 			JLabel lbl = new JLabel();
-			String user = list.get(i);
-			lbl.setText(user);
+			String player2 = list.get(i);
+			lbl.setText(player2);
 			JButton btn = new JButton("Invite");
 			btn.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					sendInvite(user);
+					sendInvite(player1, player2);
 				}
 			});
 		}
@@ -299,25 +307,43 @@ public class Client extends JFrame{
 	public void inviteDeclinced() {
 		JOptionPane.showMessageDialog(null, "Your invite was declined");
 	}
+	public void inviteFail() {
+		JOptionPane.showMessageDialog(null, "Your invite could not be sent.");
+		
+	}
+	public void inviteSuccess() {
+		JOptionPane.showMessageDialog(null, "Your invite was sent.");
+	}
 
 	public void inviteAccepted(int GameID, String opponent) {
 		//Create a new game
 		ClientGame game = new ClientGame(GameID, 0, opponent);
 		games.put(GameID, game);
 	}
+	
+	public void updateGame(int GameID, String opponent) {
+		//Create a new game
+		games.get(GameID);
+	}
+	
 
 	public void sendCredentials(String username, String password) {
 //		Checks database for credentials
 		HashMap<String,String> map=new HashMap<String,String>();
+		map.put("messageType", "Invite");
+		map.put("inviteType", "Request");
 		map.put("Name", username);
 		map.put("Password", password);
+		player1 = username;
 		comm.outbound(map);
 	}
 
-	public void sendInvite(String username) {
+	public void sendInvite(String from, String to) {
 		HashMap<String,String> map=new HashMap<String,String>();
 		map.put("messageType", "Invite");
-		map.put("Name", username);
+		map.put("From", from);
+		map.put("To", to);
+		map.put("inviteType", "request");
 		comm.outbound(map);
 	}
 
