@@ -100,6 +100,28 @@ public class clientCommunicationHandler extends Thread{
 		 
 	 }
 	 private void handleInvite() {
+		 String inviteType = message.get("inviteType");
+		 
+		 if(inviteType == "Request") {
+			 int inviteSuccess = Integer.parseInt(message.get("Success"));
+			 
+			 if(inviteSuccess == 0) {
+				 client.inviteFail();
+			 }
+		 }
+		 else if(inviteType == "Response") {
+			 String inviteResponse = message.get("Response");
+			 
+			 if(inviteResponse == "Accept") {
+				 int gameID =  Integer.parseInt(message.get("gameID"));
+				 String to = message.get("To");
+				 client.inviteAccepted(gameID, to);
+			 }
+			 if(inviteResponse == "Decline") {
+				 
+				 client.inviteDeclinced();
+			 }
+		 }
 		 
 	 }
 	 

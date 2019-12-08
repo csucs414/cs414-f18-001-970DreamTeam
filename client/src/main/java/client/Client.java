@@ -30,6 +30,7 @@ public class Client extends JFrame{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int width = screenSize.width * 2 / 3;
 	int height = screenSize.height * 2 / 3;
+	String player1;
 
 	Client() {
 		fill();
@@ -280,13 +281,13 @@ public class Client extends JFrame{
 //		set list to users in database
 		for (int i = 0; i < list.size(); i++) {
 			JLabel lbl = new JLabel();
-			String user = list.get(i);
-			lbl.setText(user);
+			String player2 = list.get(i);
+			lbl.setText(player2);
 			JButton btn = new JButton("Invite");
 			btn.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					sendInvite(user);
+					sendInvite(player1, player2);
 				}
 			});
 		}
@@ -299,25 +300,43 @@ public class Client extends JFrame{
 	public void inviteDeclinced() {
 		JOptionPane.showMessageDialog(null, "Your invite was declined");
 	}
+	public void inviteFail() {
+		JOptionPane.showMessageDialog(null, "Your invite could not be sent.");
+		
+	}
+	public void inviteSuccess() {
+		JOptionPane.showMessageDialog(null, "Your invite was sent.");
+	}
 
 	public void inviteAccepted(int GameID, String opponent) {
 		//Create a new game
 		ClientGame game = new ClientGame(GameID, 0, opponent);
 		games.put(GameID, game);
 	}
+	
+	public void updateGame(int GameID, String opponent) {
+		//Create a new game
+		games.get(GameID);
+	}
+	
 
 	public void sendCredentials(String username, String password) {
 //		Checks database for credentials
 		HashMap<String,String> map=new HashMap<String,String>();
+		map.put("messageType", "Invite");
+		map.put("inviteType", "Request");
 		map.put("Name", username);
 		map.put("Password", password);
+		player1 = username;
 		comm.outbound(map);
 	}
 
-	public void sendInvite(String username) {
+	public void sendInvite(String from, String to) {
 		HashMap<String,String> map=new HashMap<String,String>();
 		map.put("messageType", "Invite");
-		map.put("Name", username);
+		map.put("From", from);
+		map.put("To", to);
+		map.put("inviteType", "request");
 		comm.outbound(map);
 	}
 
