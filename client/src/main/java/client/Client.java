@@ -317,8 +317,9 @@ public class Client extends JFrame{
 
 	public void inviteAccepted(int GameID, String opponent) {
 		//Create a new game
-		ClientGame game = new ClientGame(GameID, 0, opponent);
+		ClientGame game = new ClientGame(GameID, 0, opponent, comm);
 		games.put(GameID, game);
+
 	}
 	
 	public void updateGame(int GameID, String opponent) {
