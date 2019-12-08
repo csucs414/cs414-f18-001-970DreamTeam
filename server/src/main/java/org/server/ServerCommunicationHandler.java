@@ -9,6 +9,7 @@ import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class ServerCommunicationHandler extends Thread {
 	private Socket socket;
 	private Server server;
@@ -27,7 +28,7 @@ public class ServerCommunicationHandler extends Thread {
 	
 	private void handleMessage(Object map) {
 		message = (HashMap) map;
-		gameID = Integer.parseInt(message.get("gameID")); 
+
 		messageType = message.get("messageType");
 		
 		switch (messageType) {
@@ -135,24 +136,43 @@ public class ServerCommunicationHandler extends Thread {
 	
 	public void handleUpdate() {
 		String updatedGameState = message.get("gameBoard");
+		gameID = Integer.parseInt(message.get("gameID"));
+		String[] Players = message.get("Players").split(", ");
 		int turn = Integer.parseInt(message.get("turn"));
 		ServerGame game = server.getGame(gameID);
+
+		//update ServerGame state
 		game.updateGameState(stringBoardToArray(updatedGameState), turn);
-		
-		
-		/*for (char[] row: b) {
-			System.out.println("new row!!!!!1");
-			for (char c: row) {
-				System.out.println(c);
-			}
-		}*/		
+
+		//construct outbound Update message
+		HashMap<String, String> outboundUpdate = new HashMap<String, String>();
+		outboundUpdate.put("messageType", "Update");
+		outboundUpdate.put("gameBoard", updatedGameState);
+		outboundUpdate.put("gameID", message.get("gameID"));
+		outboundUpdate.put("Players", message.get("Players"));
+		outboundUpdate.put("To", message.get("To"));
+		outboundUpdate.put("From", message.get("From"));
+
+
+		//send updatedGameState back to both players
+		HashMap<String, Socket> playerConnections = server.playerSockets;
+		Socket player1Connection = playerConnections.get(Players[0]);
+		Socket player2Connection = playerConnections.get(Players[1]);
+
+		try {
+			ObjectOutputStream player1out = new ObjectOutputStream(player1Connection.getOutputStream());
+			ObjectOutputStream player2out = new ObjectOutputStream(player2Connection.getOutputStream());
+			player1out.writeObject(outboundUpdate);
+			player2out.writeObject(outboundUpdate);
+		} catch(Exception e) {
+			e.getStackTrace();
+		}
+
 	}
 	
 	public char[][] stringBoardToArray(String board) {
 		CharacterIterator it = new StringCharacterIterator(board);
 		char[][] formattedBoard = new char[11][11];
-		
-		
 		for (int i=0; i<formattedBoard.length; i++) {
 			for (int j=0; j<formattedBoard[i].length;j++) {
 				if (i==0 && j==0) {
@@ -162,8 +182,6 @@ public class ServerCommunicationHandler extends Thread {
 				}
 			}
 		}
-		
-		
 		return formattedBoard;
 	}
 	
