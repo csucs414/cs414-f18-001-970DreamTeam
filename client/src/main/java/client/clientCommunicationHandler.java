@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class clientCommunicationHandler extends Thread{
@@ -20,7 +22,7 @@ public class clientCommunicationHandler extends Thread{
 	 // Constructor 
 	 public clientCommunicationHandler(Socket socket, Client client){ 
 	        this.socket = socket;
-	        this.client = client;
+	        this.client = (Client)client;
 	 } 
 	 
 	 public void actOnMessage(Object map){
@@ -73,15 +75,25 @@ public class clientCommunicationHandler extends Thread{
 		int loginStatus = Integer.parseInt(message.get("Success"));
 		
 		if (loginStatus == 0) {
-			
+			client.invalidCredentials();
+		}
+		else {
+			String players = message.get("Players");
+			ArrayList<String> list = (ArrayList<String>) Arrays.asList(players.split("\\s*,\\s*"));
+			client.validCredentials(list);
 		}
 		 
 	 }
 	 private void handleRegister() {
 		 int registerStatus = Integer.parseInt(message.get("Success"));
 		 if (registerStatus == 0) {
-				
+			client.invalidCreation();
 			}
+		 else {
+			String players = message.get("Players");
+			ArrayList<String> list = (ArrayList<String>) Arrays.asList(players.split("\\s*,\\s*"));
+			client.validCredentials(list);
+		 }
 	 }
 	 private void handleUpdate() {
 		 
