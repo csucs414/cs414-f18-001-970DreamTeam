@@ -31,6 +31,7 @@ public class Client extends JFrame{
 	int width = screenSize.width * 2 / 3;
 	int height = screenSize.height * 2 / 3;
 	String player1;
+	Font font1 = new Font("TimesRoman", Font.PLAIN, 30);
 
 	Client() {
 		fill();
@@ -40,14 +41,16 @@ public class Client extends JFrame{
 		// User Label
 		user_label = new JLabel();
 		user_label.setText("User Name: ");
-		userName_text = new JTextField(10);
+		userName_text = new JTextField(15);
+		userName_text.setFont(font1);
 		userName_text.setMaximumSize(userName_text.getPreferredSize());
 
 		// Password
 
 		password_label = new JLabel();
 		password_label.setText("Password: ");
-		password_text = new JPasswordField(10);
+		password_text = new JPasswordField(15);
+		password_text.setFont(font1);
 		password_text.setMaximumSize(password_text.getPreferredSize());
 
 		// Create
@@ -128,28 +131,32 @@ public class Client extends JFrame{
 
 		user_label = new JLabel();
 		user_label.setText("User Name: ");
-		userName_text = new JTextField(10);
+		userName_text = new JTextField(15);
+		userName_text.setFont(font1);
 		userName_text.setMaximumSize(userName_text.getPreferredSize());
 
 		// Password
 
 		password_label = new JLabel();
 		password_label.setText("Password: ");
-		password_text = new JPasswordField(10);
+		password_text = new JPasswordField(15);
+		password_text.setFont(font1);
 		password_text.setMaximumSize(password_text.getPreferredSize());
 
 		// Confirm Password
 
 		confirm_label = new JLabel();
 		confirm_label.setText("Confirm Password: ");
-		confirm_password = new JPasswordField(10);
+		confirm_password = new JPasswordField(15);
+		confirm_password.setFont(font1);
 		confirm_password.setMaximumSize(confirm_password.getPreferredSize());
 
 		// Email
 
 		email = new JLabel();
 		email.setText("Email: ");
-		email_text = new JTextField(10);
+		email_text = new JTextField(15);
+		email_text.setFont(font1);
 		email_text.setMaximumSize(email_text.getPreferredSize());
 
 		submit = new JButton("SUBMIT");
