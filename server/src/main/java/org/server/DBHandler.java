@@ -1,89 +1,42 @@
 package org.server;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
+import java.sql.*;
 
 public class DBHandler {
-	
-	static final String dbUser   = "cakitten";
-	static final String dbPasswd = "83115757";
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private Connection conn;
-    private Session session;
+    private static Connection conn;
 
-    // TODO: figure out connecting to DB
-	public DBHandler() {
-        final String keypath = "~/.ssh/id_rsa";
-        final int port = 22;
-        String host = "denver.cs.colostate.edu";
-//	    String host = "129.82.44.141";
+    public DBHandler() {
+        final String dbUser      = "user";
+        final String dbPasswd    = "970dream";
+        final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        final String dburl       = "jdbc:mysql://160.153.47.5:3306/970dreamteam";
 
         try {
-            JSch jsch = new JSch();
-            jsch.addIdentity(keypath);
-            jsch.setKnownHosts("~/.ssh/known_hosts");
-            session = jsch.getSession(dbUser, host, port);
-            session.setConfig("PreferredAuthentications", "publickey,keyboard-interactive,password");
-            java.util.Properties config = new java.util.Properties();
-            config.put("StrictHostKeyChecking", "no");
-            session.setConfig(config);
-            session.connect();
-            session.setPortForwardingL(12345, "localhost", 54321);
-System.out.println(session.isConnected());
-            System.out.println(session.getPortForwardingL()[0]);
-            System.out.println("IP of my system is := "+session.getHost());
-
-        }
-        catch (JSchException e) {
-            throw new RuntimeException("Failed to create Jsch Session object.", e);
-        }
-        dbConnect();
-//        System.out.println("DB Connected");
-	}
-
-	private void dbConnect(){
-        try {
-
             Class.forName(JDBC_DRIVER);
-            String url = "jdbc:mysql://faure/" + dbUser + "?serverTimezone=UTC";
-
-            System.out.println("before conn");
-            conn = DriverManager.getConnection(url, dbUser, dbPasswd);
-            System.out.println("after conn");
-
-            System.out.println("URL: " + url);
-            System.out.println("Connection: " + conn);
-
+            conn = DriverManager.getConnection(dburl, dbUser, dbPasswd);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
     }
 
-    // addUser will return true if user was successfully removed
+    // addUser will return true if user was successfully added
     // false otherwise.
-	public boolean addUser(String userName, String passwd, String email){
-	    try {
+    public boolean addUser(String userName, String passwd, String email){
+        try {
 
-	        String query = "INSERT into users" +
-                         "(username, password, email)" +
-                         "VALUES " +
-                         "(?, ?, ?)";
+            String query = "INSERT into users" +
+                    "(Name, Password, Email)" +
+                    "VALUES " +
+                    "(?, ?, ?)";
 
-	        PreparedStatement preparedStmt = conn.prepareStatement(query);
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString (1, userName);
             preparedStmt.setString (2, passwd);
             preparedStmt.setString (3, email);
 
-	        preparedStmt.execute();
-	        return true;
+            preparedStmt.execute();
+            return true;
 
         } catch (Exception e){
             System.out.print(e);
@@ -96,7 +49,7 @@ System.out.println(session.isConnected());
     public boolean removeUser(String userName){
         try {
 
-            String query = "DELETE FROM users WHERE username = ?";
+            String query = "DELETE FROM users WHERE Name = ?";
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, userName);
 
@@ -108,33 +61,74 @@ System.out.println(session.isConnected());
             return false;
         }
     }
-	
-	public boolean verifyPassword(String userName, String passwd) {
+
+    // Checks if the user name exists. Returns true if found false otherwise
+    public boolean checkName(String userName){
+        Statement stmt;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+
+            String query = "SELECT * FROM users"+
+                           " WHERE Name = '" +
+                             userName + "'";
+            rs = stmt.executeQuery(query);
+
+            int size = countResults(rs);
+
+            return size != 0;
+
+        } catch (Exception e) {
+            System.out.print(e);
+            return false;
+        }
+    }
+
+    // Checks if the user email exists. Returns true if found false otherwise
+    public boolean checkEmail(String email){
+        Statement stmt;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+
+            String query = "SELECT * FROM users WHERE Email = '" + email + "'";
+            rs = stmt.executeQuery(query);
+            int size = countResults(rs);
+
+            return size != 0;
+
+        } catch (Exception e) {
+            System.out.print(e);
+            return false;
+        }
+    }
+
+    public boolean verifyPassword(String userName, String passwd) {
 
         Statement stmt;
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
 
-            String query = "SELECT FROM users WHERE username = " + userName + " AND password = " + passwd;
+            String query = "SELECT * FROM users WHERE Name = '"
+                           + userName + "' AND Password = '" + passwd + "'";
             rs = stmt.executeQuery(query);
+            int size = countResults(rs);
 
-            if(rs != null){
-                return true;
-            }else{
-                return false;
-            }
+            return size != 0;
 
         } catch (Exception e) {
             System.out.print(e);
+            return false;
         }
-        return false;
-	}
-
-	public static void main(String args[]){
-	    DBHandler db = new DBHandler();
-	    db.addUser("cakitten", "pass","colin@email.com");
     }
 
+    private int countResults(ResultSet results) throws SQLException {
+        int counter = 0;
+        while (results.next()) {
+            counter++;
+        }
+        return counter;
+    }
 }
 
