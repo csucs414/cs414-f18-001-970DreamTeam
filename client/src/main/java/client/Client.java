@@ -18,6 +18,10 @@ import javax.swing.*;
 
 public class Client extends JFrame{
 
+	public clientCommunicationHandler comm;
+
+	HashMap<Integer, ClientGame> games = new HashMap<Integer, ClientGame>();
+
 	JPanel panel, panel1, panel2, main, panel3, panel4;
 	JLabel user_label, password_label, message, create_label, email, confirm_label;
 	JTextField userName_text, email_text;
@@ -93,20 +97,7 @@ public class Client extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				String username = userName_text.getText();
 				String password = String.valueOf(password_text.getPassword());
-				if (validateCredentials(username, password) == false) {
-					message.setText(" Invalid user and password.. ");
-				} else {
-					// Valid credentials go to home screen
-					main.removeAll();
-					main.revalidate();
-					main.repaint();
-					getContentPane().remove(main);
-					main = home();
-					add(main, BorderLayout.CENTER);
-					setTitle("Welcome!");
-					setSize(width, height);
-					setVisible(true);
-				}
+				sendCredentials(username,password);
 			}
 		});
 
@@ -220,25 +211,17 @@ public class Client extends JFrame{
 				String email = email_text.getText();
 				String password = String.valueOf(password_text.getPassword());
 				String confirmPassword = String.valueOf(confirm_password.getPassword());
-				if (validateCreate(username,email) && validateEmail(email) && passwordsMatch(password,confirmPassword)){
-					main.removeAll();
-					main.revalidate();
-					main.repaint();
-					getContentPane().remove(main);
-					main = home();
-					add(main, BorderLayout.CENTER);
-					setTitle("Welcome!");
-					setSize(width, height);
-					setVisible(true);
+				if (validateEmail(email) && passwordsMatch(password,confirmPassword)){
+					validateCreate(username,email,password);
 				} else {
-					JOptionPane.showMessageDialog(null, "Cannot create account try again");
+					invalidCreation();
 				}
 			}
 		});
 		return main;
 	}
 
-	public JPanel home() {
+	public JPanel rules(ArrayList<String> list) {
 		JTextArea textArea = new JTextArea(
 				"Rules\n" +
 						"\n" +
@@ -274,59 +257,103 @@ public class Client extends JFrame{
 		textArea.setWrapStyleWord(true);
 		textArea.setOpaque(false);
 		textArea.setEditable(false);
-
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("Hi");
-		list.add("there");
-		list.add("by");
-		Map<Integer,String> map=new HashMap<Integer,String>();
-//		set list to users in database
-		for (int i = 0; i < list.size(); i++){
-			map.put(i, list.get(i));
-		}
-		for(Map.Entry m:map.entrySet()){
-			System.out.println(m.getKey()+" "+m.getValue());
-
-		}
 		main.add(textArea);
+
+		submit = new JButton("Got it!");
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				main.removeAll();
+				main.revalidate();
+				main.repaint();
+				getContentPane().remove(main);
+				main = users(list);
+				add(main, BorderLayout.CENTER);
+				setTitle("Welcome!");
+				setSize(width, height);
+				setVisible(true);
+			}});
+		main.add(submit);
 		return main;
 	}
 
-	public boolean validateCredentials(String username, String password) {
-//		Checks database for credentials
-		HashMap<Integer,String> map=new HashMap<Integer,String>();
-		map.put(0, username);
-		map.put(1, password);
-		socketCreation(map);
-		return true;
-	}
-
-	public void socketCreation(HashMap<Integer,String> map) {
-		try {
-			Socket sock = new Socket("localhost", 20001);
-			ObjectOutputStream output = new ObjectOutputStream(sock.getOutputStream());
-			output.writeObject(map);
-			output.close();
-			sock.close();
-//			new clientCommunicationHandler(sock);
-		} catch (IOException e){
-
+	public JPanel users(ArrayList<String> list) {
+//		set list to users in database
+		for (int i = 0; i < list.size(); i++) {
+			JLabel lbl = new JLabel();
+			String user = list.get(i);
+			lbl.setText(user);
+			JButton btn = new JButton("Invite");
+			btn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					sendInvite(user);
+				}
+			});
 		}
 
+		submit = new JButton("Got it!");
+		main.add(submit);
+		return main;
 	}
 
-	public boolean validateCreate(String username, String email){
+	public void inviteDeclinced() {
+		JOptionPane.showMessageDialog(null, "Your invite was declined");
+	}
+
+	public void inviteAccepted(int GameID, String opponent) {
+		//Create a new game
+		ClientGame game = new ClientGame(GameID, 0, opponent);
+		games.put(GameID, game);
+	}
+
+	public void sendCredentials(String username, String password) {
+//		Checks database for credentials
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put("Name", username);
+		map.put("Password", password);
+		comm.outbound(map);
+	}
+
+	public void sendInvite(String username) {
+		HashMap<String,String> map=new HashMap<String,String>();
+		map.put("messageType", "Invite");
+		map.put("Name", username);
+		comm.outbound(map);
+	}
+
+	public void invalidCredentials(){
+		message.setText(" Invalid user and password.. ");
+	}
+
+	public void invalidCreation() {
+		JOptionPane.showMessageDialog(null, "Cannot create account try again");
+	}
+
+	public void validCredentials(ArrayList<String> list){
+		main.removeAll();
+		main.revalidate();
+		main.repaint();
+		getContentPane().remove(main);
+		main = rules(list);
+		add(main, BorderLayout.CENTER);
+		setTitle("Welcome!");
+		setSize(width, height);
+		setVisible(true);
+
+	}
+
+	public void validateCreate(String username, String email, String password){
 //		Checks that username and email aren't already taken
-		HashMap<Integer,String> map=new HashMap<Integer,String>();
-		map.put(0, username);
-		map.put(1, email);
-		socketCreation(map);
-		return true;
+		HashMap<String,String> map=new HashMap<String, String>();
+		map.put("Name", username);
+		map.put("Email", email);
+		map.put("Password", password);
+		comm.outbound(map);
 	}
 
 	public boolean validateEmail(String email){
 //		Checks email includes @
-		String regex = "^(.+)@(.+)$";
+		String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
 		Pattern pattern = Pattern.compile(regex);
 
 		Matcher matcher = pattern.matcher(email);
@@ -338,7 +365,14 @@ public class Client extends JFrame{
 	}
 
 	public static void main (String[]args){
-		new Client();
+		Client temp = new Client();
+		try {
+			Socket sock = new Socket("localhost", 20001);
+			temp.comm = new clientCommunicationHandler(sock,temp);
+			temp.comm.start();
+		} catch (IOException e){
+
+		}
 	}
 
 }
