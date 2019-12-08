@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServerCommunicationHandler extends Thread {
@@ -31,7 +32,9 @@ public class ServerCommunicationHandler extends Thread {
 		
 		switch (messageType) {
 			case "Login":
+				handleInput("Login"); break;
 			case "Register":
+				handleInput("Register"); break;
 			case "Update":
 				handleUpdate(); break;
 			case "Invite":
@@ -39,36 +42,64 @@ public class ServerCommunicationHandler extends Thread {
 				System.out.println("Messsage Failure! "+messageType+" is not a valid messageType");
  		}
 	}
-	
-	public void handleLogin() {
-		HashMap<String, String> loginMessage = new HashMap<String, String>();
-	}
-	
-	public void handleRegister() {
-		HashMap<String, String> registerMessage = new HashMap<String, String>();
-		registerMessage.put("messageType", "Register");
-		//if (!dbhandler.checkName(message.get("Name"))) {
-		//	registerMessage.put("Success", "0");
-			
-		//}
-		if (!dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"))) {
-			registerMessage.put("Success", "0");
-			registerMessage.put("errorCode", "");
+
+	public void handleInput(String type) {
+		HashMap<String, String> inputMessage = new HashMap<String, String>();
+		
+		if (type == "Login") inputMessage.put("messageType", "Login");
+		else inputMessage.put("messageType", "Register");
+		
+		boolean boolName = dbhandler.checkName(message.get("Name"));
+		boolean boolEmail = true;
+		if (type == "Register") boolEmail = dbhandler.checkEmail(message.get("Email"));
+		
+		if (type == "Login" && !boolName) {
+			inputMessage.put("Success", "0");
+			inputMessage.put("errorCode", "name");
+		}
+		else if (type == "Register" && boolName) {
+			inputMessage.put("Success", "0");
+			inputMessage.put("errorCode", "name");
+		}
+		else if (type == "Register" && boolEmail) {
+			inputMessage.put("Success", "0");
+			inputMessage.put("errorCode", "email");
 		}
 		
 		else {
-			registerMessage.put("messageType", "Register");
-			registerMessage.put("Success", "1");
+			boolean success = false;
+			if (type == "Register") {
+				 success = dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"));
+			}
+			else if (type == "Login") {
+				success = dbhandler.verifyPassword(message.get("Name"), message.get("Password"));
+			}
+			
+			if (success == false) {
+				inputMessage.put("Success", "0");
+				if (type == "Login") inputMessage.put("errorCode", "password");
+				else inputMessage.put("errorCode", "database");
+			}
+			else {
+				inputMessage.put("Success", "1");
+				inputMessage.put("errorCode", null);
+			}
 		}
 		
+		String players = "";
+		ArrayList<String> onlinePlayers = server.getOnlinePlayers();
+		for (int i = 0; i < onlinePlayers.size(); i++) {
+			players += onlinePlayers.get(i) + ",";
+		}
+		inputMessage.put("Players", players);
+		
 		try {
-			output.writeObject(registerMessage);
+			output.writeObject(inputMessage);
 			} catch(IOException e) {
 				System.out.println("ERROR! Cannot write to output!");
 			}
-		
-		handleLogin();
 	}
+	
 	
 	public void handleUpdate() {
 		String updatedGameState = message.get("gameBoard");
