@@ -32,7 +32,9 @@ public class ServerCommunicationHandler extends Thread {
 		
 		switch (messageType) {
 			case "Login":
+				handleInput("Login"); break;
 			case "Register":
+				handleInput("Register"); break;
 			case "Update":
 				handleUpdate(); break;
 			case "Invite":
@@ -40,27 +42,51 @@ public class ServerCommunicationHandler extends Thread {
 				System.out.println("Messsage Failure! "+messageType+" is not a valid messageType");
  		}
 	}
-	
-	public void handleLogin() {
-		HashMap<String, String> loginMessage = new HashMap<String, String>();
-		loginMessage.put("messageType", "Login");
-		if (!dbhandler.checkName(message.get("Name"))) {
-			loginMessage.put("Success", "0");
-			loginMessage.put("errorCode", "name");
-			
+
+	public void handleInput(String type) {
+		HashMap<String, String> inputMessage = new HashMap<String, String>();
+		
+		if (type == "Login") inputMessage.put("messageType", "Login");
+		else inputMessage.put("messageType", "Register");
+		
+		boolean boolName = dbhandler.checkName(message.get("Name"));
+		boolean boolEmail = dbhandler.checkEmail(message.get("Email"));
+		
+		if (type == "Login" && !boolName) {
+			inputMessage.put("Success", "0");
+			inputMessage.put("errorCode", "name");
 		}
-		else if (!dbhandler.checkEmail(message.get("Email"))) {
-			loginMessage.put("Success", "0");
-			loginMessage.put("errorCode", "email");
+		else if (type == "Login" && !boolEmail) {
+			inputMessage.put("Success", "0");
+			inputMessage.put("errorCode", "email");
 		}
-		else if (!dbhandler.verifyPassword(message.get("Name"), message.get("Password"))) {
-			loginMessage.put("Success", "0");
-			loginMessage.put("errorCode", "password");
+		else if (type == "Register" && boolName) {
+			inputMessage.put("Success", "0");
+			inputMessage.put("errorCode", "name");
+		}
+		else if (type == "Register" && boolEmail) {
+			inputMessage.put("Success", "0");
+			inputMessage.put("errorCode", "email");
 		}
 		
 		else {
-			loginMessage.put("Success", "1");
-			loginMessage.put("errorCode", null);
+			boolean success = false;
+			if (type == "Register") {
+				 success = dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"));
+			}
+			else if (type == "Login") {
+				success = dbhandler.verifyPassword(message.get("Name"), message.get("Password"));
+			}
+			
+			if (success == false) {
+				inputMessage.put("Success", "0");
+				if (type == "Login") inputMessage.put("errorCode", "password");
+				else inputMessage.put("errorCode", "database");
+			}
+			else {
+				inputMessage.put("Success", "1");
+				inputMessage.put("errorCode", null);
+			}
 		}
 		
 		String players = "";
@@ -68,44 +94,15 @@ public class ServerCommunicationHandler extends Thread {
 		for (int i = 0; i < onlinePlayers.size(); i++) {
 			players += onlinePlayers.get(i) + ",";
 		}
-		loginMessage.put("Players", players);
+		inputMessage.put("Players", players);
+		
 		try {
-			output.writeObject(loginMessage);
+			output.writeObject(inputMessage);
 			} catch(IOException e) {
 				System.out.println("ERROR! Cannot write to output!");
 			}
 	}
 	
-	public void handleRegister() {
-		HashMap<String, String> registerMessage = new HashMap<String, String>();
-		registerMessage.put("messageType", "Register");
-		if (!dbhandler.checkName(message.get("Name"))) {
-			registerMessage.put("Success", "0");
-			registerMessage.put("errorCode", "name");
-			
-		}
-		else if (!dbhandler.checkEmail(message.get("Email"))) {
-			registerMessage.put("Success", "0");
-			registerMessage.put("errorCode", "email");
-		}
-		else if (!dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"))) {
-			registerMessage.put("Success", "0");
-			registerMessage.put("errorCode", "database");
-		}
-		
-		else {
-			registerMessage.put("Success", "1");
-			registerMessage.put("errorCode", null);
-		}
-		
-		try {
-			output.writeObject(registerMessage);
-			} catch(IOException e) {
-				System.out.println("ERROR! Cannot write to output!");
-			}
-		
-		handleLogin();
-	}
 	
 	public void handleUpdate() {
 		String updatedGameState = message.get("gameBoard");
