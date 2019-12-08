@@ -78,7 +78,10 @@ public class clientCommunicationHandler extends Thread{
 		 
 	 }
 	 private void handleRegister() {
-		 
+		 int registerStatus = Integer.parseInt(message.get("Success"));
+		 if (registerStatus == 0) {
+				
+			}
 	 }
 	 private void handleUpdate() {
 		 
