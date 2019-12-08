@@ -6,21 +6,21 @@ import java.time.OffsetDateTime;
 public class ServerGame {
 	private char[][] gameBoard;
 	private Socket[] playerSockets;
-	private int[] playerIDs;
+	private String[] playerIDs;
 	private int turn;
 	private OffsetDateTime startTime;
 	
 	/**
      * Constructor
      */
-	ServerGame(char[][] gameBoard, int[] players, int turn, Socket[] playerSockets) {
+	ServerGame(char[][] gameBoard, String[] players, int turn, Socket[] playerSockets) {
 		this.gameBoard = gameBoard;
 		this.playerIDs = players;
 		this.playerSockets = playerSockets;
 		this.turn = turn;
 	}
 	
-	ServerGame(int[] players, Socket[] playerSockets) {
+	ServerGame(String[] players, Socket[] playerSockets) {
 		this.playerIDs = players;
 		this.playerSockets = playerSockets;
 		turn = 0;
@@ -43,7 +43,7 @@ public class ServerGame {
 		this.turn = turn;
 	}
 	
-	public int[] getPlayers() {
+	public String[] getPlayers() {
 		return this.playerIDs;
 	}
 	
