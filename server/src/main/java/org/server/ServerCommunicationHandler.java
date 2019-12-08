@@ -50,15 +50,12 @@ public class ServerCommunicationHandler extends Thread {
 		else inputMessage.put("messageType", "Register");
 		
 		boolean boolName = dbhandler.checkName(message.get("Name"));
-		boolean boolEmail = dbhandler.checkEmail(message.get("Email"));
+		boolean boolEmail = true;
+		if (type == "Register") boolEmail = dbhandler.checkEmail(message.get("Email"));
 		
 		if (type == "Login" && !boolName) {
 			inputMessage.put("Success", "0");
 			inputMessage.put("errorCode", "name");
-		}
-		else if (type == "Login" && !boolEmail) {
-			inputMessage.put("Success", "0");
-			inputMessage.put("errorCode", "email");
 		}
 		else if (type == "Register" && boolName) {
 			inputMessage.put("Success", "0");
