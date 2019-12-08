@@ -9,10 +9,11 @@ import java.lang.reflect.Method;
 import org.junit.jupiter.api.Test;
 
 class ClientGameTest {
+	clientCommunicationHandler temp;
 	//TESTS FOR BOARD BUILD
 	@Test 
 	public void testBoardBuildCorners() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
 		privateMethod.setAccessible(true);
 		char[][] board = (char[][]) privateMethod.invoke(game);
@@ -25,7 +26,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testBoardBuildKing() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
 		privateMethod.setAccessible(true);
 		char[][] board = (char[][]) privateMethod.invoke(game);
@@ -37,7 +38,7 @@ class ClientGameTest {
 	
 	@Test 
 	public void testBoardBuildBlackPiecesLeft() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
 		privateMethod.setAccessible(true);
 		char[][] board = (char[][]) privateMethod.invoke(game);
@@ -53,7 +54,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testBoardBuildBlackPiecesRight() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
 		privateMethod.setAccessible(true);
 		char[][] board = (char[][]) privateMethod.invoke(game);
@@ -70,7 +71,7 @@ class ClientGameTest {
 	
 	@Test 
 	public void testBoardBuildBlackPiecesTop() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
 		privateMethod.setAccessible(true);
 		char[][] board = (char[][]) privateMethod.invoke(game);
@@ -86,7 +87,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testBoardBuildBlackPiecesBottom() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		Method privateMethod = ClientGame.class.getDeclaredMethod("buildBoard");
 		privateMethod.setAccessible(true);
 		char[][] board = (char[][]) privateMethod.invoke(game);
@@ -103,7 +104,7 @@ class ClientGameTest {
 	
 	@Test 
 	public void testMoveValidatorDownFalse(){ 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {1,7}; 
 		int[]to = {2,7}; 
 		//Checks that move is false when moving empty down 
@@ -111,7 +112,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatorDownTrue() { 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {1,5}; 
 		int[]to = {2,5}; 
 		//Checks that move is false when moving empty down 
@@ -120,7 +121,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatorUpFalse(){ 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {10,5}; 
 		int[]to = {9,5}; 
 		//Checks that move is false when moving up onto another piece
@@ -128,7 +129,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatorUpTrue() { 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {9,5}; 
 		int[]to = {8,5}; 
 		//Checks that move is true when moving up 
@@ -136,7 +137,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatorRightFalse(){ 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {5,5}; 
 		int[]to = {5,6}; 
 		//Checks that move is false when moving right onto another piece
@@ -144,7 +145,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatoRightTrue() { 
-		ClientGame game = new ClientGame(1, 1, "other"); 
+		ClientGame game = new ClientGame(1, 1, "other", temp);
 		int[]from = {5,7}; 
 		int[]to = {5,8}; 
 		//Checks that move is true when moving right 
@@ -152,7 +153,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatorLeftFalse(){ 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {5,10}; 
 		int[]to = {5,9}; 
 		//Checks that move is false when moving left onto another piece
@@ -160,7 +161,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMoveValidatoLeftTrue() { 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {7,10}; 
 		int[]to = {7,9}; 
 		//Checks that move is true when moving left 
@@ -169,7 +170,7 @@ class ClientGameTest {
 	//test for debugging update game state method
 	@Test 
 	public void testMoveValidatoLeftUpdate() { 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {10,3}; 
 		int[]to = {10,1}; 
 		//Checks that move is true when moving left 
@@ -177,7 +178,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMovePieceDown() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {0,7}; 
 		int[] to = {1,7}; 
 		char[][] board = game.getBoard();
@@ -192,7 +193,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMovePieceUp() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {5,7}; 
 		int[] to = {5,6}; 
 		char[][] board = game.getBoard();
@@ -207,7 +208,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMovePieceRight() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {5,7}; 
 		int[] to = {5,8}; 
 		char[][] board = game.getBoard();
@@ -222,7 +223,7 @@ class ClientGameTest {
 	}
 	@Test 
 	public void testMovePieceLeft() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {10,3}; 
 		int[] to = {10,2}; 
 		char[][] board = game.getBoard();
@@ -236,7 +237,7 @@ class ClientGameTest {
 		assertEquals(board[10] [2], 'b');
 	}
 	public void testMovePieceMultipleDown() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {5,1}; 
 		int[] to = {10,1};
 		
@@ -251,7 +252,7 @@ class ClientGameTest {
 		assertEquals(board[10] [1], 'b');
 	}
 	public void testMovePieceMultipleUp() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {5,3}; 
 		int[] to = {5,1};
 		
@@ -266,7 +267,7 @@ class ClientGameTest {
 		assertEquals(board[5] [1], 'w');
 	}
 	public void testMovePieceMultipleLeft() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {3,5}; 
 		int[] to = {1,5};
 		
@@ -281,7 +282,7 @@ class ClientGameTest {
 		assertEquals(board[10] [1], 'w');
 	}
 	public void testMovePieceMultipleRight() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[] from = {0,7}; 
 		int[] to = {4,7};
 		
@@ -298,7 +299,7 @@ class ClientGameTest {
 	//really specific test case to try to find bug in UpdateGameState 
 	//THIS PASSES, PROBLEM IS IN FIRST IF STATEMENT OF MOVEVALIDATOR
 	public void testMovePieceLeftForUpdateGame() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int[]from = {10,3}; 
 		int[]to = {10,0}; 
 		
@@ -313,7 +314,7 @@ class ClientGameTest {
 		assertEquals(board[10] [0], 'b');
 	}
 	public void testUpdateGameStateLeftMultiple() throws IOException{ 
-		ClientGame game = new ClientGame(1, 0, "other"); 
+		ClientGame game = new ClientGame(1, 0, "other", temp);
 		int[]from = {10,3}; 
 		int[]to = {10,1}; 
 		game.updateGameState(from, to);
@@ -323,7 +324,7 @@ class ClientGameTest {
 	}
 	@Test
 	public void testFindKing() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
         //get private method to be able to use it
 		Method privateMethod = ClientGame.class.getDeclaredMethod("findKingLocation");
 		privateMethod.setAccessible(true);
@@ -336,12 +337,12 @@ class ClientGameTest {
 	}
 	@Test
 	public void testCountBlackPieces() {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		assertEquals(game.countBlackPieces(), 24);
 	}
 	@Test
 	public void testValidPieceT() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other", temp);
 		int x = 0;
 		int y = 3;
         //get private method to be able to use it
@@ -353,7 +354,7 @@ class ClientGameTest {
 	}
 	@Test
 	public void testValidPieceF() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		ClientGame game =  new ClientGame(1, 0, "other");
+		ClientGame game =  new ClientGame(1, 0, "other",temp);
 		int x = 5;
 		int y = 4;
         //get private method to be able to use it
