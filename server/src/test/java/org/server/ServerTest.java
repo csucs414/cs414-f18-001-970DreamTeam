@@ -12,7 +12,7 @@ class ServerTest {
 	@Test
 	public void createNewGameTest() {
 		Server server = new Server();
-		int[] players = {1231, 3435};
+		String[] players = {"1231", "3435"};
 		Socket[] socks = {};
 		server.createNewGame(players, socks);
 		assertNotNull(server.getGame(0));
@@ -21,7 +21,7 @@ class ServerTest {
 	@Test
 	public void deleteGameTest() {
 		Server server = new Server();
-		int[] players = {1231, 3435};
+		String[] players = {"1231", "3435"};
 		Socket[] socks = {};
 		server.createNewGame(players, socks);
 		server.deleteGame(0);

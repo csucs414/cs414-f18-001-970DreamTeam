@@ -38,11 +38,43 @@ public class ServerCommunicationHandler extends Thread {
 			case "Update":
 				handleUpdate(); break;
 			case "Invite":
+				handleInvite(); break;
 			default:
 				System.out.println("Messsage Failure! "+messageType+" is not a valid messageType");
  		}
 	}
-
+	
+	public void handleInvite() {
+		if (message.get("inviteType") == "Response") {
+			if (message.get("Response") == "Accept") {
+				String[] players = {message.get("From"), message.get("To")};
+				Socket[] sockets = {server.playerSockets.get(message.get("From")), server.playerSockets.get(message.get("To"))};
+				int gameID = server.createNewGame(players,  sockets);
+				message.put("gameID", Integer.toString(gameID));
+			}
+		}
+		
+		if (!server.getOnlinePlayers().contains(message.get("to"))) {
+			message.put("Success", "0");
+			try {
+				output.writeObject(message);
+			} catch (IOException e) {
+				System.out.println("Request Input Failure in handleInvite!");
+			}
+		}
+			
+		else {
+			message.put("Success", "1");
+			Socket outsocket = server.playerSockets.get(message.get("To"));
+			try {
+				ObjectOutputStream outputMessage = new ObjectOutputStream(outsocket.getOutputStream());
+				outputMessage.writeObject(message);
+			} catch (IOException e) {
+				System.out.println("Request Input Failure in handleInvite!");
+			}
+		}
+	}
+		
 	public void handleInput(String type) {
 		HashMap<String, String> inputMessage = new HashMap<String, String>();
 		
@@ -130,7 +162,6 @@ public class ServerCommunicationHandler extends Thread {
 				}
 			}
 		}
-		
 		
 		
 		return formattedBoard;

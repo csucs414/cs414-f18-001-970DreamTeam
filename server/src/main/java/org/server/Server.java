@@ -10,17 +10,18 @@ import java.util.HashMap;
 public class Server {
 
 	private HashMap<Integer, ServerGame> games = new HashMap<Integer, ServerGame>();
-	private HashMap<Integer, Socket> playerSockets = new HashMap<Integer, Socket>();
+	public HashMap<String, Socket> playerSockets = new HashMap<String, Socket>();
 	private ArrayList<String> onlinePlayers = new ArrayList<String>();
-	private static int nextGameID = 0;
+	public static int nextGameID = 0;
 	private Socket serverSocket;
 	
 
-	public void createNewGame(int[] playerIDs,  Socket[] playerSockets) {
+	public int createNewGame(String[] playerIDs,  Socket[] playerSockets) {
 		ServerGame newGame = new ServerGame(playerIDs, playerSockets);
 		int newGameID = nextGameID;
 		nextGameID += 1;
 		games.put(newGameID, newGame);
+		return newGameID;
 	}
 
 	public void deleteGame(int gameID) {
