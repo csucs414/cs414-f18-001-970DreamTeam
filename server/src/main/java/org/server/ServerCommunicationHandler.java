@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServerCommunicationHandler extends Thread {
@@ -42,23 +43,59 @@ public class ServerCommunicationHandler extends Thread {
 	
 	public void handleLogin() {
 		HashMap<String, String> loginMessage = new HashMap<String, String>();
+		loginMessage.put("messageType", "Login");
+		if (!dbhandler.checkName(message.get("Name"))) {
+			loginMessage.put("Success", "0");
+			loginMessage.put("errorCode", "name");
+			
+		}
+		else if (!dbhandler.checkEmail(message.get("Email"))) {
+			loginMessage.put("Success", "0");
+			loginMessage.put("errorCode", "email");
+		}
+		else if (!dbhandler.verifyPassword(message.get("Name"), message.get("Password"))) {
+			loginMessage.put("Success", "0");
+			loginMessage.put("errorCode", "password");
+		}
+		
+		else {
+			loginMessage.put("Success", "1");
+			loginMessage.put("errorCode", null);
+		}
+		
+		String players = "";
+		ArrayList<String> onlinePlayers = server.getOnlinePlayers();
+		for (int i = 0; i < onlinePlayers.size(); i++) {
+			players += onlinePlayers.get(i) + ",";
+		}
+		loginMessage.put("Players", players);
+		try {
+			output.writeObject(loginMessage);
+			} catch(IOException e) {
+				System.out.println("ERROR! Cannot write to output!");
+			}
 	}
 	
 	public void handleRegister() {
 		HashMap<String, String> registerMessage = new HashMap<String, String>();
 		registerMessage.put("messageType", "Register");
-		//if (!dbhandler.checkName(message.get("Name"))) {
-		//	registerMessage.put("Success", "0");
-			
-		//}
-		if (!dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"))) {
+		if (!dbhandler.checkName(message.get("Name"))) {
 			registerMessage.put("Success", "0");
-			registerMessage.put("errorCode", "");
+			registerMessage.put("errorCode", "name");
+			
+		}
+		else if (!dbhandler.checkEmail(message.get("Email"))) {
+			registerMessage.put("Success", "0");
+			registerMessage.put("errorCode", "email");
+		}
+		else if (!dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"))) {
+			registerMessage.put("Success", "0");
+			registerMessage.put("errorCode", "database");
 		}
 		
 		else {
-			registerMessage.put("messageType", "Register");
 			registerMessage.put("Success", "1");
+			registerMessage.put("errorCode", null);
 		}
 		
 		try {
