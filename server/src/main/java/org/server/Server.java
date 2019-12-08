@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Server {
 
 	private HashMap<Integer, ServerGame> games = new HashMap<Integer, ServerGame>();
-	private HashMap<Integer, Socket> playerSockets = new HashMap<Integer, Socket>();
+	public HashMap<String, Socket> playerSockets = new HashMap<String, Socket>();
 	private ArrayList<String> onlinePlayers = new ArrayList<String>();
 	private static int nextGameID = 0;
 	private Socket serverSocket;
