@@ -70,6 +70,7 @@ public class ServerCommunicationHandler extends Thread {
 		else {
 			message.put("Success", "1");
 			System.out.println("Invite send from "+message.get("From")+ " to "+ message.get("To"));
+			System.out.println("GameID = "+ message.get("gameID"));
 			ObjectOutputStream outsocket = server.playerSockets.get(message.get("To"));
 			try {
 				outsocket.reset();
