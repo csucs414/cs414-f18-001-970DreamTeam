@@ -30,6 +30,7 @@ public class ServerCommunicationHandler extends Thread {
 		message = (HashMap) map;
 
 		messageType = message.get("messageType");
+		System.out.println("Server Received a "+ messageType + " Message.");
 		
 		switch (messageType) {
 			case "Login":
@@ -46,6 +47,7 @@ public class ServerCommunicationHandler extends Thread {
 	}
 	
 	public void handleInvite() {
+		System.out.println("Entered handleInvite Method.");
 		if (message.get("inviteType") == "Response") {
 			if (message.get("Response") == "Accept") {
 				String[] players = {message.get("From"), message.get("To")};
@@ -55,9 +57,10 @@ public class ServerCommunicationHandler extends Thread {
 			}
 		}
 		
-		if (!server.getOnlinePlayers().contains(message.get("to"))) {
+		if (!server.getOnlinePlayers().contains(message.get("To"))) {
 			message.put("Success", "0");
 			try {
+				output.reset();
 				output.writeObject(message);
 			} catch (IOException e) {
 				System.out.println("Request Input Failure in handleInvite!");
@@ -66,9 +69,10 @@ public class ServerCommunicationHandler extends Thread {
 			
 		else {
 			message.put("Success", "1");
+			System.out.println("Invite send from "+message.get("From")+ " to "+ message.get("To"));
 			ObjectOutputStream outsocket = server.playerSockets.get(message.get("To"));
 			try {
-				outsocket.flush();
+				outsocket.reset();
 				outsocket.writeObject(message);
 			} catch (IOException e) {
 				System.out.println("Request Input Failure in handleInvite!");
@@ -114,7 +118,9 @@ public class ServerCommunicationHandler extends Thread {
 				else inputMessage.put("errorCode", "database");
 			}
 			else {
-				server.playerSockets.put("Name", output);
+				server.playerSockets.put(message.get("Name"), output);
+				server.addPlayer(message.get("Name"));
+				System.out.println("Player "+message.get("Name")+ " Connected.");
 				inputMessage.put("Success", "1");
 				inputMessage.put("errorCode", null);
 			}
@@ -123,10 +129,10 @@ public class ServerCommunicationHandler extends Thread {
 		String players = "";
 		ArrayList<String> onlinePlayers = server.getOnlinePlayers();
 		for (int i = 0; i < onlinePlayers.size(); i++) {
-			players += onlinePlayers.get(i) + ",";
+			players += onlinePlayers.get(i) + ", ";
 		}
 		inputMessage.put("Players", players);
-		
+		inputMessage.put("Name", message.get("Name"));
 		try {
 			output.writeObject(inputMessage);
 			} catch(IOException e) {
@@ -163,8 +169,8 @@ public class ServerCommunicationHandler extends Thread {
 		ObjectOutputStream player2Connection = playerConnections.get(Players[1]);
 
 		try {
-			player1Connection.flush();
-			player2Connection.flush();
+			player1Connection.reset();
+			player2Connection.reset();
 
 			player1Connection.writeObject(outboundUpdate);
 			player1Connection.flush();
@@ -197,7 +203,14 @@ public class ServerCommunicationHandler extends Thread {
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
 			input = new ObjectInputStream(socket.getInputStream());
-			handleMessage(input.readObject());	
+			//handleMessage(input.readObject());
+			while (true) {
+				Object in =null;
+				if ((in = input.readObject()) != null) {
+					handleMessage(in);
+				}
+			}
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
