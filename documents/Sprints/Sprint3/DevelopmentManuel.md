@@ -27,7 +27,7 @@ you are using is capable of using JUnit 5. Two IDEs that have JUnit 5 installed 
 IntelliJ and Eclipse.
 
 To set up JUnit 5 the process is very clear cut simply add the following dependency to your pom.xml:
-![dependency example](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/JUnit%20dependency%20example.png)
+![dependency example](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/documents/images/JUnit%20dependency%20example.png)
 
 Modules
 =====
