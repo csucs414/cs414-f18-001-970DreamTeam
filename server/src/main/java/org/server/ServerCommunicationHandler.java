@@ -48,8 +48,9 @@ public class ServerCommunicationHandler extends Thread {
 	
 	public void handleInvite() {
 		System.out.println("Entered handleInvite Method.");
-		if (message.get("inviteType") == "Response") {
-			if (message.get("Response") == "Accept") {
+		if (message.get("inviteType").equals("Response")) {
+			if (message.get("Response").equals("Accept")) {
+				System.out.println("Inside Response Condition.");
 				String[] players = {message.get("From"), message.get("To")};
 				ObjectOutputStream[] sockets = {server.playerSockets.get(message.get("From")), server.playerSockets.get(message.get("To"))};
 				int gameID = server.createNewGame(players,  sockets);
@@ -70,6 +71,7 @@ public class ServerCommunicationHandler extends Thread {
 		else {
 			message.put("Success", "1");
 			System.out.println("Invite send from "+message.get("From")+ " to "+ message.get("To"));
+			System.out.println("GameID = "+ message.get("gameID"));
 			ObjectOutputStream outsocket = server.playerSockets.get(message.get("To"));
 			try {
 				outsocket.reset();
@@ -102,7 +104,7 @@ public class ServerCommunicationHandler extends Thread {
 	public void handleInput(String type) {
 		HashMap<String, String> inputMessage = new HashMap<String, String>();
 		
-		if (type == "Login") inputMessage.put("messageType", "Login");
+		if (type.equals("Login")) inputMessage.put("messageType", "Login");
 		else inputMessage.put("messageType", "Register");
 		
 		boolean boolName = dbhandler.checkName(message.get("Name"));

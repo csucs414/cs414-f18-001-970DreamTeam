@@ -27,6 +27,11 @@ public class ClientGame {
 		players = playerArray;
 		this.gameBoard = buildBoard();
 		gameGUI = new ClientGUI(this);
+		try {
+			gameGUI.displayGame();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public char[][] buildBoard() {
@@ -275,5 +280,7 @@ public class ClientGame {
 	public int getTurn() {
 		return turn;
 	}
-	
+
+
+
 }

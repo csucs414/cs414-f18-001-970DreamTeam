@@ -172,25 +172,7 @@ public class ClientGUI {
 	private JToolBar getToolBar() {
 		JToolBar tools = new JToolBar();
 		tools.setFloatable(false);
-		
-		//Removed New Game button
-		//Feature belongs in Client not ClientGame
-		
-		/*JButton newGameButton = new JButton("New Game");
-		newGameButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				game.buildBoard();
-				playerDisplay.setText("Turn: Player "+ Integer.toString(game.getTurn()+1));
-				try {
-					setPieceLocations();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}});
-		tools.add(newGameButton);*/
-		
+
 		JButton quitGameButton = new JButton("Quit");
 		quitGameButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
