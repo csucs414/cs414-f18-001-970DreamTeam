@@ -2,6 +2,7 @@ package org.server;
 
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -9,14 +10,14 @@ import java.util.HashMap;
 
 public class Server {
 
-	private HashMap<Integer, ServerGame> games = new HashMap<Integer, ServerGame>();
-	public HashMap<String, Socket> playerSockets = new HashMap<String, Socket>();
+	public HashMap<Integer, ServerGame> games = new HashMap<Integer, ServerGame>();
+	public HashMap<String, ObjectOutputStream> playerSockets = new HashMap<String, ObjectOutputStream>();
 	private ArrayList<String> onlinePlayers = new ArrayList<String>();
 	public static int nextGameID = 0;
 	private Socket serverSocket;
 	
 
-	public int createNewGame(String[] playerIDs,  Socket[] playerSockets) {
+	public int createNewGame(String[] playerIDs,  ObjectOutputStream[] playerSockets) {
 		ServerGame newGame = new ServerGame(playerIDs, playerSockets);
 		int newGameID = nextGameID;
 		nextGameID += 1;
