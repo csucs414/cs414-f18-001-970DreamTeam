@@ -62,26 +62,27 @@ Players are able to register a new account, login to an existing account, see ot
 |12-8|#66|#62, #63, #65|Finishing up project|Soto, Popesh, Nardos, Kitten||
 
 **These Epics were completed:**
-
-    
+11, 8, 1, 2, 4, 12, 5
 
 **Incomplete epics in Sprint Backlog:**
+7, 10
 
 **These Epics were not completed:**
+7, 10
 
 **What went well:**
-
+Communication was a strongpoint, less meetings more coding, hit our stride at the end
 
 **What we changed this sprint:**
-
+Less meetings due to increased comfort with class and eachother
     
 **What we did well:**
-
+Debug and take care of any issue that arose
 
 **What we need to work on:**
-
+Leaving more time for refactoring and testing
 
 **What we will change next sprint:**
-
+N/A last sprint of the semester
     
 
