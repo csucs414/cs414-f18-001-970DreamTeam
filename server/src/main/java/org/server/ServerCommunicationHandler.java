@@ -46,7 +46,6 @@ public class ServerCommunicationHandler extends Thread {
 
 	public void handleInput(String type) {
 		HashMap<String, String> inputMessage = new HashMap<String, String>();
-		
 		if (type == "Login") inputMessage.put("messageType", "Login");
 		else inputMessage.put("messageType", "Register");
 		
@@ -70,9 +69,11 @@ public class ServerCommunicationHandler extends Thread {
 		else {
 			boolean success = false;
 			if (type == "Register") {
+				System.out.println("Branch 1");
 				 success = dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"));
 			}
 			else if (type == "Login") {
+				System.out.println("Branch 2");
 				success = dbhandler.verifyPassword(message.get("Name"), message.get("Password"));
 			}
 			
@@ -82,8 +83,15 @@ public class ServerCommunicationHandler extends Thread {
 				else inputMessage.put("errorCode", "database");
 			}
 			else {
-				inputMessage.put("Success", "1");
-				inputMessage.put("errorCode", null);
+				try {
+					server.playerSockets.put(message.get("Name"), output);
+					System.out.println("Player "+ message.get("Name")+" Connected....");
+					System.out.println(server.playerSockets.size());
+					inputMessage.put("Success", "1");
+					inputMessage.put("errorCode", null);
+				} catch (Exception e) {
+					e.getStackTrace();
+				}
 			}
 		}
 		
@@ -99,18 +107,21 @@ public class ServerCommunicationHandler extends Thread {
 			} catch(IOException e) {
 				System.out.println("ERROR! Cannot write to output!");
 			}
+
 	}
 	
 	
 	public void handleUpdate() {
+
 		String updatedGameState = message.get("gameBoard");
 		gameID = Integer.parseInt(message.get("gameID"));
 		String[] Players = message.get("Players").split(", ");
 		int turn = Integer.parseInt(message.get("turn"));
 		ServerGame game = server.getGame(gameID);
-
+		System.out.println("Players: "+ Players[0]+": "+ Players[1]);
 		//update ServerGame state
-		game.updateGameState(stringBoardToArray(updatedGameState), turn);
+
+		//game.updateGameState(stringBoardToArray(updatedGameState), turn);
 
 		//construct outbound Update message
 		HashMap<String, String> outboundUpdate = new HashMap<String, String>();
@@ -123,15 +134,22 @@ public class ServerCommunicationHandler extends Thread {
 
 
 		//send updatedGameState back to both players
-		HashMap<String, Socket> playerConnections = server.playerSockets;
-		Socket player1Connection = playerConnections.get(Players[0]);
-		Socket player2Connection = playerConnections.get(Players[1]);
+		HashMap<String, ObjectOutputStream> playerConnections = server.playerSockets;
+
+		ObjectOutputStream player1Connection = playerConnections.get(Players[0]);
+		ObjectOutputStream player2Connection = playerConnections.get(Players[1]);
+
+
 
 		try {
-			ObjectOutputStream player1out = new ObjectOutputStream(player1Connection.getOutputStream());
-			ObjectOutputStream player2out = new ObjectOutputStream(player2Connection.getOutputStream());
-			player1out.writeObject(outboundUpdate);
-			player2out.writeObject(outboundUpdate);
+			player1Connection.flush();
+			player2Connection.flush();
+
+			player1Connection.writeObject(outboundUpdate);
+			player1Connection.flush();
+			player2Connection.writeObject(outboundUpdate);
+			player2Connection.flush();
+
 		} catch(Exception e) {
 			e.getStackTrace();
 		}
