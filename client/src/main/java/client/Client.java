@@ -304,14 +304,14 @@ public class Client extends JFrame{
 			main.add(pnl);
 			return main;
 		} else {
-		    System.out.println(player1);
-		    System.out.println(playersList.size());
+			System.out.println(player1);
+			System.out.println(playersList.size());
 			JPanel pnel = new JPanel();
 			for (int i = 0; i < playersList.size(); i++) {
-			    if (player1.equals(playersList.get(i))){
-			        continue;
-                }
-			    JLabel lbl = new JLabel();
+				if (player1.equals(playersList.get(i))){
+					continue;
+				}
+				JLabel lbl = new JLabel();
 				String player2 = playersList.get(i);
 				lbl.setText(player2);
 				JButton btn = new JButton("Invite");
@@ -320,6 +320,8 @@ public class Client extends JFrame{
 				btn.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						System.out.println(player2);
+						System.out.println(player1);
 						sendInvite(player1, player2);
 					}
 				});
@@ -334,7 +336,7 @@ public class Client extends JFrame{
 	}
 	public void inviteFail() {
 		JOptionPane.showMessageDialog(null, "Your invite could not be sent.");
-		
+
 	}
 	public void inviteSuccess() {
 		JOptionPane.showMessageDialog(null, "Your invite was sent.");
@@ -342,15 +344,16 @@ public class Client extends JFrame{
 
 	public void inviteAccepted(int GameID, String opponent) {
 		//Create a new game
+		System.out.println("Creating game....");
 		ClientGame game = new ClientGame(GameID, 0, opponent, comm);
 		games.put(GameID, game);
 	}
-	
+
 	public void updateGame(int GameID, String opponent) {
 		//Create a new game
 		games.get(GameID);
 	}
-	
+
 
 	public void sendCredentials(String username, String password) {
 //		Checks database for credentials
@@ -359,6 +362,23 @@ public class Client extends JFrame{
 		map.put("Name", username);
 		map.put("Password", password);
 		comm.outbound(map);
+	}
+
+	public void gotInvite(String from, String to){
+		System.out.println("Received invite");
+		String message = from + "wants to play";
+		String[] options = {"Accept", "Decline"};
+		int x = JOptionPane.showOptionDialog(null, message,
+				"You got a invite",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		if (x == 0) {
+			HashMap<String,String> map=new HashMap<String,String>();
+			map.put("messageType", "Invite");
+			map.put("inviteType", "Response");
+			map.put("From", to);
+			map.put("To", from);
+			comm.outbound(map);
+		}
 	}
 
 	public void sendInvite(String from, String to) {
