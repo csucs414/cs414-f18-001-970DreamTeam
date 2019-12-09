@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class clientCommunicationHandler extends Thread{
 	 ObjectInputStream input;
@@ -91,12 +92,49 @@ public class clientCommunicationHandler extends Thread{
 			client.invalidCreation();
 			}
 		 else {
-			String players = message.get("Players");
-			ArrayList<String> list = (ArrayList<String>) Arrays.asList(players.split("\\s*,\\s*"));
-			client.validCredentials(list);
+			
+			String[] Players = message.get("Players").split(", ");
+			List<String> playersList = Arrays.asList(Players);  
+			client.validCredentials(playersList);
 		 }
 	 }
+	 public void update(int[] from, int[] to, char[][] board, int turn, String[] players, int gameID) {
+		 HashMap<String,String> map=new HashMap<String,String>();
+		 map.put("messageType", "Update");
+		 map.put("From", Integer.toString(from[0]) + ", " + Integer.toString(from[1]));
+		 map.put("To", Integer.toString(to[0]) + ", " + Integer.toString(to[1]));
+		 map.put("turn", Integer.toString(turn));
+		 map.put("gameID", Integer.toString(gameID));
+		 String board1 = "";
+		 for(int i = 0; i < board.length; i++) {
+			 for(int j = 0; j < board[i].length; j++) {
+				 board1 += board[i][j];
+			 }
+		 }
+		 map.put("gameBoard", board1);
+		 outbound(map);
+	 }
 	 private void handleUpdate() {
+		 int gameID = Integer.parseInt(message.get("gameID")); 
+		 String From = message.get("From").replace(",", " ");
+		 String To = message.get("To");
+		 To = To.replace(",", " ");
+		 From = From.replace(",", " ");
+		 
+		 int[] from = new int[2];
+		 int[] to = new int[2];
+		 String [] fromS = From.split(" ");
+		 String [] toS = To.split(" ");
+		 from[0] = Integer.parseInt(fromS[0]);
+		 from[1] = Integer.parseInt(fromS[1]);
+		 to[0] = Integer.parseInt(toS[0]);
+		 to[1] = Integer.parseInt(toS[1]);
+		 try {
+			client.games.get(gameID).updateGameState(from, to);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 
 	 }
 	 private void handleInvite() {
