@@ -272,6 +272,7 @@ public class Client extends JFrame{
 		submit = new JButton("Got it!");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				System.out.println("here");
 				main.removeAll();
 				main.revalidate();
 				main.repaint();
@@ -305,6 +306,7 @@ public class Client extends JFrame{
 		} else {
 		    System.out.println(player1);
 		    System.out.println(playersList.size());
+			JPanel pnel = new JPanel();
 			for (int i = 0; i < playersList.size(); i++) {
 			    if (player1.equals(playersList.get(i))){
 			        continue;
@@ -313,10 +315,8 @@ public class Client extends JFrame{
 				String player2 = playersList.get(i);
 				lbl.setText(player2);
 				JButton btn = new JButton("Invite");
-				JPanel pnel = new JPanel();
 				pnel.add(lbl);
 				pnel.add(btn);
-				main.add(pnel);
 				btn.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -324,6 +324,7 @@ public class Client extends JFrame{
 					}
 				});
 			}
+			main.add(pnel);
 			return main;
 		}
 	}
@@ -343,7 +344,6 @@ public class Client extends JFrame{
 		//Create a new game
 		ClientGame game = new ClientGame(GameID, 0, opponent, comm);
 		games.put(GameID, game);
-
 	}
 	
 	public void updateGame(int GameID, String opponent) {

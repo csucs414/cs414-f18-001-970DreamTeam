@@ -96,7 +96,7 @@ public class clientCommunicationHandler extends Thread{
 			client.invalidCreation();
 			}
 		 else {
-
+			 client.player1 = message.get("Name");
 			 String players = message.get("Players");
 			 String[] separatedPlayers = players.split(", ");
 			 ArrayList<String> list = new ArrayList<>();
