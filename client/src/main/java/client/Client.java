@@ -366,7 +366,7 @@ public class Client extends JFrame{
 		map.put("messageType", "Invite");
 		map.put("From", from);
 		map.put("To", to);
-		map.put("inviteType", "request");
+		map.put("inviteType", "Request");
 		comm.outbound(map);
 	}
 
