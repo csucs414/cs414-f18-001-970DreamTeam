@@ -233,7 +233,7 @@ public class Client extends JFrame{
 
 	public JPanel rules(ArrayList<String> playersList) {
 		JTextArea textArea = new JTextArea(
-				"Rules\n" +
+				"Hnefatafl Rules\n" +
 						"\n" +
 						"Setup:\n" +
 						"* Two players. Attackers (black pieces) and Defenders (white pieces).\n" +
@@ -278,7 +278,7 @@ public class Client extends JFrame{
 				getContentPane().remove(main);
 				main = users(playersList);
 				add(main, BorderLayout.CENTER);
-				setTitle("Welcome!");
+				setTitle("Welcome to Hnefatafl!");
 				setSize(width, height);
 				setVisible(true);
 			}});
