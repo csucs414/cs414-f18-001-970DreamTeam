@@ -333,11 +333,9 @@ public class Client extends JFrame{
 	public void sendCredentials(String username, String password) {
 //		Checks database for credentials
 		HashMap<String,String> map=new HashMap<String,String>();
-		map.put("messageType", "Invite");
-		map.put("inviteType", "Request");
+		map.put("messageType", "Login");
 		map.put("Name", username);
 		map.put("Password", password);
-		player1 = username;
 		comm.outbound(map);
 	}
 
@@ -396,7 +394,7 @@ public class Client extends JFrame{
 	public static void main (String[]args){
 		Client temp = new Client();
 		try {
-			Socket sock = new Socket("localhost", 20001);
+			Socket sock = new Socket("129.82.44.59", 20001);
 			temp.comm = new clientCommunicationHandler(sock,temp);
 			temp.comm.start();
 		} catch (IOException e){
