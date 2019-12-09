@@ -79,6 +79,25 @@ public class ServerCommunicationHandler extends Thread {
 			}
 		}
 	}
+	
+	public void refreshPlayers() {
+		HashMap<String, String> refreshMessage = new HashMap<String, String>();
+		refreshMessage.put("messageType", "Refresh");
+		
+		String players = "";
+		ArrayList<String> onlinePlayers = server.getOnlinePlayers();
+		for (int i = 0; i < onlinePlayers.size(); i++) {
+			players += onlinePlayers.get(i) + ", ";
+		}
+		
+		refreshMessage.put("Players", players);
+		try {
+			output.writeObject(refreshMessage);
+		} catch (IOException e) {
+			System.out.println("Refresh player list failed!");
+		}
+		
+	}
 		
 	public void handleInput(String type) {
 		HashMap<String, String> inputMessage = new HashMap<String, String>();
@@ -123,6 +142,7 @@ public class ServerCommunicationHandler extends Thread {
 				System.out.println("Player "+message.get("Name")+ " Connected.");
 				inputMessage.put("Success", "1");
 				inputMessage.put("errorCode", null);
+				refreshPlayers();
 			}
 		}
 		
