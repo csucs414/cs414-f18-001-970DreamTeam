@@ -218,10 +218,10 @@ public class ClientGame {
 	
 	private boolean validPiece(int row, int column) {
         char piece = gameBoard[row][column];
-	    if (this.turn == 0 && piece == 'b' && comm.client.player1.equals(players[0])) {
+	    if (this.turn == 0 && piece == 'b') {
 	        return true;
         }
-	    if (this.turn == 1 && (piece == 'k' || piece == 'w') && comm.client.player1.equals(players[1])){
+	    if (this.turn == 1 && (piece == 'k' || piece == 'w')){
 	        return true;
         }
 	    return false;
