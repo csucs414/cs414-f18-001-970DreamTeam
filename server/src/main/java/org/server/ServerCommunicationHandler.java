@@ -70,9 +70,18 @@ public class ServerCommunicationHandler extends Thread {
 		else {
 			message.put("Success", "1");
 			System.out.println("Invite send from "+message.get("From")+ " to "+ message.get("To"));
-			System.out.println("GameID = "+ message.get("gameID"));
+
+
 			ObjectOutputStream outsocket = server.playerSockets.get(message.get("To"));
+
 			try {
+				if (message.get("inviteType").equals("Response")) {
+					if (message.get("Response").equals("Accept")) {
+						ObjectOutputStream outsocket2 = server.playerSockets.get(message.get("From"));
+						outsocket2.reset();
+						outsocket2.writeObject(message);
+					}
+				}
 				outsocket.reset();
 				outsocket.writeObject(message);
 			} catch (IOException e) {
@@ -165,6 +174,7 @@ public class ServerCommunicationHandler extends Thread {
 	
 	
 	public void handleUpdate() {
+		System.out.println("Handling Game Update.");
 		String updatedGameState = message.get("gameBoard");
 		gameID = Integer.parseInt(message.get("gameID"));
 		String[] Players = message.get("Players").split(", ");
@@ -184,22 +194,18 @@ public class ServerCommunicationHandler extends Thread {
 		outboundUpdate.put("From", message.get("From"));
 
 
-		//send updatedGameState back to both players
-		//send updatedGameState back to both players
-		HashMap<String, ObjectOutputStream> playerConnections = server.playerSockets;
 
-		ObjectOutputStream player1Connection = playerConnections.get(Players[0]);
-		ObjectOutputStream player2Connection = playerConnections.get(Players[1]);
+		//send updatedGameState back to both players
+
+
+		ObjectOutputStream player1Connection = server.playerSockets.get(Players[0]);
+		ObjectOutputStream player2Connection = server.playerSockets.get(Players[1]);
 
 		try {
 			player1Connection.reset();
 			player2Connection.reset();
-
 			player1Connection.writeObject(outboundUpdate);
-			player1Connection.flush();
 			player2Connection.writeObject(outboundUpdate);
-			player2Connection.flush();
-
 		} catch(Exception e) {
 			e.getStackTrace();
 		}
