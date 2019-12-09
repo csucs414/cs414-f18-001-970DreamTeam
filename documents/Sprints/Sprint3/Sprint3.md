@@ -84,7 +84,7 @@ Debugging, working together as a team, researching to understand and implement n
 **What we need to work on:**
 Need to leave a little bit more time to refacotr our code at the end and test by exhaustion a little bit more. 
 
-**What we will change next sprint:**
-N/A last sprint of the semester
+**What we (would) change next sprint:**
+We would try and leave more time to go over everything again and refactor our code to look better. We would also try to implement a more solid sprint plan. We would also attempt to achieve a constant rate of task achievement throughout the sprint.
     
 
