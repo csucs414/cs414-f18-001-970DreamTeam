@@ -48,6 +48,9 @@ public class clientCommunicationHandler extends Thread{
 			case "Invite":
 				handleInvite();
 				break;
+			case "Refresh":
+				handleResfresh();
+				break;
 
 			default:
 				System.out.println("Messsage Failure! " + messageType + " is not a valid messageType");
@@ -65,6 +68,15 @@ public class clientCommunicationHandler extends Thread{
 
 
 
+	}
+	public void handleResfresh() {
+		String players = message.get("Players");
+		String[] separatedPlayers = players.split(", ");
+		ArrayList<String> list = new ArrayList<>();
+		for (String player: separatedPlayers) {
+			list.add(player);
+		}
+		client.refreshUsers(list);
 	}
 	private void handleLogin() {
 		//gameID  = Integer.parseInt(message.get("gameID"));
