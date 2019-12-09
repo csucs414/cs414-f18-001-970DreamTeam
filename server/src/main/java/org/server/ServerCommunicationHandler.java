@@ -18,12 +18,12 @@ public class ServerCommunicationHandler extends Thread {
 	private int gameID;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	private DBHandler dbhandler;
+	public DBHandler dbhandler;
 	
 	public ServerCommunicationHandler(Server server, Socket socket) {
 		this.server = server;
 		this.socket = socket;
-		this.dbhandler = new DBHandler();
+		dbhandler = new DBHandler();
 	}
 	
 	private void handleMessage(Object map) {
@@ -49,7 +49,7 @@ public class ServerCommunicationHandler extends Thread {
 		if (message.get("inviteType") == "Response") {
 			if (message.get("Response") == "Accept") {
 				String[] players = {message.get("From"), message.get("To")};
-				Socket[] sockets = {server.playerSockets.get(message.get("From")), server.playerSockets.get(message.get("To"))};
+				ObjectOutputStream[] sockets = {server.playerSockets.get(message.get("From")), server.playerSockets.get(message.get("To"))};
 				int gameID = server.createNewGame(players,  sockets);
 				message.put("gameID", Integer.toString(gameID));
 			}
@@ -66,10 +66,10 @@ public class ServerCommunicationHandler extends Thread {
 			
 		else {
 			message.put("Success", "1");
-			Socket outsocket = server.playerSockets.get(message.get("To"));
+			ObjectOutputStream outsocket = server.playerSockets.get(message.get("To"));
 			try {
-				ObjectOutputStream outputMessage = new ObjectOutputStream(outsocket.getOutputStream());
-				outputMessage.writeObject(message);
+				outsocket.flush();
+				outsocket.writeObject(message);
 			} catch (IOException e) {
 				System.out.println("Request Input Failure in handleInvite!");
 			}
@@ -114,6 +114,7 @@ public class ServerCommunicationHandler extends Thread {
 				else inputMessage.put("errorCode", "database");
 			}
 			else {
+				server.playerSockets.put("Name", output);
 				inputMessage.put("Success", "1");
 				inputMessage.put("errorCode", null);
 			}
@@ -155,15 +156,21 @@ public class ServerCommunicationHandler extends Thread {
 
 
 		//send updatedGameState back to both players
-		HashMap<String, Socket> playerConnections = server.playerSockets;
-		Socket player1Connection = playerConnections.get(Players[0]);
-		Socket player2Connection = playerConnections.get(Players[1]);
+		//send updatedGameState back to both players
+		HashMap<String, ObjectOutputStream> playerConnections = server.playerSockets;
+
+		ObjectOutputStream player1Connection = playerConnections.get(Players[0]);
+		ObjectOutputStream player2Connection = playerConnections.get(Players[1]);
 
 		try {
-			ObjectOutputStream player1out = new ObjectOutputStream(player1Connection.getOutputStream());
-			ObjectOutputStream player2out = new ObjectOutputStream(player2Connection.getOutputStream());
-			player1out.writeObject(outboundUpdate);
-			player2out.writeObject(outboundUpdate);
+			player1Connection.flush();
+			player2Connection.flush();
+
+			player1Connection.writeObject(outboundUpdate);
+			player1Connection.flush();
+			player2Connection.writeObject(outboundUpdate);
+			player2Connection.flush();
+
 		} catch(Exception e) {
 			e.getStackTrace();
 		}

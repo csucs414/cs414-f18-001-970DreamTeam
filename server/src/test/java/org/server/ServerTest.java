@@ -2,6 +2,7 @@ package org.server;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ class ServerTest {
 	public void createNewGameTest() {
 		Server server = new Server();
 		String[] players = {"1231", "3435"};
-		Socket[] socks = {};
+		ObjectOutputStream[] socks = {};
 		server.createNewGame(players, socks);
 		assertNotNull(server.getGame(0));
 	}
@@ -22,7 +23,7 @@ class ServerTest {
 	public void deleteGameTest() {
 		Server server = new Server();
 		String[] players = {"1231", "3435"};
-		Socket[] socks = {};
+		ObjectOutputStream[] socks = {};
 		server.createNewGame(players, socks);
 		server.deleteGame(0);
 		assertNull(server.getGame(0));
