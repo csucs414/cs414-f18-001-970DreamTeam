@@ -320,6 +320,8 @@ public class Client extends JFrame{
 				btn.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						System.out.println(player2);
+						System.out.println(player1);
 						sendInvite(player1, player2);
 					}
 				});
@@ -342,6 +344,7 @@ public class Client extends JFrame{
 
 	public void inviteAccepted(int GameID, String opponent) {
 		//Create a new game
+		System.out.println("Creating game....");
 		ClientGame game = new ClientGame(GameID, 0, opponent, comm);
 		games.put(GameID, game);
 	}
@@ -361,12 +364,29 @@ public class Client extends JFrame{
 		comm.outbound(map);
 	}
 
+	public void gotInvite(String from, String to){
+		System.out.println("Received invite");
+		String message = from + "wants to play";
+		String[] options = {"Accept", "Decline"};
+		int x = JOptionPane.showOptionDialog(null, message,
+				"You got a invite",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		if (x == 0) {
+			HashMap<String,String> map=new HashMap<String,String>();
+			map.put("messageType", "Invite");
+			map.put("inviteType", "Response");
+			map.put("From", to);
+			map.put("To", from);
+			comm.outbound(map);
+		}
+	}
+
 	public void sendInvite(String from, String to) {
 		HashMap<String,String> map=new HashMap<String,String>();
 		map.put("messageType", "Invite");
 		map.put("From", from);
 		map.put("To", to);
-		map.put("inviteType", "request");
+		map.put("inviteType", "Request");
 		comm.outbound(map);
 	}
 

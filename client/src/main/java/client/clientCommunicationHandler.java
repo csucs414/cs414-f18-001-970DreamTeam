@@ -1,5 +1,7 @@
 package client;
 
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,35 +28,32 @@ public class clientCommunicationHandler extends Thread{
 	        this.client = (Client)client;
 	 } 
 	 
-	 public void actOnMessage(Object map){
-		message = (HashMap) map;
-		messageType = message.get("messageType");
-		
-		 switch (messageType) { 
-         
-         	case "Update": 
-         		//unpack message to get from and to coordinates
-         		handleUpdate();
-         		break; 
-               
-         	case "Register": 
-         		handleRegister();
-         		break; 
-         		
-         	case "Login": 
-         		handleLogin();
-         		break;
-             
-         	case "Invite":
-         		handleInvite();
-         		break;
-  
-         default: 
-        	 System.out.println("Messsage Failure! " + messageType + " is not a valid messageType");
+	 public void actOnMessage(Object map) {
+		 message = (HashMap) map;
+		 messageType = message.get("messageType");
+
+		 switch (messageType) {
+
+			 case "Update":
+				 //unpack message to get from and to coordinates
+				 handleUpdate();
+				 break;
+
+			 case "Register":
+				 handleRegister();
+				 break;
+
+			 case "Login":
+				 handleLogin();
+				 break;
+
+			 case "Invite":
+				 handleInvite();
+				 break;
+
+			 default:
+				 System.out.println("Messsage Failure! " + messageType + " is not a valid messageType");
 		 }
-		 
-		 
-		 
 	 }
 	 public void outbound(Object map) {
 		 try {
@@ -62,6 +61,7 @@ public class clientCommunicationHandler extends Thread{
 			outboundMessage = (HashMap) map;
 			System.out.println(outboundMessage.get("messageType"));
 			output.writeObject(outboundMessage);
+			System.out.println("here");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -147,23 +147,30 @@ public class clientCommunicationHandler extends Thread{
 	 }
 	 private void handleInvite() {
 		 String inviteType = message.get("inviteType");
-		 
-		 if(inviteType == "Request") {
-			 int inviteSuccess = Integer.parseInt(message.get("Success"));
-			 
-			 if(inviteSuccess == 0) {
-				 client.inviteFail();
-			 }
+
+		 if(inviteType.equals("Request")) {
+		 	int inviteSuccess = Integer.parseInt(message.get("Success"));
+		 	if(inviteSuccess == 0) {
+		 		client.inviteFail();
+		 	}
+		 	else {
+			 	String from = message.get("From");
+			 	String to = message.get("To");
+			 	client.gotInvite(from, to);
+		 	}
 		 }
-		 else if(inviteType == "Response") {
+
+		 else if(inviteType.equals("Response")) {
+			 System.out.println("Accepted an invitation");
 			 String inviteResponse = message.get("Response");
-			 
-			 if(inviteResponse == "Accept") {
+			 System.out.println("inviteResponse: " + inviteResponse);
+			 if(inviteResponse.equals("Accept")) {
+			 	System.out.println("Trying to start game");
 				 int gameID =  Integer.parseInt(message.get("gameID"));
 				 String to = message.get("To");
 				 client.inviteAccepted(gameID, to);
 			 }
-			 if(inviteResponse == "Decline") {
+			 if(inviteResponse.equals("Decline")) {
 				 
 				 client.inviteDeclinced();
 			 }
