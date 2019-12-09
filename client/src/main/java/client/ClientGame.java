@@ -208,11 +208,12 @@ public class ClientGame {
 			if (this.turn == 0) {
 				this.turn = 1;
 				gameGUI.playerDisplay.setText("Turn: "+ players[this.turn]);
-			} else
-				this.turn = 0;
-				gameGUI.playerDisplay.setText("Turn: "+ players[this.turn]);
+			} else {
+                this.turn = 0;
+                gameGUI.playerDisplay.setText("Turn: " + players[this.turn]);
+            }
+            comm.update(from, to, this.gameBoard, this.turn, this.players, gameID);
 		}
-		comm.update(from, to, this.gameBoard, this.turn, this.players, gameID);
 	}
 	
 	private boolean validPiece(int row, int column) {
