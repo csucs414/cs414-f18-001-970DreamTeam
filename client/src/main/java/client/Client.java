@@ -221,7 +221,7 @@ public class Client extends JFrame{
 				String email = email_text.getText();
 				String password = String.valueOf(password_text.getPassword());
 				String confirmPassword = String.valueOf(confirm_password.getPassword());
-				if (validateEmail(email) && passwordsMatch(password,confirmPassword)){
+				if (validateEmail(email) && passwordsMatch(password,confirmPassword) && password.length() > 7){
 					validateCreate(username,email,password);
 				} else {
 					invalidCreation();
@@ -289,15 +289,9 @@ public class Client extends JFrame{
 	public JPanel users(ArrayList<String> playersList) {
 //		set list to users in database
 		if (playersList.isEmpty() || playersList.size() == 1){
-			JButton refresh = new JButton("Refresh");
-			refresh.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-				}
-			});
+			JTextArea textArea = new JTextArea("WELCOME");
 			JPanel pnl = new JPanel();
-			pnl.add(refresh);
+//			pnl.add(refresh);
 			main.add(pnl);
 			return main;
 		} else {
@@ -398,7 +392,7 @@ public class Client extends JFrame{
 	}
 
 	public void invalidCreation() {
-		JOptionPane.showMessageDialog(null, "Cannot create account try again");
+		JOptionPane.showMessageDialog(null, "Cannot create account try again password must be >= 8");
 	}
 
 	public void validCredentials(ArrayList<String> playersList){
