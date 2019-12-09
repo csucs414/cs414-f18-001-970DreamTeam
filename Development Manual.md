@@ -17,3 +17,13 @@ IntelliJ and Eclipse.
 
 To set up JUnit 5 the process is very clear cut simply add the following dependency to your pom.xml:
 ![dependency example](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/JUnit%20dependency%20example.png)
+
+Modules
+=====
+
+This project uses two modules: client and server. Each should be exported and executed separatly. Server handles client to client communication, while client handles the GUI and game logic. The server IP address, located in the Server class should be changed to reflect the host that you are currently using.
+
+Database
+=====
+
+The server relies on the use of a mysql database in order to store user information. The connection information for the database can be found under the DBHandler class's constructor. In order to use a custom database, the information in this constructor must be changed to reflect that of the owned database. The owned database must be a table that contains three fields: Name, Email, and Password. After this setup, the code will handle input and reads from the database. 
