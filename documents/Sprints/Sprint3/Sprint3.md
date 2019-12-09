@@ -43,9 +43,9 @@ Players are able to register a new account, login to an existing account, see ot
 
 | Statistic |	# Planned |	# Completed |
 |---|---|---|
-|Epics |8||
-|Tasks|||
-|Story Points|||
+|Epics |1,2,4,8,12,76|1,2,4,8,12,76|
+|Tasks|116,90,70,15,91,62,83,74,88,64,63,82,65,30,61,68,67,59,58,19|116,90,70,15,91,62,83,74,88,64,63,82,65,30,61,68,67,59,58,19|
+|Story Points|15|15|
 
 
 #### Scrums
@@ -67,10 +67,10 @@ Players are able to register a new account, login to an existing account, see ot
 11, 8, 1, 2, 4, 12, 5
 
 **Incomplete epics in Sprint Backlog:**
-7, 10
+N/A
 
 **These Epics were not completed:**
-7, 10
+N/A
 
 **What went well:**
 Communication was a strongpoint, less meetings more coding, hit our stride at the end. We were also able to detect and solve bugs faster as a team. When someone needed help, others were more than willing to jump in and help them. Tasks and epics were tackled as more of a collective effort compared to just breaking off and doing things on our own. Overall, we grew well as a team
