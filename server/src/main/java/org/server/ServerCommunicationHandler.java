@@ -89,10 +89,12 @@ public class ServerCommunicationHandler extends Thread {
 		for (int i = 0; i < onlinePlayers.size(); i++) {
 			players += onlinePlayers.get(i) + ", ";
 		}
-		
 		refreshMessage.put("Players", players);
+		
 		try {
-			output.writeObject(refreshMessage);
+			for (int i = 0; i < onlinePlayers.size(); i++) {
+				server.playerSockets.get(onlinePlayers.get(i)).writeObject(refreshMessage);
+			}
 		} catch (IOException e) {
 			System.out.println("Refresh player list failed!");
 		}
