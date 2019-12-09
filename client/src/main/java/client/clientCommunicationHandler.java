@@ -159,17 +159,13 @@ public class clientCommunicationHandler extends Thread{
 		}
 
 		else if(inviteType.equals("Response")) {
-			System.out.println("Accepted an invitation");
 			String inviteResponse = message.get("Response");
-			System.out.println("inviteResponse: " + inviteResponse);
 			if(inviteResponse.equals("Accept")) {
-				System.out.println("Trying to start game");
 				int gameID =  Integer.parseInt(message.get("gameID"));
-				String to = message.get("To");
+				String to = message.get("From");
 				client.inviteAccepted(gameID, to);
 			}
 			if(inviteResponse.equals("Decline")) {
-
 				client.inviteDeclinced();
 			}
 		}
