@@ -111,6 +111,7 @@ public class clientCommunicationHandler extends Thread{
 		map.put("To", Integer.toString(to[0]) + ", " + Integer.toString(to[1]));
 		map.put("turn", Integer.toString(turn));
 		map.put("gameID", Integer.toString(gameID));
+		map.put("Players", players[0] + ", " + players[1]);
 		String board1 = "";
 		for(int i = 0; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
@@ -121,16 +122,15 @@ public class clientCommunicationHandler extends Thread{
 		outbound(map);
 	}
 	private void handleUpdate() {
+		System.out.println("Handling incoming update");
 		int gameID = Integer.parseInt(message.get("gameID"));
-		String From = message.get("From").replace(",", " ");
+		String From = message.get("From");
 		String To = message.get("To");
-		To = To.replace(",", " ");
-		From = From.replace(",", " ");
 
 		int[] from = new int[2];
 		int[] to = new int[2];
-		String [] fromS = From.split(" ");
-		String [] toS = To.split(" ");
+		String [] fromS = From.split(", ");
+		String [] toS = To.split(", ");
 		from[0] = Integer.parseInt(fromS[0]);
 		from[1] = Integer.parseInt(fromS[1]);
 		to[0] = Integer.parseInt(toS[0]);
@@ -163,7 +163,8 @@ public class clientCommunicationHandler extends Thread{
 			if(inviteResponse.equals("Accept")) {
 				int gameID =  Integer.parseInt(message.get("gameID"));
 				String to = message.get("From");
-				client.inviteAccepted(gameID, to);
+				String from = message.get("To");
+				client.inviteAccepted(gameID, to, from);
 			}
 			if(inviteResponse.equals("Decline")) {
 				client.inviteDeclinced();

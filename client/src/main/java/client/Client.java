@@ -335,11 +335,11 @@ public class Client extends JFrame{
 		JOptionPane.showMessageDialog(null, "Your invite was sent.");
 	}
 
-	public void inviteAccepted(int GameID, String opponent) {
+	public void inviteAccepted(int GameID, String to, String from) {
 		//Create a new game
-		System.out.println(opponent);
+		System.out.println(to);
 		System.out.println("Creating game....");
-		ClientGame game = new ClientGame(GameID, 0, opponent, comm, player1);
+		ClientGame game = new ClientGame(GameID, 0, to, comm, from);
 		games.put(GameID, game);
 	}
 
