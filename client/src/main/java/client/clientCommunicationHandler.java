@@ -1,7 +1,5 @@
 package client;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
