@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class ClientGameTest {
 	clientCommunicationHandler temp;
 	//TESTS FOR BOARD BUILD
-	@Test 
+	/*@Test 
 	public void testBoardBuildCorners() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		String p = "";
 		ClientGame game =  new ClientGame(1, 0, "other", temp, p);
@@ -392,6 +392,6 @@ class ClientGameTest {
 		boolean bool = (Boolean) privateMethod.invoke(game, x, y);
 		//call the private method from outside
 		assertTrue(bool);
-	}
+	}*/
 }
 
