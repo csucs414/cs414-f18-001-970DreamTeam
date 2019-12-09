@@ -48,8 +48,8 @@ public class ServerCommunicationHandler extends Thread {
 	
 	public void handleInvite() {
 		System.out.println("Entered handleInvite Method.");
-		if (message.get("inviteType") == "Response") {
-			if (message.get("Response") == "Accept") {
+		if (message.get("inviteType").equals("Response")) {
+			if (message.get("Response").equals("Accept")) {
 				String[] players = {message.get("From"), message.get("To")};
 				ObjectOutputStream[] sockets = {server.playerSockets.get(message.get("From")), server.playerSockets.get(message.get("To"))};
 				int gameID = server.createNewGame(players,  sockets);
@@ -104,38 +104,38 @@ public class ServerCommunicationHandler extends Thread {
 	public void handleInput(String type) {
 		HashMap<String, String> inputMessage = new HashMap<String, String>();
 		
-		if (type == "Login") inputMessage.put("messageType", "Login");
+		if (type.equals("Login")) inputMessage.put("messageType", "Login");
 		else inputMessage.put("messageType", "Register");
 		
 		boolean boolName = dbhandler.checkName(message.get("Name"));
 		boolean boolEmail = true;
-		if (type == "Register") boolEmail = dbhandler.checkEmail(message.get("Email"));
+		if (type.equals("Register")) boolEmail = dbhandler.checkEmail(message.get("Email"));
 		
-		if (type == "Login" && !boolName) {
+		if (type.equals("Login") && !boolName) {
 			inputMessage.put("Success", "0");
 			inputMessage.put("errorCode", "name");
 		}
-		else if (type == "Register" && boolName) {
+		else if (type.equals("Register") && boolName) {
 			inputMessage.put("Success", "0");
 			inputMessage.put("errorCode", "name");
 		}
-		else if (type == "Register" && boolEmail) {
+		else if (type.equals("Register") && boolEmail) {
 			inputMessage.put("Success", "0");
 			inputMessage.put("errorCode", "email");
 		}
 		
 		else {
 			boolean success = false;
-			if (type == "Register") {
+			if (type.equals("Register")) {
 				 success = dbhandler.addUser(message.get("Name"), message.get("Password"), message.get("Email"));
 			}
-			else if (type == "Login") {
+			else if (type.equals("Login")) {
 				success = dbhandler.verifyPassword(message.get("Name"), message.get("Password"));
 			}
 			
 			if (success == false) {
 				inputMessage.put("Success", "0");
-				if (type == "Login") inputMessage.put("errorCode", "password");
+				if (type.equals("Login")) inputMessage.put("errorCode", "password");
 				else inputMessage.put("errorCode", "database");
 			}
 			else {
