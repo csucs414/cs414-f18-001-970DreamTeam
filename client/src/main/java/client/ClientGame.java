@@ -18,14 +18,14 @@ public class ClientGame {
 	/**
 	 * Constructor
 	 */
-	ClientGame(int gameID, int turn, String opponent, clientCommunicationHandler comm, String player1) {
+	ClientGame(int gameID, int turn, String to, clientCommunicationHandler comm, String from) {
 		this.gameID = gameID;
 		this.turn = turn;
 		this.comm = comm;
-		this.player1 = player1;
+		this.player1 = from;
 
 		// TODO: Add self top players list
-		String[] playerArray = { "self", opponent };
+		String[] playerArray = { player1, to };
 		players = playerArray;
 		this.gameBoard = buildBoard();
 		gameGUI = new ClientGUI(this);
@@ -212,7 +212,7 @@ public class ClientGame {
 				this.turn = 0;
 				gameGUI.playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
 		}
-//		comm.update(from, to, this.gameBoard, this.turn, this.players);
+		comm.update(from, to, this.gameBoard, this.turn, this.players, gameID);
 	}
 	
 	private boolean validPiece(int row, int column) {
