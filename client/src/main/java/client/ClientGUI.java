@@ -180,7 +180,7 @@ public class ClientGUI {
 			}});
 		tools.add(quitGameButton); // TODO add functionality
 		tools.addSeparator();
-		JLabel turnDisplay = new JLabel("Turn: Player "+ Integer.toString(game.getTurn()+1));
+		JLabel turnDisplay = new JLabel("Turn: Player "+ game.players[game.getTurn()]);
 		playerDisplay = turnDisplay;
 		tools.add(turnDisplay);
 		return tools;
