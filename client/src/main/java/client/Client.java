@@ -14,6 +14,8 @@ import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.swing.*;
 
 public class Client extends JFrame{
@@ -229,7 +231,7 @@ public class Client extends JFrame{
 		return main;
 	}
 
-	public JPanel rules(ArrayList<String> list) {
+	public JPanel rules(List<String> playersList) {
 		JTextArea textArea = new JTextArea(
 				"Rules\n" +
 						"\n" +
@@ -274,7 +276,7 @@ public class Client extends JFrame{
 				main.revalidate();
 				main.repaint();
 				getContentPane().remove(main);
-				main = users(list);
+				main = users(playersList);
 				add(main, BorderLayout.CENTER);
 				setTitle("Welcome!");
 				setSize(width, height);
@@ -284,11 +286,11 @@ public class Client extends JFrame{
 		return main;
 	}
 
-	public JPanel users(ArrayList<String> list) {
+	public JPanel users(List<String> playersList) {
 //		set list to users in database
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < playersList.size(); i++) {
 			JLabel lbl = new JLabel();
-			String player2 = list.get(i);
+			String player2 = playersList.get(i);
 			lbl.setText(player2);
 			JButton btn = new JButton("Invite");
 			btn.addActionListener(new ActionListener() {
@@ -356,12 +358,12 @@ public class Client extends JFrame{
 		JOptionPane.showMessageDialog(null, "Cannot create account try again");
 	}
 
-	public void validCredentials(ArrayList<String> list){
+	public void validCredentials(List<String> playersList){
 		main.removeAll();
 		main.revalidate();
 		main.repaint();
 		getContentPane().remove(main);
-		main = rules(list);
+		main = rules(playersList);
 		add(main, BorderLayout.CENTER);
 		setTitle("Welcome!");
 		setSize(width, height);
