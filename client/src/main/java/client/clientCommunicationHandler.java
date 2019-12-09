@@ -28,7 +28,6 @@ public class clientCommunicationHandler extends Thread{
 	 
 	 public void actOnMessage(Object map){
 		message = (HashMap) map;
-		gameID = Integer.parseInt(message.get("gameID")); 
 		messageType = message.get("messageType");
 		
 		 switch (messageType) { 
@@ -59,8 +58,9 @@ public class clientCommunicationHandler extends Thread{
 	 }
 	 public void outbound(Object map) {
 		 try {
-			output = new ObjectOutputStream(socket.getOutputStream());
+			output.reset();
 			outboundMessage = (HashMap) map;
+			System.out.println(outboundMessage.get("messageType"));
 			output.writeObject(outboundMessage);
 			
 		} catch (IOException e) {
@@ -72,7 +72,7 @@ public class clientCommunicationHandler extends Thread{
 		 
 	 }
 	 private void handleLogin() {
-		gameID  = Integer.parseInt(message.get("gameID")); 
+		//gameID  = Integer.parseInt(message.get("gameID")); 
 		int loginStatus = Integer.parseInt(message.get("Success"));
 		
 		if (loginStatus == 0) {
@@ -81,7 +81,11 @@ public class clientCommunicationHandler extends Thread{
 		else {
 			//sending list of players
 			String players = message.get("Players");
-			ArrayList<String> list = (ArrayList<String>) Arrays.asList(players.split("\\s*,\\s*"));
+			String[] separatedPlayers = players.split(", ");
+			ArrayList<String> list = new ArrayList<>();
+			for (String player: separatedPlayers) {
+				list.add(player);
+			}
 			client.validCredentials(list);
 		}
 		 
