@@ -40,7 +40,7 @@
 
 ---
 
-![b4](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b4.jpeg) ![b5](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b5.jpeg)
+![b4](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/documents/images/b4.jpeg) ![b5](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/documents/images/b5.jpeg)
 
 ^King is not captured.
 
