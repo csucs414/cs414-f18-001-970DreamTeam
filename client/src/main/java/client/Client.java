@@ -59,10 +59,10 @@ public class Client extends JFrame{
 
 		create_label = new JLabel();
 		create_label.setText("Don't have account?");
-		create = new JButton("Create");
+		create = new JButton("Create an account.");
 
 
-		submit = new JButton("SUBMIT");
+		submit = new JButton("Login");
 
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
@@ -161,7 +161,7 @@ public class Client extends JFrame{
 		email_text.setFont(font1);
 		email_text.setMaximumSize(email_text.getPreferredSize());
 
-		submit = new JButton("SUBMIT");
+		submit = new JButton("Register");
 		back = new JButton("Cancel");
 
 		panel = new JPanel();
@@ -233,7 +233,7 @@ public class Client extends JFrame{
 
 	public JPanel rules(ArrayList<String> playersList) {
 		JTextArea textArea = new JTextArea(
-				"Rules\n" +
+				"Hnefatafl Rules\n" +
 						"\n" +
 						"Setup:\n" +
 						"* Two players. Attackers (black pieces) and Defenders (white pieces).\n" +
@@ -278,28 +278,44 @@ public class Client extends JFrame{
 				getContentPane().remove(main);
 				main = users(playersList);
 				add(main, BorderLayout.CENTER);
-				setTitle("Welcome!");
+				setTitle("Welcome to Hnefatafl!");
 				setSize(width, height);
 				setVisible(true);
 			}});
 		main.add(submit);
 		return main;
 	}
-
+	public void refreshUsers(ArrayList<String> playersList) {
+		main.removeAll();
+		main.revalidate();
+		main.repaint();
+		getContentPane().remove(main);
+		main = users(playersList);
+		add(main, BorderLayout.CENTER);
+		setTitle("Welcome!");
+		setSize(width, height);
+		setVisible(true);
+	}
 	public JPanel users(ArrayList<String> playersList) {
 //		set list to users in database
+		JLabel title = new JLabel();
+		title.setText("Online Players: ");
 		if (playersList.isEmpty() || playersList.size() == 1){
-			JTextArea textArea = new JTextArea("WELCOME");
-			JPanel pnl = new JPanel();
-//			pnl.add(refresh);
-			main.add(pnl);
+			//JTextArea textArea = new JTextArea("WELCOME");
+			//JPanel pnl = new JPanel();
+			
+			main.add(title);
 			return main;
 		} else {
 			JPanel pnel = new JPanel();
+			pnel.add(title);
 			for (int i = 0; i < playersList.size(); i++) {
+				System.out.println("List: " + playersList.get(i));
+				System.out.println("Player1: " + player1);
 				if (player1.equals(playersList.get(i))){
 					continue;
 				}
+				
 				JLabel lbl = new JLabel();
 				String player2 = playersList.get(i);
 				lbl.setText(player2);
@@ -353,10 +369,10 @@ public class Client extends JFrame{
 	}
 
 	public void gotInvite(String from, String to){
-		String message = from + "wants to play";
+		String message = from + " sent you a game invite.";
 		String[] options = {"Accept", "Decline"};
 		int x = JOptionPane.showOptionDialog(null, message,
-				"You got a invite",
+				"You received a game invitation.",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 		if (x == 0) {
 			HashMap<String,String> map=new HashMap<String,String>();
@@ -388,11 +404,11 @@ public class Client extends JFrame{
 	}
 
 	public void invalidCredentials(){
-		message.setText(" Invalid user and password.. ");
+		message.setText(" Invalid user and password. ");
 	}
 
 	public void invalidCreation() {
-		JOptionPane.showMessageDialog(null, "Cannot create account try again password must be >= 8");
+		JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long.");
 	}
 
 	public void validCredentials(ArrayList<String> playersList){
