@@ -58,8 +58,8 @@ Players are able to register a new account, login to an existing account, see ot
 |11-25|#60, #61|#62||Popesh, Nardos, Kitten|Fall Break|
 |12-2||#62, #63, #65||Soto, Cupit, Nardos, Kitten|Progress report|
 |12-4|#66|#62, #63, #65||Soto, Popesh, Nardos, Kitten||
-|12-7|#66|#62, #63, #65|Finishing up project|Soto, Popesh, Nardos, Kitten||
-|12-8|#66|#62, #63, #65|Finishing up project|Soto, Popesh, Nardos, Kitten||
+|12-7|#66|#62, #63, #65|Finishing up project|Soto, Popesh, Nardos, Kitten, Cupit||
+|12-8|#66|#62, #63, #65|Finishing up project|Soto, Popesh, Nardos, Kitten, Cupit||
 
 **These Epics were completed:**
 11, 8, 1, 2, 4, 12, 5
