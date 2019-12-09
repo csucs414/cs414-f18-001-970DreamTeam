@@ -9,7 +9,7 @@ public class ClientGame {
 	private int gameID;
 	private char[][] gameBoard;
 	private int turn;
-	private String[] players;
+	public String[] players;
 	public ClientGUI gameGUI;
 	private clientCommunicationHandler comm;
 	private String player1;
@@ -207,20 +207,20 @@ public class ClientGame {
 			// Switch player
 			if (this.turn == 0) {
 				this.turn = 1;
-				gameGUI.playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
+				gameGUI.playerDisplay.setText("Turn: "+ players[this.turn]);
 			} else
 				this.turn = 0;
-				gameGUI.playerDisplay.setText("Turn: Player "+ Integer.toString(turn+1));
+				gameGUI.playerDisplay.setText("Turn: "+ players[this.turn]);
 		}
 		comm.update(from, to, this.gameBoard, this.turn, this.players, gameID);
 	}
 	
 	private boolean validPiece(int row, int column) {
         char piece = gameBoard[row][column];
-	    if (this.turn == 0 && piece == 'b' && player1.equals(players[0])) {
+	    if (this.turn == 0 && piece == 'b' && comm.client.player1.equals(players[0])) {
 	        return true;
         }
-	    if (this.turn == 1 && (piece == 'k' || piece == 'w') && player1.equals(players[1])){
+	    if (this.turn == 1 && (piece == 'k' || piece == 'w') && comm.client.player1.equals(players[1])){
 	        return true;
         }
 	    return false;
