@@ -1,6 +1,6 @@
 # Hnefatafl [![Build Status](https://travis-ci.com/csucs414/cs414-f18-001-970DreamTeam.svg?branch=master)](https://travis-ci.com/csucs414/cs414-f18-001-970DreamTeam)
 ## 970 Dream Team
-![image1](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/hnefatafl_board.jpg)
+![image1](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/documents/images/hnefatafl_board.jpg)
 
 # Rules
 
