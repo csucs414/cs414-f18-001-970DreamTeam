@@ -231,7 +231,7 @@ public class Client extends JFrame{
 		return main;
 	}
 
-	public JPanel rules(List<String> playersList) {
+	public JPanel rules(ArrayList<String> playersList) {
 		JTextArea textArea = new JTextArea(
 				"Rules\n" +
 						"\n" +
@@ -286,24 +286,46 @@ public class Client extends JFrame{
 		return main;
 	}
 
-	public JPanel users(List<String> playersList) {
+	public JPanel users(ArrayList<String> playersList) {
 //		set list to users in database
-		for (int i = 0; i < playersList.size(); i++) {
-			JLabel lbl = new JLabel();
-			String player2 = playersList.get(i);
-			lbl.setText(player2);
-			JButton btn = new JButton("Invite");
-			btn.addActionListener(new ActionListener() {
+		System.out.println(playersList);
+		if (playersList.isEmpty() || playersList.size() == 1){
+			System.out.println("here");
+			JButton refresh = new JButton("Refresh");
+			refresh.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					sendInvite(player1, player2);
+
 				}
 			});
+			JPanel pnl = new JPanel();
+			pnl.add(refresh);
+			main.add(pnl);
+			return main;
+		} else {
+		    System.out.println(player1);
+		    System.out.println(playersList.size());
+			for (int i = 0; i < playersList.size(); i++) {
+			    if (player1.equals(playersList.get(i))){
+			        continue;
+                }
+			    JLabel lbl = new JLabel();
+				String player2 = playersList.get(i);
+				lbl.setText(player2);
+				JButton btn = new JButton("Invite");
+				JPanel pnel = new JPanel();
+				pnel.add(lbl);
+				pnel.add(btn);
+				main.add(pnel);
+				btn.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						sendInvite(player1, player2);
+					}
+				});
+			}
+			return main;
 		}
-
-		submit = new JButton("Got it!");
-		main.add(submit);
-		return main;
 	}
 
 	public void inviteDeclinced() {
@@ -356,7 +378,7 @@ public class Client extends JFrame{
 		JOptionPane.showMessageDialog(null, "Cannot create account try again");
 	}
 
-	public void validCredentials(List<String> playersList){
+	public void validCredentials(ArrayList<String> playersList){
 		main.removeAll();
 		main.revalidate();
 		main.repaint();
@@ -372,6 +394,7 @@ public class Client extends JFrame{
 	public void validateCreate(String username, String email, String password){
 //		Checks that username and email aren't already taken
 		HashMap<String,String> map=new HashMap<String, String>();
+		map.put("messageType", "Register");
 		map.put("Name", username);
 		map.put("Email", email);
 		map.put("Password", password);

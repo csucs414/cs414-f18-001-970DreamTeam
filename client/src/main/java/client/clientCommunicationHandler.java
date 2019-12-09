@@ -74,7 +74,7 @@ public class clientCommunicationHandler extends Thread{
 	 private void handleLogin() {
 		//gameID  = Integer.parseInt(message.get("gameID")); 
 		int loginStatus = Integer.parseInt(message.get("Success"));
-		
+		client.player1 = message.get("Name");
 		if (loginStatus == 0) {
 			client.invalidCredentials();
 		}
@@ -96,10 +96,14 @@ public class clientCommunicationHandler extends Thread{
 			client.invalidCreation();
 			}
 		 else {
-			
-			String[] Players = message.get("Players").split(", ");
-			List<String> playersList = Arrays.asList(Players);  
-			client.validCredentials(playersList);
+
+			 String players = message.get("Players");
+			 String[] separatedPlayers = players.split(", ");
+			 ArrayList<String> list = new ArrayList<>();
+			 for (String player: separatedPlayers) {
+				 list.add(player);
+			 }
+			 client.validCredentials(list);
 		 }
 	 }
 	 public void update(int[] from, int[] to, char[][] board, int turn, String[] players, int gameID) {
