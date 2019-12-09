@@ -32,15 +32,19 @@
 * If a player cannot move they lose.
 * If neither player has enough pieces to capture the enemy, the game is a draw.
 
+---
+
 ![b1](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b1.jpeg) ![b2](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b2.jpeg) ![b3](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b3.jpeg)
 
 ^King is captured.
+
+---
 
 ![b4](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b4.jpeg) ![b5](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b5.jpeg)
 
 ^King is not captured.
 
-
+---
 
 
 # How To Run
