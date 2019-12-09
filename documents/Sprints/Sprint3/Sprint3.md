@@ -61,6 +61,8 @@ Players are able to register a new account, login to an existing account, see ot
 |12-7|#66|#62, #63, #65|Finishing up project|Soto, Popesh, Nardos, Kitten, Cupit||
 |12-8|#66|#62, #63, #65|Finishing up project|Soto, Popesh, Nardos, Kitten, Cupit||
 
+#### Retrospective
+
 **These Epics were completed:**
 11, 8, 1, 2, 4, 12, 5
 
@@ -71,16 +73,16 @@ Players are able to register a new account, login to an existing account, see ot
 7, 10
 
 **What went well:**
-Communication was a strongpoint, less meetings more coding, hit our stride at the end
+Communication was a strongpoint, less meetings more coding, hit our stride at the end. We were also able to detect and solve bugs faster as a team. When someone needed help, others were more than willing to jump in and help them. Tasks and epics were tackled as more of a collective effort compared to just breaking off and doing things on our own. Overall, we grew well as a team
 
 **What we changed this sprint:**
-Less meetings due to increased comfort with class and eachother
+Less meetings due to increased comfort with the class and eachother. We made sure to share understandings of new code with eachother and also implemented new coding techniques such as incremental development.  
     
 **What we did well:**
-Debug and take care of any issue that arose
+Debugging, working together as a team, researching to understand and implement new code and topics.
 
 **What we need to work on:**
-Leaving more time for refactoring and testing
+Need to leave a little bit more time to refacotr our code at the end and test by exhaustion a little bit more. 
 
 **What we will change next sprint:**
 N/A last sprint of the semester
