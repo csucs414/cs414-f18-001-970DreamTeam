@@ -34,7 +34,7 @@
 
 ---
 
-![b1](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b1.jpeg) ![b2](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b2.jpeg) ![b3](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/images/b3.jpeg)
+![b1](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/documents/images/b1.jpeg) ![b2](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/documents/images/b2.jpeg) ![b3](https://github.com/csucs414/cs414-f18-001-970DreamTeam/blob/master/documents/images/b3.jpeg)
 
 ^King is captured.
 
