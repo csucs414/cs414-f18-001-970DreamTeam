@@ -200,8 +200,9 @@ public class ClientGame {
 			
 			// check win condition
 			if (this.checkWinCondition()) {
-			    JOptionPane.showMessageDialog(gameGUI.gameWindow, "Player "+Integer.toString(turn+1)+" Wins!");
-				return;
+				comm.update(from, to, this.gameBoard, this.turn, this.players, gameID);
+				JOptionPane.showMessageDialog(gameGUI.gameWindow, "Player "+Integer.toString(turn+1)+" Wins!");
+			    return;
 			}
 			
 			// Switch player

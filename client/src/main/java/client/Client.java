@@ -392,7 +392,7 @@ public class Client extends JFrame{
 	}
 
 	public void invalidCreation() {
-		JOptionPane.showMessageDialog(null, "Cannot create account try again");
+		JOptionPane.showMessageDialog(null, "Cannot create account try again password must be >= 8");
 	}
 
 	public void validCredentials(ArrayList<String> playersList){

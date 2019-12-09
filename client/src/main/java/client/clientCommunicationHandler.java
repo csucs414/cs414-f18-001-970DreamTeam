@@ -57,10 +57,7 @@ public class clientCommunicationHandler extends Thread{
 		try {
 			output.reset();
 			outboundMessage = (HashMap) map;
-			System.out.println(outboundMessage.get("messageType"));
 			output.writeObject(outboundMessage);
-			System.out.println("here");
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,6 +120,7 @@ public class clientCommunicationHandler extends Thread{
 	}
 	private void handleUpdate() {
 		System.out.println("Handling incoming update");
+		System.out.println(message);
 		int gameID = Integer.parseInt(message.get("gameID"));
 		String From = message.get("From");
 		String To = message.get("To");
