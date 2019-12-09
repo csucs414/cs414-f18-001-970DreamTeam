@@ -12,15 +12,17 @@ public class ClientGame {
 	private String[] players;
 	public ClientGUI gameGUI;
 	private clientCommunicationHandler comm;
+	private String player1;
 	
 
 	/**
 	 * Constructor
 	 */
-	ClientGame(int gameID, int turn, String opponent, clientCommunicationHandler comm) {
+	ClientGame(int gameID, int turn, String opponent, clientCommunicationHandler comm, String player1) {
 		this.gameID = gameID;
 		this.turn = turn;
 		this.comm = comm;
+		this.player1 = player1;
 
 		// TODO: Add self top players list
 		String[] playerArray = { "self", opponent };
@@ -215,10 +217,10 @@ public class ClientGame {
 	
 	private boolean validPiece(int row, int column) {
         char piece = gameBoard[row][column];
-	    if (this.turn == 0 && piece == 'b') {
+	    if (this.turn == 0 && piece == 'b' && player1.equals(players[0])) {
 	        return true;
         }
-	    if (this.turn == 1 && (piece == 'k' || piece == 'w')){
+	    if (this.turn == 1 && (piece == 'k' || piece == 'w') && player1.equals(players[1])){
 	        return true;
         }
 	    return false;

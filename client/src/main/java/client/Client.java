@@ -339,7 +339,7 @@ public class Client extends JFrame{
 		//Create a new game
 		System.out.println(opponent);
 		System.out.println("Creating game....");
-		ClientGame game = new ClientGame(GameID, 0, opponent, comm);
+		ClientGame game = new ClientGame(GameID, 0, opponent, comm, player1);
 		games.put(GameID, game);
 	}
 
