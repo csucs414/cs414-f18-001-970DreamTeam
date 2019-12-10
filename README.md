@@ -48,12 +48,19 @@
 
 
 # How To Run
-Step 1. Clone Respository
+Step 1. Clone Respository.
 
-Step 2. Export Client Module to an Executable Jar
+Step 2. Compile and package files to generate .jar files.
 
-Link to Eclipse instructions - [Export Project as Jar](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwjH2I305M_lAhXSmq0KHX50DQMQFjACegQICxAH&url=https%3A%2F%2Fhelp.eclipse.org%2Fkepler%2Ftopic%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftasks-37.htm&usg=AOvVaw0j3qyOaoLXHgagip1UASI-)
+    In project directory type: mvn clean install
+    Or, in Eclipse, Rightclick on project folder and Select "Run As" then select "Maven Build".
     
-Step 3. Execute jar file
+    This will generate files in the server/target and client/target folders.
+    
+Step 3. Execute jar files.
 
-    type in terminal/Command Prompt:  java -jar file.jar
+    Navigate to server/target directory and run server with command: java -jar server-0.0.1-SNAPSHOT.jar
+    Server will run on port 20001. Code must be changed in Server.java to change port number.
+    
+    After the server is running, navigate to the client/target folder and run the client with command: java -jar client-0.0.1-SNAPSHOT.jar
+    If the server port was changed the client port in Client.java must be changed to match.
